@@ -1,0 +1,207 @@
+/* ============================================================
+   EPIC-TRAVELLERS - Dark Mode CSS
+   ============================================================ */
+
+[data-theme="dark"] {
+  /* Override card backgrounds */
+  --bg-primary: #0A0F1A;
+  --bg-secondary: #0F172A;
+  --bg-tertiary: #1E293B;
+  --text-primary: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --gray-100: #1E293B;
+  --gray-200: #334155;
+  --gray-300: #475569;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .package-card,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .accordion-item,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .search-box,
+[data-theme="dark"] .modal-container {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .package-card-footer {
+  background: var(--bg-tertiary);
+  border-top-color: var(--gray-200);
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .filter-select,
+[data-theme="dark"] .currency-select {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-control:focus {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .tag {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .tag:hover,
+[data-theme="dark"] .tag.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .page-btn {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .section-label {
+  background: rgba(14,165,233,0.15);
+  border-color: rgba(14,165,233,0.25);
+}
+
+[data-theme="dark"] .dropdown {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .dropdown-item { color: var(--text-secondary); }
+[data-theme="dark"] .dropdown-item .icon { background: var(--bg-tertiary); }
+[data-theme="dark"] .dropdown-item:hover { color: var(--primary); background: rgba(14,165,233,0.1); }
+
+[data-theme="dark"] .mobile-nav {
+  background: var(--bg-primary);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .mobile-nav-item {
+  border-color: var(--gray-200);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .dark-toggle {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-search { box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+[data-theme="dark"] .partner-logo {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .toast {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .progress { background: var(--gray-200); }
+
+[data-theme="dark"] .tabs { background: var(--bg-tertiary); }
+[data-theme="dark"] .tab.active { background: var(--bg-secondary); color: var(--primary); }
+
+[data-theme="dark"] .modal-close {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .accordion-header { color: var(--text-primary); }
+
+/* Dashboard Dark */
+[data-theme="dark"] .dashboard-sidebar {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .admin-sidebar {
+  background: #050A14;
+}
+
+/* Auth page dark */
+[data-theme="dark"] .auth-card {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+/* Table dark */
+[data-theme="dark"] table { color: var(--text-primary); }
+[data-theme="dark"] th { background: var(--bg-tertiary); color: var(--text-secondary); }
+[data-theme="dark"] td { border-color: var(--gray-200); }
+[data-theme="dark"] tr:hover td { background: var(--bg-tertiary); }
+
+/* Input search dark */
+[data-theme="dark"] .search-input {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* Stat card dark */
+[data-theme="dark"] .stat-card {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+/* Gallery dark */
+[data-theme="dark"] .gallery-filter-bar {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+/* Map section dark */
+[data-theme="dark"] .map-info-card {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Blog sidebar dark */
+[data-theme="dark"] .sidebar-widget {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+/* Package details dark */
+[data-theme="dark"] .itinerary-item {
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .itinerary-dot {
+  border-color: var(--bg-secondary);
+}
+
+/* Contact form dark */
+[data-theme="dark"] .contact-info-card {
+  background: var(--bg-secondary);
+  border-color: var(--gray-200);
+}
+
+/* Footer stays dark regardless */
+.footer { color-scheme: dark; }
+
+/* Smooth transitions for dark mode switch */
+body,
+.header,
+.card,
+.package-card,
+.blog-card,
+.testimonial-card,
+.feature-card,
+.dropdown,
+.modal-container,
+.form-control,
+.filter-select {
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+}
