@@ -26,7 +26,6 @@ D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travele
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.dll
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.pdb
-<<<<<<< HEAD
 D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.dll.config
 D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.dll
 D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.pdb
@@ -34,12 +33,3 @@ D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.AssemblyRefer
 D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
 D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.dll
 D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.pdb
-=======
-C:\Users\jayde\Epic_Travellers\Project\bin\Epic_Travelers.dll.config
-C:\Users\jayde\Epic_Travellers\Project\bin\Epic_Travelers.dll
-C:\Users\jayde\Epic_Travellers\Project\bin\Epic_Travelers.pdb
-C:\Users\jayde\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.AssemblyReference.cache
-C:\Users\jayde\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
-C:\Users\jayde\Epic_Travellers\Project\obj\Debug\Epic_Travelers.dll
-C:\Users\jayde\Epic_Travellers\Project\obj\Debug\Epic_Travelers.pdb
->>>>>>> a5d7ace1306178777de6910ba5804e30439bb43b
