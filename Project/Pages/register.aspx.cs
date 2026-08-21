@@ -93,10 +93,7 @@ namespace Epic_Travelers.Pages
             }
             else
             {
-                getcon();
-                cmd = new SqlCommand("DELETE FROM user_tbl WHERE Id=" + e.CommandArgument, con);
-                cmd.ExecuteNonQuery();
-                fillgird();
+                
             }
         }
     }

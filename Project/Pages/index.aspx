@@ -889,7 +889,7 @@
 
           <h1 class="hero-title">
             Explore the <span>Wonders</span><br>
-            of <span>Incredible India</span>
+            of <span>Incridible India</span>
           </h1>
 
           <p class="hero-subtitle">
