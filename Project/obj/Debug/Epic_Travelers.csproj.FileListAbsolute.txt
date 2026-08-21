@@ -26,3 +26,10 @@ D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travele
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.dll
 D:\ASP_Templates\Main_new\Epic_Travellers.1\WebFormsReady\obj\Debug\Epic_Travelers.pdb
+D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.dll.config
+D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.dll
+D:\Git hub\Epic_Travellers\Project\bin\Epic_Travelers.pdb
+D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.AssemblyReference.cache
+D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
+D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.dll
+D:\Git hub\Epic_Travellers\Project\obj\Debug\Epic_Travelers.pdb
