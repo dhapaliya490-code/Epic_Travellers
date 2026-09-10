@@ -1,0 +1,58 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Epic_Travelers.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light" id="root-html">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/components.css" />
+    <link rel="stylesheet" href="~/Content/css/animations.css" />
+    <link rel="stylesheet" href="~/Content/css/dark-mode.css" />
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="stylesheet" href="~/Content/css/fonts.css" />
+    <link rel="stylesheet" href="~/Content/fontawesome/css/all.min.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>✈️</text></svg>">
+
+    <%-- Apply saved dark/light theme BEFORE CSS renders to prevent flash-of-light-theme --%>
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem('epic-theme') || 'light';
+          document.getElementById('root-html').setAttribute('data-theme', t);
+        } catch(e){}
+      })();
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="page-shell">
+            <!-- Header Placeholder -->
+            <div id="header-placeholder"></div>
+
+            <!-- Main Content -->
+            <main>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </main>
+
+            <!-- Footer Placeholder -->
+            <div id="footer-placeholder"></div>
+
+            <!-- JS -->
+            <asp:ContentPlaceHolder ID="PageScripts" runat="server">
+                <script src="<%= ResolveUrl("~/Scripts/js/components.js") %>"></script>
+                <script src="<%= ResolveUrl("~/Scripts/js/main.js") %>"></script>
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
+

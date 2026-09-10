@@ -1,0 +1,4765 @@
+<%@ Page Title="Epic-Travellers – Discover Incredible India | Premium Travel & Tour Packages" Language="C#"
+  MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="Epic_Travelers.Pages.index"
+  %>
+
+  <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <meta name="description"
+      content="Epic-Travellers – Discover Incredible India! Book premium tour packages to Goa, Kerala, Rajasthan, Ladakh, Manali & more. Best travel deals, luxury packages, and customized India tours.">
+    <meta name="keywords"
+      content="India travel, tour packages, Goa tours, Kerala backwaters, Rajasthan trip, Ladakh adventure, Manali holiday, India travel agency">
+    <meta name="author" content="Epic-Travellers">  
+    <meta property="og:title" content="Epic-Travellers – Discover Incredible India">
+    <meta property="og:description"
+      content="Your premium travel partner for exploring the wonders of India. Book customized tours, luxury packages & more.">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://epic-travellers.com/">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+    <!-- Structured Schema -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Epic-Travellers",
+    "description": "Premium India travel agency offering customized tour packages",
+    "url": "https://epic-travellers.com",
+    "telephone": "+91-98765-43210",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN",
+      "addressLocality": "New Delhi"
+    }
+  }
+  </script>
+
+    <style>
+      /* ---- HOME PAGE SPECIFIC STYLES ---- */
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+      }
+
+      .hero-slide-1 {
+        background-image: url('../Content/images/img_45.jpg');
+      }
+
+      .hero-slide-2 {
+        background-image: url('../Content/images/img_23.jpg');
+      }
+
+      .hero-slide-3 {
+        background-image: url('../Content/images/img_35.jpg');
+      }
+
+      .hero-slide-4 {
+        background-image: url('../Content/images/img_51.jpg');
+      }
+
+      .hero-content {
+        padding: 0 24px;
+        padding-top: calc(var(--header-height) + 48px);
+      }
+
+      /* Popular Destinations */
+      .destinations-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .destinations-grid .destination-card:first-child {
+        grid-row: span 2;
+        aspect-ratio: auto;
+        min-height: 380px;
+      }
+
+      /* Category scroll */
+      .categories-scroll {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+      }
+
+      /* Partners slider */
+      .partners-track {
+        display: flex;
+        gap: 24px;
+        animation: scrollLeft 20s linear infinite;
+        width: max-content;
+      }
+
+      @keyframes scrollLeft {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .partners-overflow {
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
+
+      /* Stats banner */
+      .stats-banner {
+        background: var(--gradient-primary);
+        padding: 48px 0;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+        text-align: center;
+      }
+
+      .stat-banner-item {
+        color: white;
+      }
+
+      .stat-banner-value {
+        font-family: 'Playfair Display', serif;
+        font-size: 44px;
+        font-weight: 800;
+        color: white;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .stat-banner-label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+      }
+
+      /* Newsletter Section */
+      .newsletter-section {
+        background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .newsletter-section::before {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+        top: -100px;
+        right: -100px;
+      }
+
+      /* Testimonials slider */
+      .testimonials-slider {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      /* Hero search advanced */
+      .search-tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: -1px;
+      }
+
+      .search-tab {
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: none;
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .search-tab.active {
+        background: white;
+        color: var(--text-primary);
+      }
+
+      /* Travel Calculator */
+      .calculator-section {
+        background: var(--bg-secondary);
+        padding: 80px 0;
+      }
+
+      .calculator-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-2xl);
+        padding: 40px;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--gray-200);
+      }
+
+      /* Responsive */
+      @media (max-width: 1100px) {
+        .destinations-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .destinations-grid .destination-card:first-child {
+          grid-row: span 1;
+        }
+
+        .categories-scroll {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .testimonials-slider {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .destinations-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .categories-scroll {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .testimonials-slider {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .destinations-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <style>
+      /* Styles for destinations.html */
+      #page-destinations .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(14, 165, 233, 0.7) 100%),
+          url('../Content/images/img_23.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .dest-filter-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 28px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--gray-200);
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .destination-full-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+        transition: var(--transition-normal);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .destination-full-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .dest-card-img {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+      }
+
+      .dest-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .destination-full-card:hover .dest-card-img img {
+        transform: scale(1.08);
+      }
+
+      .dest-card-body {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dest-info-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin: 12px 0 16px;
+        flex-wrap: wrap;
+      }
+
+      .dest-info-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gray-100);
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+      }
+
+      .weather-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+        color: white;
+        padding: 4px 12px;
+        border-radius: var(--radius-full);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      /* Map Section */
+      .map-container {
+        background: var(--bg-secondary);
+        border-radius: var(--radius-2xl);
+        padding: 24px;
+        border: 1px solid var(--gray-200);
+        overflow: hidden;
+      }
+
+      .simulated-map {
+        width: 100%;
+        height: 420px;
+        background: #e2e8f0;
+        border-radius: var(--radius-xl);
+        position: relative;
+        overflow: hidden;
+        background: url('../Content/images/img_22.jpg') center/cover;
+      }
+
+      .simulated-map-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(2px);
+      }
+
+      .map-pin {
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: var(--transition-bounce);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .map-pin i {
+        transform: rotate(45deg);
+        font-size: 14px;
+      }
+
+      .map-pin:hover {
+        transform: rotate(-45deg) scale(1.25);
+        z-index: 20;
+      }
+
+      .map-pin-tooltip {
+        position: absolute;
+        bottom: 45px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        background: white;
+        color: var(--text-primary);
+        padding: 6px 12px;
+        border-radius: var(--radius-md);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+
+      .map-pin:hover .map-pin-tooltip {
+        opacity: 1;
+      }
+
+      /* Styles for packages.html */
+      #page-packages .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(20, 184, 166, 0.7) 100%),
+          url('../Content/images/img_45.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .package-filter-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--gray-200);
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .category-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: var(--radius-full);
+        background: var(--gray-100);
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1px solid var(--gray-200);
+        transition: var(--transition-fast);
+      }
+
+      .category-pill:hover,
+      .category-pill.active {
+        background: var(--gradient-primary);
+        color: white;
+        border-color: transparent;
+        box-shadow: var(--shadow-md);
+      }
+
+      /* Styles for package-details.html */
+      .details-hero {
+        position: relative;
+        padding-top: var(--header-height);
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: 200px 200px;
+        gap: 12px;
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.08);
+      }
+
+      .gallery-main {
+        grid-row: span 2;
+      }
+
+      .itinerary-timeline {
+        position: relative;
+        padding-left: 32px;
+        border-left: 2px dashed var(--primary);
+      }
+
+      .itinerary-step {
+        position: relative;
+        margin-bottom: 36px;
+      }
+
+      .itinerary-dot {
+        position: absolute;
+        left: -42px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        border: 4px solid var(--bg-primary);
+        box-shadow: 0 0 0 2px var(--primary);
+      }
+
+      .booking-sidebar-card {
+        position: sticky;
+        top: calc(var(--header-height) + 24px);
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 28px;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--gray-200);
+      }
+
+      .include-list,
+      .exclude-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .include-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--text-primary);
+      }
+
+      .include-item i {
+        color: #22C55E;
+        font-size: 16px;
+      }
+
+      .exclude-item i {
+        color: #EF4444;
+        font-size: 16px;
+      }
+
+      @media (max-width: 992px) {
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 180px 180px;
+        }
+
+        .gallery-main {
+          grid-row: span 1;
+        }
+
+        .booking-sidebar-card {
+          position: static;
+        }
+      }
+
+      /* Styles for about.html */
+      #page-about .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(14, 165, 233, 0.7) 100%),
+          url('../Content/images/img_23.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .team-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+        text-align: center;
+        transition: var(--transition-normal);
+      }
+
+      .team-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .team-img {
+        height: 260px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .team-body {
+        padding: 20px;
+      }
+
+      /* Styles for blog.html */
+      #page-blog .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(14, 165, 233, 0.7) 100%),
+          url('../Content/images/img_10.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .featured-blog-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--gray-200);
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .sidebar-widget {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 992px) {
+        .featured-blog-card {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Styles for gallery.html */
+      #page-gallery .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(20, 184, 166, 0.7) 100%),
+          url('../Content/images/img_31.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .gallery-masonry {
+        column-count: 3;
+        column-gap: 20px;
+      }
+
+      .gallery-masonry-item {
+        break-inside: avoid;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-normal);
+      }
+
+      .gallery-masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.6s ease;
+      }
+
+      .gallery-masonry-item:hover img {
+        transform: scale(1.06);
+      }
+
+      .gallery-item-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        color: white;
+      }
+
+      .gallery-masonry-item:hover .gallery-item-overlay {
+        opacity: 1;
+      }
+
+      /* Lightbox Modal */
+      .lightbox-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .lightbox-modal.open {
+        display: flex;
+      }
+
+      .lightbox-content {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+      }
+
+      .lightbox-content img {
+        max-width: 100%;
+        max-height: 85vh;
+        object-fit: contain;
+      }
+
+      @media (max-width: 992px) {
+        .gallery-masonry {
+          column-count: 2;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .gallery-masonry {
+          column-count: 1;
+        }
+      }
+
+      /* Styles for contact.html */
+      #page-contact .page-hero {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(14, 165, 233, 0.7) 100%),
+          url('../Content/images/img_23.jpg') center/cover;
+        padding: 140px 0 80px;
+        color: white;
+        text-align: center;
+      }
+
+      .contact-info-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .contact-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        background: var(--gradient-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      /* Styles for dashboard.html */
+      .dashboard-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 32px;
+        padding-top: calc(var(--header-height) + 32px);
+        padding-bottom: 80px;
+      }
+
+      .dashboard-sidebar {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+        height: max-content;
+      }
+
+      .dash-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: var(--transition-fast);
+        text-decoration: none;
+        margin-bottom: 4px;
+      }
+
+      .dash-menu-item:hover,
+      .dash-menu-item.active {
+        background: rgba(14, 165, 233, 0.1);
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .booking-history-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 16px;
+      }
+
+      @media (max-width: 992px) {
+        .dashboard-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .booking-history-card {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      /* Styles for auth.html */
+      .auth-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: calc(var(--header-height) + 40px) 20px 60px;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(20, 184, 166, 0.05) 100%);
+      }
+
+      .auth-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-2xl);
+        padding: 40px;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--gray-200);
+        width: 100%;
+        max-width: 460px;
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--gray-200);
+        background: var(--bg-primary);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: var(--transition-fast);
+      }
+
+      .social-btn:hover {
+        background: var(--gray-100);
+      }
+
+      /* Styles for admin.html */
+      .admin-layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+        padding-top: var(--header-height);
+      }
+
+      .admin-sidebar {
+        background: #0f172a;
+        color: white;
+        padding: 24px 16px;
+      }
+
+      .admin-menu-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: var(--transition-fast);
+        text-decoration: none;
+        margin-bottom: 4px;
+      }
+
+      .admin-menu-link:hover,
+      .admin-menu-link.active {
+        background: var(--gradient-primary);
+        color: white;
+      }
+
+      .stat-card {
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .stat-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: white;
+      }
+
+      @media (max-width: 992px) {
+        .admin-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Styles for 404.html */
+      .error-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: calc(var(--header-height) + 40px) 20px 60px;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(245, 158, 11, 0.08) 100%);
+      }
+
+      .error-code {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(80px, 15vw, 160px);
+        font-weight: 900;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+    </style>
+  </asp:Content>
+
+  <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div id="spa-main">
+      <div id="page-home" class="spa-page active">
+        <!-- ========== HERO SECTION ========== -->
+        <section class="hero" aria-label="Hero banner" id="hero">
+          <!-- Slider -->
+          <div class="hero-slider" aria-hidden="true">
+            <div class="hero-slide hero-slide-1 active"></div>
+            <div class="hero-slide hero-slide-2"></div>
+            <div class="hero-slide hero-slide-3"></div>
+            <div class="hero-slide hero-slide-4"></div>
+            <div class="hero-overlay"></div>
+          </div>
+
+          <!-- Decorative Particles -->
+          <div class="hero-particle"
+            style="width:200px;height:200px;background:rgba(14,165,233,0.15);top:10%;left:5%;--duration:8s;--delay:0s;border-radius:50%;filter:blur(40px);"
+            aria-hidden="true"></div>
+          <div class="hero-particle"
+            style="width:150px;height:150px;background:rgba(245,158,11,0.12);bottom:20%;right:10%;--duration:6s;--delay:2s;border-radius:50%;filter:blur(30px);"
+            aria-hidden="true"></div>
+
+          <!-- Hero Content -->
+          <div class="container">
+            <div class="hero-content">
+              <div class="hero-badge" role="text">
+                <span>🇮🇳</span> Incredible India Awaits
+              </div>
+
+              <h1 class="hero-title">
+                Explore the <span>Wonders</span><br>
+                of <span>Incredible India</span>
+              </h1>
+
+              <p class="hero-subtitle">
+                From the majestic Himalayas to the serene backwaters of Kerala —
+                Epic-Travellers crafts unforgettable journeys across India's most breathtaking destinations.
+              </p>
+
+              <div class="hero-stats" role="list">
+                <div class="hero-stat" role="listitem">
+                  <span class="hero-stat-value">500+</span>
+                  <span class="hero-stat-label">Destinations</span>
+                </div>
+                <div class="hero-stat" role="listitem">
+                  <span class="hero-stat-value">50K+</span>
+                  <span class="hero-stat-label">Happy Travellers</span>
+                </div>
+                <div class="hero-stat" role="listitem">
+                  <span class="hero-stat-value">200+</span>
+                  <span class="hero-stat-label">Tour Packages</span>
+                </div>
+                <div class="hero-stat" role="listitem">
+                  <span class="hero-stat-value">4.9⭐</span>
+                  <span class="hero-stat-label">Rating</span>
+                </div>
+              </div>
+
+              <div class="hero-actions">
+                <a href="/Pages/destinations.aspx" class="btn btn-primary btn-xl">
+                  <i class="fa-solid fa-compass" aria-hidden="true"></i> Explore Destinations
+                </a>
+                <a href="/Pages/packages.aspx" class="btn btn-glass btn-xl">
+                  <i class="fa-solid fa-suitcase" aria-hidden="true"></i> View Packages
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Indicators -->
+          <div class="slider-indicators" role="tablist" aria-label="Hero slides">
+            <button class="slider-dot active" role="tab" aria-label="Slide 1"></button>
+            <button class="slider-dot" role="tab" aria-label="Slide 2"></button>
+            <button class="slider-dot" role="tab" aria-label="Slide 3"></button>
+            <button class="slider-dot" role="tab" aria-label="Slide 4"></button>
+          </div>
+
+          <!-- Scroll Indicator -->
+          <div class="scroll-indicator" aria-hidden="true">
+            <div class="scroll-mouse">
+              <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll</span>
+          </div>
+
+          <!-- Hero Search -->
+          <div class="hero-search">
+            <div class="hero-search-inner">
+              <div class="search-tabs" role="tablist">
+                <button class="search-tab active" role="tab" id="tab-tours">🏔️ Tours</button>
+                <button class="search-tab" role="tab" id="tab-hotels">🏨 Hotels</button>
+                <button class="search-tab" role="tab" id="tab-flights">✈️ Flights</button>
+              </div>
+              <div class="search-box" role="search">
+                <div class="search-field" style="flex:2;">
+                  <label for="search-dest"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Where to?</label>
+                  <input type="text" id="search-dest" class="search-input hero-search-input"
+                    placeholder="Search Indian destinations..." autocomplete="off" aria-label="Search destinations">
+                </div>
+                <div class="search-divider" aria-hidden="true"></div>
+                <div class="search-field">
+                  <label for="search-checkin"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Check In</label>
+                  <input type="date" id="search-checkin" class="search-input" aria-label="Check-in date">
+                </div>
+                <div class="search-divider" aria-hidden="true"></div>
+                <div class="search-field">
+                  <label for="search-checkout"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Check
+                    Out</label>
+                  <input type="date" id="search-checkout" class="search-input" aria-label="Check-out date">
+                </div>
+                <div class="search-divider" aria-hidden="true"></div>
+                <div class="search-field">
+                  <label for="search-guests"><i class="fa-solid fa-users" aria-hidden="true"></i> Guests</label>
+                  <input type="number" id="search-guests" class="search-input" placeholder="2 Travelers" min="1"
+                    max="20" aria-label="Number of guests">
+                </div>
+                <div class="search-divider" aria-hidden="true"></div>
+                <button class="btn btn-primary btn-lg" onclick="window.location.href='/Pages/destinations.aspx'"
+                  aria-label="Search destinations">
+                  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                  <span class="hide-mobile">Search</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== POPULAR DESTINATIONS ========== -->
+        <section class="section" id="destinations" aria-labelledby="destinations-heading" style="padding-top:100px;">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label" role="text"><i class="fa-solid fa-map-pin" aria-hidden="true"></i> Popular
+                Destinations</div>
+              <h2 class="section-title" id="destinations-heading">
+                Explore <span class="text-gradient">Incredible India</span>
+              </h2>
+              <p class="section-subtitle">
+                From the golden deserts of Rajasthan to the pristine beaches of Andaman — India has it all.
+              </p>
+            </div>
+
+            <!-- Tags Filter -->
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;"
+              class="anim-fade-up" role="list" aria-label="Destination filters">
+              <button class="tag active" data-filter="all" role="listitem">🌍 All</button>
+              <button class="tag" data-filter="beach" role="listitem">🏖️ Beaches</button>
+              <button class="tag" data-filter="mountains" role="listitem">🏔️ Mountains</button>
+              <button class="tag" data-filter="heritage" role="listitem">🏰 Heritage</button>
+              <button class="tag" data-filter="nature" role="listitem">🌿 Nature</button>
+              <button class="tag" data-filter="spiritual" role="listitem">🛕 Spiritual</button>
+            </div>
+
+            <div class="destinations-grid stagger-children">
+
+              <!-- Featured: Rajasthan -->
+              <div class="destination-card anim-fade-up" data-category="heritage"
+                style="grid-row:span 2; min-height:440px;">
+                <img src="../Content/images/img_48.jpg" alt="Jaipur - Pink City of Rajasthan" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-accent">⭐ Top Pick</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="rajasthan"
+                  aria-label="Add Rajasthan to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Rajasthan</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Jaipur,
+                    Udaipur, Jodhpur, Jaisalmer</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="15000">₹15,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.9 <span style="opacity:0.7">(2.1k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Goa -->
+              <div class="destination-card anim-fade-up" data-category="beach">
+                <img src="../Content/images/img_20.jpg" alt="Goa Beaches" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-primary">🌊 Beach</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="goa" aria-label="Add Goa to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Goa</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> North &
+                    South Goa</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="8000">₹8,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.8 <span style="opacity:0.7">(3.5k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kerala -->
+              <div class="destination-card anim-fade-up" data-category="nature">
+                <img src="../Content/images/img_54.jpg" alt="Kerala Backwaters" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-secondary">🌿 Nature</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="kerala"
+                  aria-label="Add Kerala to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Kerala</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Munnar,
+                    Alleppey, Kovalam</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="12000">₹12,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.9 <span style="opacity:0.7">(2.8k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ladakh -->
+              <div class="destination-card anim-fade-up" data-category="mountains">
+                <img src="../Content/images/img_13.jpg" alt="Ladakh Mountains" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-dark">🏔️ Adventure</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="ladakh"
+                  aria-label="Add Ladakh to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Ladakh</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Leh,
+                    Pangong, Nubra Valley</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="20000">₹20,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.9 <span style="opacity:0.7">(1.9k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Andaman -->
+              <div class="destination-card anim-fade-up" data-category="beach">
+                <img src="../Content/images/img_32.jpg" alt="Andaman Islands" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-primary">🏝️ Island</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="andaman"
+                  aria-label="Add Andaman to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Andaman</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Port
+                    Blair, Havelock, Neil</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="18000">₹18,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.8 <span style="opacity:0.7">(1.5k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Varanasi -->
+              <div class="destination-card anim-fade-up" data-category="spiritual">
+                <img src="../Content/images/img_40.jpg" alt="Varanasi Ghats" loading="lazy">
+                <div class="destination-card-overlay" aria-hidden="true"></div>
+                <div class="destination-card-badge">
+                  <span class="badge badge-accent">🛕 Spiritual</span>
+                </div>
+                <button class="destination-card-wishlist wishlist-btn" data-id="varanasi"
+                  aria-label="Add Varanasi to wishlist">
+                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                </button>
+                <div class="destination-card-content">
+                  <h3 class="destination-name">Varanasi</h3>
+                  <div class="destination-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Ghats,
+                    Sarnath, Ramnagar</div>
+                  <div class="destination-meta">
+                    <div class="destination-price">From <strong data-price-inr="7000">₹7,000</strong>/person</div>
+                    <div class="destination-rating">⭐ 4.7 <span style="opacity:0.7">(2.2k)</span></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="text-center mt-32 anim-fade-up">
+              <a href="/Pages/destinations.aspx" class="btn btn-secondary btn-lg">
+                View All 500+ Destinations <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== STATS BANNER ========== -->
+        <section class="stats-banner" aria-label="Our statistics">
+          <div class="container">
+            <div class="stats-grid stagger-children">
+              <div class="stat-banner-item anim-scale">
+                <div class="stat-banner-value" data-counter="50000" data-suffix="+">0</div>
+                <div class="stat-banner-label">Happy Travellers</div>
+              </div>
+              <div class="stat-banner-item anim-scale">
+                <div class="stat-banner-value" data-counter="500" data-suffix="+">0</div>
+                <div class="stat-banner-label">Indian Destinations</div>
+              </div>
+              <div class="stat-banner-item anim-scale">
+                <div class="stat-banner-value" data-counter="200" data-suffix="+">0</div>
+                <div class="stat-banner-label">Tour Packages</div>
+              </div>
+              <div class="stat-banner-item anim-scale">
+                <div class="stat-banner-value" data-counter="12" data-suffix="+ Yrs">0</div>
+                <div class="stat-banner-label">Years of Excellence</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== FEATURED TOUR PACKAGES ========== -->
+        <section class="section" id="packages" aria-labelledby="packages-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-suitcase"></i> Featured Packages</div>
+              <h2 class="section-title" id="packages-heading">
+                Handcrafted <span class="text-gradient">Tour Packages</span>
+              </h2>
+              <p class="section-subtitle">Curated experiences for every kind of traveller — from luxury retreats to
+                thrilling adventures across India.</p>
+            </div>
+
+            <!-- Package Tabs -->
+            <div class="tabs anim-fade-up" role="tablist" style="max-width:600px; margin:0 auto 40px;"
+              aria-label="Package categories">
+              <button class="tab active" data-tab="all" role="tab" aria-selected="true">All</button>
+              <button class="tab" data-tab="family" role="tab" aria-selected="false">Family</button>
+              <button class="tab" data-tab="honeymoon" role="tab" aria-selected="false">Honeymoon</button>
+              <button class="tab" data-tab="adventure" role="tab" aria-selected="false">Adventure</button>
+              <button class="tab" data-tab="luxury" role="tab" aria-selected="false">Luxury</button>
+            </div>
+
+            <div class="grid grid-3 stagger-children" role="list" aria-label="Tour packages">
+
+              <!-- Package 1: Royal Rajasthan -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="heritage luxury">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_48.jpg" alt="Royal Rajasthan tour - Jaipur palaces and deserts"
+                    loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-accent">⭐ Bestseller</span>
+                    <span class="badge badge-dark">👑 Luxury</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Royal Rajasthan Expedition</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 8 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-15 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 4 Cities</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Hotels</span>
+                    <span class="package-feature">✓ Meals</span>
+                    <span class="package-feature">✓ Transport</span>
+                    <span class="package-feature">✓ Guide</span>
+                  </div>
+                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (328 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="25000">₹25,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="/Pages/package-details.aspx?id=royal-rajasthan" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+              <!-- Package 2: Kerala Backwaters -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="nature honeymoon">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters - Houseboat cruise" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-secondary">💑 Honeymoon</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Kerala Backwaters & Beaches</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-10 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Cities</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Houseboat</span>
+                    <span class="package-feature">✓ Spa</span>
+                    <span class="package-feature">✓ Meals</span>
+                    <span class="package-feature">✓ Guide</span>
+                  </div>
+                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (412 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="18000">₹18,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="/Pages/package-details.aspx?id=kerala" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+              <!-- Package 3: Ladakh Adventure -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="adventure mountains">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_14.jpg" alt="Ladakh adventure - Pangong Lake and high-altitude passes"
+                    loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-danger">🧗 Adventure</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Ladakh & Pangong Lake Adventure</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 10 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 4-20 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 5 Zones</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Camping</span>
+                    <span class="package-feature">✓ Bike</span>
+                    <span class="package-feature">✓ Meals</span>
+                    <span class="package-feature">✓ Permits</span>
+                  </div>
+                  <div class="stars" aria-label="4.8 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.8 (289 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="32000">₹32,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="/Pages/package-details.aspx?id=ladakh-adventure" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+              <!-- Package 4: Goa Beach Holiday -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="beach family">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_21.jpg" alt="Goa beach holiday - sun, sand and water sports"
+                    loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-primary">👨‍👩‍👧 Family</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Goa Beach Holiday</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 5 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-20 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 2 Zones</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Resort</span>
+                    <span class="package-feature">✓ Water Sports</span>
+                    <span class="package-feature">✓ Meals</span>
+                  </div>
+                  <div class="stars" aria-label="4.7 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.7 (521 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="12000">₹12,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="/Pages/package-details.aspx?id=goa-beach" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+              <!-- Package 5: Manali Shimla -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="mountains family">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_43.jpg" alt="Manali Shimla - snow mountains and valleys"
+                    loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-primary">❄️ Hill Station</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Manali-Shimla Snow Tour</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 7 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-25 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Cities</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Hotels</span>
+                    <span class="package-feature">✓ Skiing</span>
+                    <span class="package-feature">✓ Meals</span>
+                    <span class="package-feature">✓ Guide</span>
+                  </div>
+                  <div class="stars" aria-label="4.8 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.8 (367 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="16000">₹16,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="/Pages/package-details.aspx?id=manali-shimla" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+              <!-- Package 6: Andaman -->
+              <article class="package-card anim-fade-up" role="listitem" data-category="beach honeymoon">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_33.jpg" alt="Andaman islands - crystal clear waters and coral reefs"
+                    loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-secondary">💑 Honeymoon</span>
+                  </div>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Andaman Island Escape</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days</span>
+                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-12 pax</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Islands</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Resort</span>
+                    <span class="package-feature">✓ Diving</span>
+                    <span class="package-feature">✓ Meals</span>
+                    <span class="package-feature">✓ Ferry</span>
+                  </div>
+                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
+                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (198 reviews)</span>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="22000">₹22,000</strong>
+                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+              </article>
+
+            </div>
+
+            <div class="text-center mt-32 anim-fade-up">
+              <a href="/Pages/packages.aspx" class="btn btn-secondary btn-lg">
+                Browse All 200+ Packages <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TRAVEL CATEGORIES ========== -->
+        <section class="section" style="background:var(--bg-secondary);" aria-labelledby="categories-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-layer-group"></i> Travel Categories</div>
+              <h2 class="section-title" id="categories-heading">Travel <span class="text-gradient">Your Way</span></h2>
+              <p class="section-subtitle">Choose the experience that matches your style and passion.</p>
+            </div>
+
+            <div class="categories-scroll stagger-children" role="list" aria-label="Travel categories">
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_12.jpg" alt="Mountain adventures" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🏔️</div>
+                  <div class="category-name">Mountains</div>
+                  <div class="category-count">42 Destinations</div>
+                </div>
+              </div>
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_19.jpg" alt="Beach destinations" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🏖️</div>
+                  <div class="category-name">Beaches</div>
+                  <div class="category-count">35 Destinations</div>
+                </div>
+              </div>
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_47.jpg" alt="Heritage sites" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🏰</div>
+                  <div class="category-name">Heritage</div>
+                  <div class="category-count">58 Destinations</div>
+                </div>
+              </div>
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_53.jpg" alt="Nature and wildlife" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🌿</div>
+                  <div class="category-name">Nature</div>
+                  <div class="category-count">67 Destinations</div>
+                </div>
+              </div>
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_39.jpg" alt="Spiritual destinations" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🛕</div>
+                  <div class="category-name">Spiritual</div>
+                  <div class="category-count">45 Destinations</div>
+                </div>
+              </div>
+              <div class="category-card anim-scale" role="listitem">
+                <img src="../Content/images/img_34.jpg" alt="Urban city trips" loading="lazy">
+                <div class="category-card-overlay" aria-hidden="true"></div>
+                <div class="category-card-content">
+                  <div class="category-icon" aria-hidden="true">🏙️</div>
+                  <div class="category-name">City Tours</div>
+                  <div class="category-count">28 Cities</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== WHY CHOOSE US ========== -->
+        <section class="section" aria-labelledby="why-us-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-shield-halved"></i> Why Epic-Travellers</div>
+              <h2 class="section-title" id="why-us-heading">Your Journey, <span class="text-gradient">Our Passion</span>
+              </h2>
+              <p class="section-subtitle">We go above and beyond to make every trip extraordinary — from planning to the
+                last goodbye.</p>
+            </div>
+
+            <div class="grid grid-4 stagger-children" role="list" aria-label="Our features">
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">🛡️</div>
+                <h3 class="feature-title">100% Safe & Secure</h3>
+                <p class="feature-desc">Your safety is our priority. All tours are fully insured with 24/7 emergency
+                  support.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">💰</div>
+                <h3 class="feature-title">Best Price Guarantee</h3>
+                <p class="feature-desc">Found a better price? We'll match it! No hidden charges, transparent pricing
+                  always.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">⚡</div>
+                <h3 class="feature-title">Instant Booking</h3>
+                <p class="feature-desc">Book in minutes with our real-time availability system. Get instant
+                  confirmation.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">🎯</div>
+                <h3 class="feature-title">Customized Trips</h3>
+                <p class="feature-desc">Every trip tailored to your preferences. Our experts craft personalized
+                  itineraries.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">🌟</div>
+                <h3 class="feature-title">Expert Local Guides</h3>
+                <p class="feature-desc">Experienced, certified guides who know India like the back of their hand.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">📱</div>
+                <h3 class="feature-title">24/7 Support</h3>
+                <p class="feature-desc">Round-the-clock customer support via chat, call, and email. We're always there.
+                </p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">🔄</div>
+                <h3 class="feature-title">Free Cancellation</h3>
+                <p class="feature-desc">Plans change. Cancel up to 48 hours before departure for a full refund.</p>
+              </div>
+              <div class="feature-card anim-fade-up" role="listitem">
+                <div class="feature-icon" aria-hidden="true">🤖</div>
+                <h3 class="feature-title">AI Trip Planner</h3>
+                <p class="feature-desc">Our AI suggests personalized itineraries based on your budget and preferences.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== AI TRIP PLANNER ========== -->
+        <section class="section calculator-section" id="ai-planner" aria-labelledby="ai-planner-heading">
+          <div class="container">
+            <div class="grid grid-2" style="gap:48px; align-items:center;">
+              <div class="anim-fade-left">
+                <div class="section-label"><i class="fa-solid fa-robot"></i> AI Powered</div>
+                <h2 class="section-title" id="ai-planner-heading">
+                  Let AI Plan Your <span class="text-gradient">Dream Trip</span>
+                </h2>
+                <p style="font-size:16px; color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
+                  Our intelligent trip planner analyzes thousands of routes, hotels, and experiences to create your
+                  perfect India itinerary — instantly.
+                </p>
+                <ul style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+                  <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
+                    <span style="color:var(--secondary); font-size:18px;">✓</span> Budget-optimized recommendations
+                  </li>
+                  <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
+                    <span style="color:var(--secondary); font-size:18px;">✓</span> Day-by-day itinerary planning
+                  </li>
+                  <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
+                    <span style="color:var(--secondary); font-size:18px;">✓</span> Weather-aware suggestions
+                  </li>
+                  <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
+                    <span style="color:var(--secondary); font-size:18px;">✓</span> Instant booking integration
+                  </li>
+                </ul>
+              </div>
+              <div class="calculator-card anim-fade-right">
+                <h3 style="font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:24px;">
+                  🤖 AI Trip Planner
+                </h3>
+                <div id="ai-planner-form" class="booking-form" novalidate>
+                  <div class="grid grid-2" style="gap:16px;">
+                    <div class="form-group">
+                      <label class="form-label" for="ai-type">Trip Type</label>
+                      <select id="ai-type" name="type" class="form-control filter-select" required>
+                        <option value="beach">🏖️ Beach</option>
+                        <option value="mountains">🏔️ Mountains</option>
+                        <option value="heritage">🏰 Heritage</option>
+                        <option value="adventure">🧗 Adventure</option>
+                        <option value="nature">🌿 Nature</option>
+                        <option value="spiritual">🛕 Spiritual</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="ai-duration">Duration (Days)</label>
+                      <input type="number" id="ai-duration" name="duration" class="form-control" placeholder="7" min="1"
+                        max="30" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="ai-budget">Budget (₹)</label>
+                      <input type="number" id="ai-budget" name="budget" class="form-control" placeholder="50000"
+                        min="5000" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="ai-travelers">Travelers</label>
+                      <input type="number" id="ai-travelers" name="travelers" class="form-control" placeholder="2"
+                        min="1" required>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="width:100%;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate My Trip Plan
+                  </button>
+                </div>
+                <div id="ai-planner-result"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TESTIMONIALS ========== -->
+        <section class="section" aria-labelledby="testimonials-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-star"></i> Traveller Reviews</div>
+              <h2 class="section-title" id="testimonials-heading">What Our <span class="text-gradient">Travellers
+                  Say</span></h2>
+              <p class="section-subtitle">Real experiences from 50,000+ happy travellers who explored India with us.</p>
+            </div>
+
+            <div class="testimonials-slider stagger-children" role="list" aria-label="Traveller testimonials">
+
+              <div class="testimonial-card anim-fade-up" role="listitem">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "Our Rajasthan trip was absolutely magical! Epic-Travellers organized every detail perfectly — from
+                  the desert camp in Jaisalmer to the palace hotels in Udaipur. Truly a royal experience!"
+                </p>
+                <div class="testimonial-author">
+                  <img src="../Content/images/img_28.jpg" alt="Priya Sharma" class="testimonial-avatar" loading="lazy">
+                  <div class="testimonial-info">
+                    <h5>Priya Sharma</h5>
+                    <span>Mumbai, Maharashtra • Rajasthan Tour</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="testimonial-card anim-fade-up" role="listitem">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "The Ladakh bike tour exceeded all expectations. The team handled permits, accommodation, and even the
+                  altitude acclimatization schedule perfectly. Will definitely book again!"
+                </p>
+                <div class="testimonial-author">
+                  <img src="../Content/images/img_16.jpg" alt="Arjun Mehta" class="testimonial-avatar" loading="lazy">
+                  <div class="testimonial-info">
+                    <h5>Arjun Mehta</h5>
+                    <span>Bangalore, Karnataka • Ladakh Adventure</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="testimonial-card anim-fade-up" role="listitem">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "Our honeymoon in Kerala was dreamy! The houseboat experience on Alleppey backwaters was
+                  unforgettable. Epic-Travellers added so many thoughtful touches. Highly recommend!"
+                </p>
+                <div class="testimonial-author">
+                  <img src="../Content/images/img_28.jpg" alt="Ananya & Rohan" class="testimonial-avatar"
+                    loading="lazy">
+                  <div class="testimonial-info">
+                    <h5>Ananya & Rohan Kapoor</h5>
+                    <span>Delhi • Kerala Honeymoon Package</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="text-center mt-32 anim-fade-up">
+              <div style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div class="stars">★★★★★</div>
+                  <span style="font-weight:700; color:var(--text-primary);">4.9/5</span>
+                  <span style="color:var(--text-muted); font-size:14px;">based on 12,000+ reviews</span>
+                </div>
+                <a href="#reviews" class="btn btn-secondary btn-sm">Read All Reviews</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== LATEST BLOGS ========== -->
+        <section class="section" style="background:var(--bg-secondary);" aria-labelledby="blog-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-newspaper"></i> Travel Blog</div>
+              <h2 class="section-title" id="blog-heading">Travel <span class="text-gradient">Stories & Tips</span></h2>
+              <p class="section-subtitle">Inspiring travel guides, expert tips, and destination insights for your next
+                India adventure.</p>
+            </div>
+
+            <div class="grid grid-3 stagger-children" role="list" aria-label="Travel blog posts">
+
+              <article class="blog-card anim-fade-up" role="listitem">
+                <div class="blog-card-image">
+                  <img src="../Content/images/img_14.jpg" alt="Best time to visit Ladakh" loading="lazy">
+                </div>
+                <div class="blog-card-body">
+                  <a href="/Pages/blog.aspx" class="blog-category">Adventure Travel</a>
+                  <h3 class="blog-card-title">
+                    <a href="/Pages/blog.aspx">The Ultimate Ladakh Travel Guide: Everything You Need to Know in 2025</a>
+                  </h3>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px;">
+                    Discover the best time to visit, must-see sights, altitude tips, and travel hacks for an
+                    unforgettable Ladakh adventure.
+                  </p>
+                  <div class="blog-meta">
+                    <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> Jan 15, 2025</span>
+                    <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 8 min read</span>
+                    <span><i class="fa-regular fa-heart" aria-hidden="true"></i> 234</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="blog-card anim-fade-up" role="listitem">
+                <div class="blog-card-image">
+                  <img src="../Content/images/img_55.jpg" alt="Kerala backwaters experience" loading="lazy">
+                </div>
+                <div class="blog-card-body">
+                  <a href="/Pages/blog.aspx" class="blog-category">Nature & Wildlife</a>
+                  <h3 class="blog-card-title">
+                    <a href="/Pages/blog.aspx">Kerala Backwaters: Why This Houseboat Journey is India's Most
+                      Romantic</a>
+                  </h3>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px;">
+                    Float through emerald canals on a traditional houseboat as the sun sets over God's Own Country. Pure
+                    magic awaits.
+                  </p>
+                  <div class="blog-meta">
+                    <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> Jan 8, 2025</span>
+                    <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 6 min read</span>
+                    <span><i class="fa-regular fa-heart" aria-hidden="true"></i> 189</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="blog-card anim-fade-up" role="listitem">
+                <div class="blog-card-image">
+                  <img src="../Content/images/img_48.jpg" alt="Rajasthan royal palaces" loading="lazy">
+                </div>
+                <div class="blog-card-body">
+                  <a href="/Pages/blog.aspx" class="blog-category">Heritage & Culture</a>
+                  <h3 class="blog-card-title">
+                    <a href="/Pages/blog.aspx">10 Magnificent Palaces in Rajasthan That Will Leave You Speechless</a>
+                  </h3>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px;">
+                    From the Lake Palace in Udaipur to the Mehrangarh Fort in Jodhpur — Rajasthan's royal architecture
+                    is unparalleled.
+                  </p>
+                  <div class="blog-meta">
+                    <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> Dec 28, 2024</span>
+                    <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 7 min read</span>
+                    <span><i class="fa-regular fa-heart" aria-hidden="true"></i> 312</span>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+            <div class="text-center mt-32 anim-fade-up">
+              <a href="/Pages/blog.aspx" class="btn btn-secondary btn-lg">Read All Articles <i
+                  class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== CTA SECTION ========== -->
+        <section class="cta-section" aria-labelledby="cta-heading">
+          <div class="cta-bg" aria-hidden="true"></div>
+          <div class="container" style="position:relative; z-index:2; text-align:center; color:white;">
+            <div class="anim-scale">
+              <div style="font-size:48px; margin-bottom:16px;" aria-hidden="true">✈️</div>
+              <h2 class="section-title" id="cta-heading" style="color:white; font-size:clamp(28px,4vw,48px);">
+                Ready for Your Next <br>India Adventure?
+              </h2>
+              <p
+                style="font-size:18px; color:rgba(255,255,255,0.85); max-width:500px; margin:16px auto 40px; line-height:1.7;">
+                Join 50,000+ travellers who've discovered the magic of Incredible India with us.
+              </p>
+              <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                <a href="/Pages/packages.aspx" class="btn btn-white btn-xl">
+                  🏔️ Explore Packages
+                </a>
+                <a href="/Pages/contact.aspx" class="btn btn-glass btn-xl">
+                  📞 Talk to an Expert
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== NEWSLETTER SECTION ========== -->
+        <section class="newsletter-section" aria-labelledby="newsletter-heading">
+          <div class="container" style="position:relative; z-index:2; text-align:center; color:white;">
+            <div class="anim-fade-up">
+              <div class="section-label"
+                style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:var(--accent-light); margin:0 auto 16px;">
+                <i class="fa-solid fa-envelope"></i> Newsletter
+              </div>
+              <h2 class="section-title" id="newsletter-heading" style="color:white;">Get Exclusive Travel Deals</h2>
+              <p style="color:rgba(255,255,255,0.7); max-width:500px; margin:0 auto 32px;">
+                Subscribe to receive handpicked deals, seasonal offers, and travel inspiration delivered weekly.
+              </p>
+              <div class="newsletter-form" style="display:flex; gap:12px; max-width:480px; margin:0 auto;"
+                role="search">
+                <input type="email" name="email" placeholder="Enter your email address" required class="form-control"
+                  style="flex:1; background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:white;"
+                  aria-label="Email address for newsletter">
+                <button type="submit" class="btn btn-accent btn-lg" style="white-space:nowrap;">
+                  Subscribe ✈
+                </button>
+              </div>
+              <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-top:16px;">
+                No spam, unsubscribe anytime. Join 25,000+ travel enthusiasts.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== CURRENCY CONVERTER ========== -->
+        <section class="section" id="tools" aria-labelledby="tools-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-tools"></i> Travel Tools</div>
+              <h2 class="section-title" id="tools-heading">Handy <span class="text-gradient">Travel Tools</span></h2>
+            </div>
+            <div class="grid grid-2" style="gap:32px; max-width:800px; margin:0 auto;">
+
+              <!-- Currency Converter -->
+              <div class="card anim-fade-left" id="currency-converter" style="padding:28px;">
+                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;">
+                  💱 Currency Converter
+                </h3>
+                <div class="form-group">
+                  <label class="form-label">Amount</label>
+                  <input type="number" id="conv-amount" class="form-control" value="1000"
+                    aria-label="Amount to convert">
+                </div>
+                <div class="grid grid-2" style="gap:12px;">
+                  <div class="form-group">
+                    <label class="form-label">From</label>
+                    <select id="conv-from" class="form-control filter-select" aria-label="From currency">
+                      <option value="INR">₹ INR</option>
+                      <option value="USD">$ USD</option>
+                      <option value="EUR">€ EUR</option>
+                      <option value="GBP">£ GBP</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">To</label>
+                    <select id="conv-to" class="form-control filter-select" aria-label="To currency">
+                      <option value="USD">$ USD</option>
+                      <option value="INR">₹ INR</option>
+                      <option value="EUR">€ EUR</option>
+                      <option value="GBP">£ GBP</option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  style="background:var(--gradient-primary); border-radius:var(--radius-lg); padding:16px; text-align:center; color:white;">
+                  <div style="font-size:13px; opacity:0.8;">Converted Amount</div>
+                  <div style="font-size:28px; font-weight:800;" id="conv-result">12.00</div>
+                </div>
+              </div>
+
+              <!-- Travel Checklist -->
+              <div class="card anim-fade-right" style="padding:28px;">
+                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;">
+                  ✅ Packing Checklist
+                </h3>
+                <div id="checklist"
+                  style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto;">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== PARTNERS ========== -->
+        <section class="section" style="background:var(--bg-secondary);" aria-labelledby="partners-heading">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-handshake"></i> Our Partners</div>
+              <h2 class="section-title" id="partners-heading">Trusted By <span class="text-gradient">Industry
+                  Leaders</span></h2>
+            </div>
+            <div class="partners-overflow anim-fade-up">
+              <div class="partners-track" role="list" aria-label="Our trusted partners">
+                <div class="partner-logo" role="listitem">🏨 Taj Hotels</div>
+                <div class="partner-logo" role="listitem">✈️ Air India</div>
+                <div class="partner-logo" role="listitem">🚂 IRCTC</div>
+                <div class="partner-logo" role="listitem">🏰 Oberoi Hotels</div>
+                <div class="partner-logo" role="listitem">🌿 Club Mahindra</div>
+                <div class="partner-logo" role="listitem">🦁 Jungle Lodges</div>
+                <div class="partner-logo" role="listitem">🚌 KSRTC</div>
+                <div class="partner-logo" role="listitem">🏖️ Lemon Tree</div>
+                <!-- Duplicate for infinite scroll -->
+                <div class="partner-logo" role="listitem">🏨 Taj Hotels</div>
+                <div class="partner-logo" role="listitem">✈️ Air India</div>
+                <div class="partner-logo" role="listitem">🚂 IRCTC</div>
+                <div class="partner-logo" role="listitem">🏰 Oberoi Hotels</div>
+                <div class="partner-logo" role="listitem">🌿 Club Mahindra</div>
+                <div class="partner-logo" role="listitem">🦁 Jungle Lodges</div>
+                <div class="partner-logo" role="listitem">🚌 KSRTC</div>
+                <div class="partner-logo" role="listitem">🏖️ Lemon Tree</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-destinations" class="spa-page" style="display:none;">
+        <!-- Hero Header -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">Destinations</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              Explore Indian <span style="color:var(--accent-light);">Destinations</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              Find your next getaway across North, South, East, West, and Central India. Filter by budget, climate, and
+              travel duration.
+            </p>
+          </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="section" style="padding-top:0;">
+          <div class="container">
+            <div class="dest-filter-card anim-fade-up">
+              <div id="dest-filter-form" onsubmit="event.preventDefault(); applyDestFilters();">
+                <div class="grid grid-4" style="gap:16px;">
+                  <div>
+                    <label class="form-label" for="filter-search"><i class="fa-solid fa-magnifying-glass"></i> Search
+                      Name</label>
+                    <input type="text" id="filter-search" class="form-control" placeholder="e.g. Goa, Manali, Jaipur..."
+                      oninput="applyDestFilters()">
+                  </div>
+                  <div>
+                    <label class="form-label" for="filter-region"><i class="fa-solid fa-map"></i> Region / Zone</label>
+                    <select id="filter-region" class="form-control filter-select" onchange="applyDestFilters()">
+                      <option value="all">All Regions (India)</option>
+                      <option value="north">North India (Himalayas, Delhi, Rajasthan)</option>
+                      <option value="south">South India (Kerala, Tamil Nadu, Coorg)</option>
+                      <option value="west">West India (Goa, Mumbai, Gujarat)</option>
+                      <option value="east">East & North-East (Sikkim, Darjeeling, Meghalaya)</option>
+                      <option value="islands">Islands (Andaman, Lakshadweep)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label" for="filter-budget"><i class="fa-solid fa-indian-rupee-sign"></i> Max
+                      Budget / Person</label>
+                    <select id="filter-budget" class="form-control filter-select" onchange="applyDestFilters()">
+                      <option value="all">Any Budget</option>
+                      <option value="10000">Under ₹10,000</option>
+                      <option value="20000">Under ₹20,000</option>
+                      <option value="35000">Under ₹35,000</option>
+                      <option value="50000">Above ₹35,000</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label" for="filter-season"><i class="fa-solid fa-sun"></i> Best Season</label>
+                    <select id="filter-season" class="form-control filter-select" onchange="applyDestFilters()">
+                      <option value="all">All Seasons</option>
+                      <option value="winter">Winter (Oct - Mar)</option>
+                      <option value="summer">Summer (Apr - Jun)</option>
+                      <option value="monsoon">Monsoon (Jul - Sep)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Destinations Grid -->
+        <section class="section" style="padding-top:20px;">
+          <div class="container">
+            <div class="flex-between mb-32 flex-wrap gap-16">
+              <div>
+                <h2 style="font-size:24px; font-weight:700;" id="results-count">Showing 9 Destinations</h2>
+                <p style="font-size:14px; color:var(--text-secondary);">Curated travel spots across India</p>
+              </div>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <span style="font-size:14px; color:var(--text-secondary);">Sort By:</span>
+                <select class="form-control filter-select" style="width:auto; padding:8px 16px;"
+                  onchange="sortDestinations(this.value)">
+                  <option value="popular">Most Popular</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-3 stagger-children" id="destinations-grid-container">
+
+              <!-- Destination 1: Jaipur -->
+              <div class="destination-full-card anim-fade-up" data-name="jaipur rajasthan" data-region="north"
+                data-price="15000" data-season="winter" data-rating="4.9">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-accent">🏰 Heritage</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-jaipur"
+                    aria-label="Wishlist Jaipur">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Jaipur & Udaipur</h3>
+                    <span class="weather-badge">☀️ 26°C Sunny</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Rajasthan, North India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Discover royal fortresses, pink sandstone palaces, lively bazaars, and opulent heritage stays.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Oct - Mar</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 5-7 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.9 (2.4k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="15000">₹15,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 2: Goa -->
+              <div class="destination-full-card anim-fade-up" data-name="goa beaches" data-region="west"
+                data-price="8000" data-season="winter" data-rating="4.8">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_21.jpg" alt="Goa Beaches" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-primary">🏖️ Beach & Party</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-goa" aria-label="Wishlist Goa">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">North & South Goa</h3>
+                    <span class="weather-badge">🌤️ 29°C Tropical</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Goa, West Coast India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Sun-kissed golden beaches, Portuguese heritage churches, lively beach shacks, and water sports.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Nov - Feb</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 4-6 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.8 (3.8k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="8000">₹8,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 3: Munnar & Alleppey (Kerala) -->
+              <div class="destination-full-card anim-fade-up" data-name="kerala munnar alleppey" data-region="south"
+                data-price="12000" data-season="winter" data-rating="4.9">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_55.jpg" alt="Kerala Munnar" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-secondary">🌿 Backwaters & Tea</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-kerala"
+                    aria-label="Wishlist Kerala">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Munnar & Alleppey</h3>
+                    <span class="weather-badge">🌧️ 22°C Pleasant</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Kerala, South India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Tranquil backwater houseboats, lush tea plantations, spice gardens, and Ayurvedic wellness retreats.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Sep - Mar</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 5-8 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.9 (3.1k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="12000">₹12,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 4: Leh Ladakh -->
+              <div class="destination-full-card anim-fade-up" data-name="leh ladakh pangong" data-region="north"
+                data-price="22000" data-season="summer" data-rating="4.9">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_14.jpg" alt="Leh Ladakh" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-dark">🏔️ High Altitude</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-ladakh"
+                    aria-label="Wishlist Ladakh">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Leh & Pangong Lake</h3>
+                    <span class="weather-badge">❄️ 12°C Crisp</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Ladakh UT, Far North India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Dramatic cold desert mountains, high passes, ancient monasteries, and mesmerising blue lakes.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: May - Sep</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 7-10 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.9 (2.1k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="22000">₹22,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 5: Andaman Islands -->
+              <div class="destination-full-card anim-fade-up" data-name="andaman havelock port blair"
+                data-region="islands" data-price="20000" data-season="winter" data-rating="4.8">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_33.jpg" alt="Havelock Andaman" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-primary">🏝️ Tropical Island</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-andaman"
+                    aria-label="Wishlist Andaman">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Andaman & Nicobar</h3>
+                    <span class="weather-badge">🌤️ 28°C Tropical</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Bay of Bengal, Islands
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    White sand Radhanagar beach, vibrant coral reefs, scuba diving, and historical Cellular Jail.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Oct - May</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 6-8 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.8 (1.6k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="20000">₹20,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 6: Manali & Solang -->
+              <div class="destination-full-card anim-fade-up" data-name="manali solang Himachal" data-region="north"
+                data-price="14000" data-season="summer" data-rating="4.8">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_43.jpg" alt="Manali Himachal" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-secondary">⛰️ Hill Station</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-manali"
+                    aria-label="Wishlist Manali">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Manali & Solang Valley</h3>
+                    <span class="weather-badge">❄️ 15°C Cool</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Himachal Pradesh, North India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Snowcapped peaks, paragliding at Solang Valley, Rohtang Pass adventure, and cedar pine forests.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Mar - Jun, Dec</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 5-7 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.8 (2.9k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="14000">₹14,000</strong>
+                    </div>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 7: Varanasi -->
+              <div class="destination-full-card anim-fade-up" data-name="varanasi kashi ghats" data-region="north"
+                data-price="7000" data-season="winter" data-rating="4.7">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_41.jpg" alt="Varanasi Ghats" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-accent">🛕 Spiritual Heart</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-varanasi"
+                    aria-label="Wishlist Varanasi">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Varanasi (Kashi)</h3>
+                    <span class="weather-badge">🌤️ 24°C Pleasant</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Uttar Pradesh, North India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    World's oldest living city. Evening Ganga Aarti, sunrise boat rides on sacred river ghats, and
+                    ancient alleys.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Oct - Mar</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 3-4 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.7 (2.2k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="7000">₹7,000</strong>
+                    </div>
+                    <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 8: Darjeeling & Sikkim -->
+              <div class="destination-full-card anim-fade-up" data-name="darjeeling sikkim gangtok" data-region="east"
+                data-price="16000" data-season="summer" data-rating="4.8">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_33.jpg" alt="Darjeeling Sikkim" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-secondary">🍵 Tea & Monasteries</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-darjeeling"
+                    aria-label="Wishlist Darjeeling">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Darjeeling & Gangtok</h3>
+                    <span class="weather-badge">🌤️ 18°C Cool</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> West Bengal / Sikkim, East
+                    India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    View of Mount Kanchenjunga, UNESCO Toy Train ride, aromatic tea gardens, and peaceful Buddhist
+                    monasteries.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Mar - May, Oct - Dec</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 6-8 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.8 (1.9k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="16000">₹16,000</strong>
+                    </div>
+                    <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Destination 9: Coorg & Mysore -->
+              <div class="destination-full-card anim-fade-up" data-name="coorg mysore karnataka" data-region="south"
+                data-price="10000" data-season="winter" data-rating="4.8">
+                <div class="dest-card-img">
+                  <img src="../Content/images/img_14.jpg" alt="Coorg Coffee Estate" loading="lazy">
+                  <div style="position:absolute; top:12px; left:12px;">
+                    <span class="badge badge-primary">☕ Coffee Capital</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="dest-coorg"
+                    aria-label="Wishlist Coorg">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="dest-card-body">
+                  <div class="flex-between mb-8">
+                    <h3 style="font-size:20px; font-weight:700;">Coorg & Mysore</h3>
+                    <span class="weather-badge">🌤️ 21°C Mild</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Karnataka, South India
+                  </p>
+                  <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+                    Scotland of India. Misty coffee plantations, waterfalls, grand Mysore Palace, and wildlife
+                    sanctuaries.
+                  </p>
+
+                  <div class="dest-info-row">
+                    <div class="dest-info-item"><i class="fa-regular fa-calendar"></i> Best: Oct - Mar</div>
+                    <div class="dest-info-item"><i class="fa-regular fa-clock"></i> 4-5 Days</div>
+                    <div class="dest-info-item"><i class="fa-solid fa-star" style="color:var(--accent);"></i> 4.8 (1.7k)
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--gray-200);"
+                    class="flex-between">
+                    <div>
+                      <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="10000">₹10,000</strong>
+                    </div>
+                    <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive India Map Section -->
+        <section class="section" style="background:var(--bg-secondary);">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-map-location-dot"></i> Interactive Map</div>
+              <h2 class="section-title">Explore India's <span class="text-gradient">Travel Hotspots</span></h2>
+              <p class="section-subtitle">Click on pins on our map to jump directly to regional packages and destination
+                highlights.</p>
+            </div>
+
+            <div class="map-container anim-scale">
+              <div class="simulated-map">
+                <div class="simulated-map-overlay"></div>
+
+                <!-- Pin: Ladakh -->
+                <div class="map-pin" style="top: 15%; left: 32%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=ladakh-adventure'">
+                  <i class="fa-solid fa-mountain"></i>
+                  <div class="map-pin-tooltip">Ladakh (Leh)</div>
+                </div>
+
+                <!-- Pin: Manali -->
+                <div class="map-pin" style="top: 25%; left: 35%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=manali-shimla'">
+                  <i class="fa-solid fa-snowflake"></i>
+                  <div class="map-pin-tooltip">Manali & Shimla</div>
+                </div>
+
+                <!-- Pin: Rajasthan -->
+                <div class="map-pin" style="top: 40%; left: 25%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=royal-rajasthan'">
+                  <i class="fa-solid fa-chess-rook"></i>
+                  <div class="map-pin-tooltip">Rajasthan (Jaipur)</div>
+                </div>
+
+                <!-- Pin: Goa -->
+                <div class="map-pin" style="top: 68%; left: 28%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=goa-beach'">
+                  <i class="fa-solid fa-umbrella-beach"></i>
+                  <div class="map-pin-tooltip">Goa Beaches</div>
+                </div>
+
+                <!-- Pin: Kerala -->
+                <div class="map-pin" style="top: 85%; left: 34%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=kerala'">
+                  <i class="fa-solid fa-ship"></i>
+                  <div class="map-pin-tooltip">Kerala Backwaters</div>
+                </div>
+
+                <!-- Pin: Andaman -->
+                <div class="map-pin" style="top: 75%; left: 82%;"
+                  onclick="window.location.href='/Pages/package-details.aspx?id=andaman'">
+                  <i class="fa-solid fa-water"></i>
+                  <div class="map-pin-tooltip">Andaman Islands</div>
+                </div>
+
+                <div
+                  style="position:absolute; bottom:20px; right:20px; background:rgba(255,255,255,0.9); padding:10px 16px; border-radius:var(--radius-md); font-size:12px; font-weight:600; color:var(--text-primary); backdrop-filter:blur(10px);">
+                  📍 Interactive Map Preview (Click pins for details)
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-packages" class="spa-page" style="display:none;">
+        <!-- Hero Header -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">Tour Packages</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              Handcrafted <span style="color:var(--accent-light);">India Packages</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              Choose from 200+ curated tour itineraries. All packages include luxury stays, expert local guides, and
+              24/7 support.
+            </p>
+          </div>
+        </section>
+
+        <!-- Filter Card -->
+        <section class="section" style="padding-top:0;">
+          <div class="container">
+            <div class="package-filter-card anim-fade-up">
+              <div class="grid grid-4" style="gap:16px;">
+                <div>
+                  <label class="form-label" for="pkg-search"><i class="fa-solid fa-magnifying-glass"></i> Package
+                    Name</label>
+                  <input type="text" id="pkg-search" class="form-control" placeholder="Search packages..."
+                    oninput="filterPackages()">
+                </div>
+                <div>
+                  <label class="form-label" for="pkg-category"><i class="fa-solid fa-list"></i> Travel Style</label>
+                  <select id="pkg-category" class="form-control filter-select" onchange="filterPackages()">
+                    <option value="all">All Styles</option>
+                    <option value="luxury">👑 Luxury Packages</option>
+                    <option value="family">👨‍👩‍👧 Family Trips</option>
+                    <option value="honeymoon">💑 Honeymoon Specials</option>
+                    <option value="adventure">🧗 Adventure & Wildlife</option>
+                    <option value="solo">🧳 Solo Travel</option>
+                    <option value="group">👥 Group Tours</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="pkg-duration"><i class="fa-regular fa-clock"></i> Duration</label>
+                  <select id="pkg-duration" class="form-control filter-select" onchange="filterPackages()">
+                    <option value="all">Any Duration</option>
+                    <option value="short">1 - 4 Days</option>
+                    <option value="medium">5 - 8 Days</option>
+                    <option value="long">9+ Days</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="pkg-budget"><i class="fa-solid fa-tag"></i> Max Price / Person</label>
+                  <select id="pkg-budget" class="form-control filter-select" onchange="filterPackages()">
+                    <option value="all">Any Price</option>
+                    <option value="15000">Under ₹15,000</option>
+                    <option value="25000">Under ₹25,000</option>
+                    <option value="40000">Under ₹40,000</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Filter Pills -->
+            <div class="flex-center gap-12 flex-wrap mt-32 mb-32" id="pill-filters">
+              <button class="category-pill active" onclick="selectPill(this, 'all')">🌟 All Packages</button>
+              <button class="category-pill" onclick="selectPill(this, 'luxury')">👑 Luxury</button>
+              <button class="category-pill" onclick="selectPill(this, 'family')">👨‍👩‍👧 Family</button>
+              <button class="category-pill" onclick="selectPill(this, 'honeymoon')">💑 Honeymoon</button>
+              <button class="category-pill" onclick="selectPill(this, 'adventure')">🧗 Adventure</button>
+              <button class="category-pill" onclick="selectPill(this, 'solo')">🧳 Solo</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Packages List Grid -->
+        <section class="section" style="padding-top:0;">
+          <div class="container">
+            <div class="grid grid-3 stagger-children" id="packages-grid">
+
+              <!-- Package 1 -->
+              <article class="package-card anim-fade-up" data-title="royal rajasthan expedition" data-style="luxury"
+                data-days="8" data-price="25000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_48.jpg" alt="Royal Rajasthan" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-accent">⭐ Bestseller</span>
+                    <span class="badge badge-dark">👑 Luxury</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-rajasthan"
+                    aria-label="Wishlist Royal Rajasthan">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Royal Rajasthan Expedition</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 8 Days / 7 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Jaipur, Udaipur,
+                      Jodhpur</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Heritage Hotels</span>
+                    <span class="package-feature">✓ Desert Safari</span>
+                    <span class="package-feature">✓ All Meals</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Experience royal Indian hospitality with stay at luxury palaces, camel safari in Thar desert, and
+                    private guided fort tours.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(328
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="25000">₹25,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+              <!-- Package 2 -->
+              <article class="package-card anim-fade-up" data-title="kerala backwaters honeymoon" data-style="honeymoon"
+                data-days="6" data-price="18000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_55.jpg" alt="Kerala Houseboat" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-secondary">💑 Honeymoon</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-kerala"
+                    aria-label="Wishlist Kerala">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Kerala Backwaters Romantic Bliss</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Munnar, Alleppey,
+                      Kovalam</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Private Houseboat</span>
+                    <span class="package-feature">✓ Candlelight Dinner</span>
+                    <span class="package-feature">✓ Spa</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Unwind on a luxury houseboat cruise, wander tea garden trails in Munnar, and relax on Kovalam beach.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(412
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="18000">₹18,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+              <!-- Package 3 -->
+              <article class="package-card anim-fade-up" data-title="ladakh bike adventure" data-style="adventure"
+                data-days="10" data-price="32000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_14.jpg" alt="Ladakh Bike" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-danger">🧗 Extreme Adventure</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-ladakh"
+                    aria-label="Wishlist Ladakh">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Ladakh High Altitude Bike Expedition</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 10 Days / 9 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Leh, Khardung La,
+                      Nubra</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Himalayan Bike</span>
+                    <span class="package-feature">✓ Camping Stays</span>
+                    <span class="package-feature">✓ Support Vehicle</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Ride across world's highest motorable passes, camp under starry skies at Pangong Lake, and explore
+                    Nubra Valley.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(289
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="32000">₹32,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+              <!-- Package 4 -->
+              <article class="package-card anim-fade-up" data-title="goa beach carnival family" data-style="family"
+                data-days="5" data-price="12000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_21.jpg" alt="Goa Family" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-primary">👨‍👩‍👧 Family Fun</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-goa" aria-label="Wishlist Goa">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Goa Beach Resort & Cruise Retreat</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 5 Days / 4 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Calangute, Baga,
+                      Panaji</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ 4★ Beach Resort</span>
+                    <span class="package-feature">✓ Sunset Cruise</span>
+                    <span class="package-feature">✓ Water Sports</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Perfect family getaway with beachfront pool, Mandovi river cruise, spice plantation tour, and water
+                    activities.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(521
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="12000">₹12,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+              <!-- Package 5 -->
+              <article class="package-card anim-fade-up" data-title="manali shimla snow solo group" data-style="solo"
+                data-days="7" data-price="16000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-secondary">❄️ Hill & Snow</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-manali"
+                    aria-label="Wishlist Manali">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Manali-Shimla Himalayan Solo Explorer</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 7 Days / 6 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Shimla, Kufri,
+                      Manali</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Volvo Transfers</span>
+                    <span class="package-feature">✓ Solang Adventure</span>
+                    <span class="package-feature">✓ Hotel Stay</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Walk through pine forests, experience snow sports in Solang Valley, visit Hadimba Temple, and shop
+                    at Mall Road.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(367
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="16000">₹16,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+              <!-- Package 6 -->
+              <article class="package-card anim-fade-up" data-title="andaman island escape luxury" data-style="luxury"
+                data-days="6" data-price="22000">
+                <div class="package-card-image">
+                  <img src="../Content/images/img_33.jpg" alt="Andaman Island" loading="lazy">
+                  <div class="package-card-badges">
+                    <span class="badge badge-accent">🏝️ Island Paradise</span>
+                  </div>
+                  <button class="destination-card-wishlist wishlist-btn" data-id="pkg-andaman"
+                    aria-label="Wishlist Andaman">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </div>
+                <div class="package-card-body">
+                  <h3 class="package-card-title">Andaman Luxury Coral Island Tour</h3>
+                  <div class="package-card-highlights">
+                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span>
+                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> Port Blair, Havelock,
+                      Neil</span>
+                  </div>
+                  <div class="package-features">
+                    <span class="package-feature">✓ Catamaran Ferry</span>
+                    <span class="package-feature">✓ Scuba & Snorkel</span>
+                    <span class="package-feature">✓ Beach Resort</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
+                    Explore turquoise waters, underwater marine life, Elephant beach glass-bottom boat, and Radhanagar
+                    beach sunset.
+                  </p>
+                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(198
+                      reviews)</span></div>
+                </div>
+                <div class="package-card-footer">
+                  <div class="package-price">
+                    <small>Starting from</small>
+                    <strong data-price-inr="22000">₹22,000</strong>
+                  </div>
+                  <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Custom Trip CTA -->
+        <section class="section" style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:white;">
+          <div class="container text-center">
+            <div class="anim-fade-up">
+              <div class="section-label"
+                style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:var(--primary-light);">
+                ✨ Custom Packages
+              </div>
+              <h2 class="section-title" style="color:white; margin-top:16px;">Want a Custom Tailored Trip?</h2>
+              <p style="color:rgba(255,255,255,0.8); max-width:550px; margin:0 auto 32px; font-size:16px;">
+                Tell our travel specialists your dream Indian destinations, group size, and budget. We'll design a
+                customized itinerary within 2 hours.
+              </p>
+              <a href="#page-contact" class="btn btn-primary btn-lg">Request Custom Itinerary <i
+                  class="fa-solid fa-paper-plane"></i></a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-package-details" class="spa-page" style="display:none;">
+        <div class="container section">
+
+          <!-- Breadcrumb -->
+          <div class="breadcrumb mb-24">
+            <a href="#page-home" class="breadcrumb-item">Home</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="#page-packages" class="breadcrumb-item">Tour Packages</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item active" id="pkg-title-bread">Royal Rajasthan Expedition</span>
+          </div>
+
+          <!-- Title & Header Bar -->
+          <div class="flex-between flex-wrap gap-16 mb-24">
+            <div>
+              <span class="badge badge-accent mb-8">⭐ Bestseller Package</span>
+              <h1 style="font-size:clamp(28px, 4vw, 42px); font-weight:800;" id="pkg-title-main">Royal Rajasthan
+                Expedition</h1>
+              <p style="color:var(--text-secondary); font-size:15px; margin-top:4px;">
+                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Jaipur • Jodhpur • Jaisalmer •
+                Udaipur, India
+              </p>
+            </div>
+            <div style="display:flex; gap:12px; align-items:center;">
+              <button class="btn btn-secondary btn-sm wishlist-btn" data-id="pkg-details-main">
+                <i class="fa-regular fa-heart"></i> Save to Wishlist
+              </button>
+              <button class="btn btn-glass btn-sm" style="color:var(--text-primary); border-color:var(--gray-300);"
+                onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : alert('URL copied!')">
+                <i class="fa-solid fa-share-nodes"></i> Share
+              </button>
+            </div>
+          </div>
+
+          <!-- Large Image Gallery Grid -->
+          <div class="gallery-grid mb-48 anim-fade-up">
+            <div class="gallery-item gallery-main">
+              <img src="../Content/images/img_49.jpg" alt="Amber Fort Jaipur" id="gallery-img-1">
+            </div>
+            <div class="gallery-item">
+              <img src="../Content/images/img_24.jpg" alt="Taj Mahal & Rajasthan Palaces" id="gallery-img-2">
+            </div>
+            <div class="gallery-item">
+              <img src="../Content/images/img_48.jpg" alt="Jaisalmer Thar Desert Safari" id="gallery-img-3">
+            </div>
+            <div class="gallery-item">
+              <img src="../Content/images/img_37.jpg" alt="Udaipur Lake Palace" id="gallery-img-4">
+            </div>
+            <div class="gallery-item" style="position:relative;">
+              <img src="../Content/images/img_20.jpg" alt="Indian Heritage Resort" id="gallery-img-5">
+              <div
+                style="position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:16px;">
+                +12 Photos
+              </div>
+            </div>
+          </div>
+
+          <!-- Content & Sidebar Layout -->
+          <div class="grid" style="grid-template-columns: 2fr 1fr; gap:40px;">
+
+            <!-- Main Details -->
+            <div>
+
+              <!-- Highlights Bar -->
+              <div class="card p-24 mb-32"
+                style="background:var(--bg-secondary); border-color:var(--gray-200); padding:20px;">
+                <div class="grid grid-4" style="gap:16px; text-align:center;">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Duration</small>
+                    <div style="font-weight:700; font-size:16px; color:var(--text-primary);"><i
+                        class="fa-regular fa-clock" style="color:var(--primary);"></i> 8 Days / 7 Nights</div>
+                  </div>
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Group Size</small>
+                    <div style="font-weight:700; font-size:16px; color:var(--text-primary);"><i
+                        class="fa-solid fa-users" style="color:var(--primary);"></i> 2 - 15 People</div>
+                  </div>
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Tour Type</small>
+                    <div style="font-weight:700; font-size:16px; color:var(--text-primary);"><i
+                        class="fa-solid fa-crown" style="color:var(--accent);"></i> Royal Heritage</div>
+                  </div>
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Languages</small>
+                    <div style="font-weight:700; font-size:16px; color:var(--text-primary);"><i
+                        class="fa-solid fa-language" style="color:var(--primary);"></i> English, Hindi</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-48">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:16px;">Overview</h2>
+                <p style="color:var(--text-secondary); line-height:1.8; font-size:15px; margin-bottom:16px;">
+                  Embark on an unforgettable royal journey through India's land of kings — Rajasthan. Walk through
+                  magnificent pink sandstone forts in Jaipur, ride camels over golden dunes in Jaisalmer, behold the
+                  majestic blue city of Jodhpur, and cruise along romantic Lake Pichola in Udaipur.
+                </p>
+                <p style="color:var(--text-secondary); line-height:1.8; font-size:15px;">
+                  Stay in converted heritage Haveli hotels, indulge in authentic Rajasthani Thali dinners with folk
+                  music, and travel in air-conditioned private luxury coaches with expert local historians.
+                </p>
+              </div>
+
+              <!-- Day-by-Day Itinerary -->
+              <div class="mb-48">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:24px;">Tour Itinerary</h2>
+                <div class="itinerary-timeline">
+
+                  <div class="itinerary-step">
+                    <div class="itinerary-dot"></div>
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
+                      Day 1</div>
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Arrival in Jaipur – Pink City Welcome
+                    </h3>
+                    <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
+                      Arrive at Jaipur International Airport/Station. Check into luxury heritage stay. Evening visit to
+                      Birla Temple and traditional Rajasthani cultural dinner at Chokhi Dhani.
+                    </p>
+                  </div>
+
+                  <div class="itinerary-step">
+                    <div class="itinerary-dot"></div>
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
+                      Day 2 & 3</div>
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jaipur Forts & Palaces Exploration
+                    </h3>
+                    <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
+                      Elephant ride to Amber Fort, photo stop at Hawa Mahal (Palace of Winds), visit City Palace museum,
+                      and Jantar Mantar observatory. Shopping in Johari Bazaar.
+                    </p>
+                  </div>
+
+                  <div class="itinerary-step">
+                    <div class="itinerary-dot"></div>
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
+                      Day 4</div>
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jodhpur – The Blue City & Mehrangarh
+                      Fort</h3>
+                    <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
+                      Drive to Jodhpur. Explore towering Mehrangarh Fort, Jaswant Thada marble cenotaph, and stroll
+                      through the iconic blue-painted houses of the old city.
+                    </p>
+                  </div>
+
+                  <div class="itinerary-step">
+                    <div class="itinerary-dot"></div>
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
+                      Day 5 & 6</div>
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jaisalmer – Golden Fort & Thar Desert
+                      Camp</h3>
+                    <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
+                      Reach Jaisalmer. Visit Patwon ki Haveli and living Fort. Head to Sam Sand Dunes for camel safari,
+                      sunset view, Kalbelia folk dance, and luxury tent night stay under stars.
+                    </p>
+                  </div>
+
+                  <div class="itinerary-step">
+                    <div class="itinerary-dot"></div>
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
+                      Day 7 & 8</div>
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Udaipur – City of Lakes & Departure
+                    </h3>
+                    <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
+                      Scenic drive to Udaipur via Ranakpur Jain Temple. Boat ride on Lake Pichola, visit Jag Mandir and
+                      City Palace complex. Departure transfer.
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Inclusions & Exclusions -->
+              <div class="mb-48">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:24px;">Services Included & Excluded</h2>
+                <div class="grid grid-2" style="gap:24px;">
+                  <div class="card p-24"
+                    style="background:rgba(34,197,94,0.04); border-color:rgba(34,197,94,0.2); padding:20px;">
+                    <h3 style="font-size:16px; font-weight:700; color:#22C55E; margin-bottom:16px;">
+                      <i class="fa-solid fa-circle-check"></i> Included Services
+                    </h3>
+                    <div class="include-list">
+                      <div class="include-item"><i class="fa-solid fa-check"></i> 7 Nights stay in 4★ Heritage Haveli
+                        Hotels</div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> Daily Breakfast & Gourmet Dinners
+                      </div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> Private AC Sedan / SUV Transport with
+                        Driver</div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> Thar Desert Camel Safari & Luxury Tent
+                        Night</div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> Lake Pichola Sunset Boat Cruise</div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> English-speaking Local Tour Historians
+                      </div>
+                      <div class="include-item"><i class="fa-solid fa-check"></i> All Tolls, Parking, Fuel & Driver
+                        Allowances</div>
+                    </div>
+                  </div>
+
+                  <div class="card p-24"
+                    style="background:rgba(239,68,68,0.04); border-color:rgba(239,68,68,0.2); padding:20px;">
+                    <h3 style="font-size:16px; font-weight:700; color:#EF4444; margin-bottom:16px;">
+                      <i class="fa-solid fa-circle-xmark"></i> Excluded Services
+                    </h3>
+                    <div class="exclude-list">
+                      <div class="exclude-item"><i class="fa-solid fa-xmark"></i> Airfare / Train tickets to/from Jaipur
+                      </div>
+                      <div class="exclude-item"><i class="fa-solid fa-xmark"></i> Personal expenses & shopping</div>
+                      <div class="exclude-item"><i class="fa-solid fa-xmark"></i> Camera / Video permits at monuments
+                      </div>
+                      <div class="exclude-item"><i class="fa-solid fa-xmark"></i> Travel insurance (available add-on)
+                      </div>
+                      <div class="exclude-item"><i class="fa-solid fa-xmark"></i> Tips for drivers and guides</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hotels & Stays Info -->
+              <div class="mb-48">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:20px;">Accommodation & Stays</h2>
+                <div class="grid grid-3" style="gap:16px;">
+                  <div class="card p-16" style="padding:16px;">
+                    <img src="../Content/images/img_36.jpg"
+                      style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
+                      alt="Shahpura House Jaipur">
+                    <h4 style="font-size:15px; font-weight:700;">Shahpura House</h4>
+                    <p style="font-size:12px; color:var(--text-muted);">Jaipur • 4★ Heritage</p>
+                  </div>
+                  <div class="card p-16" style="padding:16px;">
+                    <img src="../Content/images/img_47.jpg"
+                      style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
+                      alt="Thar Luxury Desert Camp">
+                    <h4 style="font-size:15px; font-weight:700;">Serena Desert Camp</h4>
+                    <p style="font-size:12px; color:var(--text-muted);">Jaisalmer • Luxury Tents</p>
+                  </div>
+                  <div class="card p-16" style="padding:16px;">
+                    <img src="../Content/images/img_47.jpg"
+                      style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
+                      alt="Fateh Garh Palace Udaipur">
+                    <h4 style="font-size:15px; font-weight:700;">Fateh Garh Palace</h4>
+                    <p style="font-size:12px; color:var(--text-muted);">Udaipur • 5★ Heritage</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Accordion -->
+              <div class="mb-48">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:20px;">Frequently Asked Questions</h2>
+
+                <div class="accordion-item">
+                  <div class="accordion-header">
+                    <span>What is the best month to do this Rajasthan tour?</span>
+                    <i class="fa-solid fa-plus accordion-icon"></i>
+                  </div>
+                  <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                      The ideal time is from October to March when the desert weather is pleasant with clear sunny days
+                      (20-25°C) and cool evenings.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <div class="accordion-header">
+                    <span>Can this package be customized for a private family?</span>
+                    <i class="fa-solid fa-plus accordion-icon"></i>
+                  </div>
+                  <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                      Yes! All our tour packages can be 100% customized to your preferred dates, hotel categories,
+                      vehicle type, and duration.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <div class="accordion-header">
+                    <span>What is the cancellation and refund policy?</span>
+                    <i class="fa-solid fa-plus accordion-icon"></i>
+                  </div>
+                  <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                      You receive a 100% full refund if cancelled 48 hours prior to trip start date. We offer
+                      hassle-free instant refunds to your original payment method.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Sticky Booking Form Sidebar -->
+            <div>
+              <div class="booking-sidebar-card">
+                <div class="flex-between mb-16">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted);">Price starting from</small>
+                    <div style="font-size:28px; font-weight:800; color:var(--primary);" data-price-inr="25000">₹25,000
+                    </div>
+                    <span style="font-size:12px; color:var(--text-muted);">per person (incl. taxes)</span>
+                  </div>
+                  <div class="stars" style="text-align:right;">
+                    ★★★★★
+                    <div style="font-size:12px; color:var(--text-muted); font-family:sans-serif;">4.9 (328 reviews)
+                    </div>
+                  </div>
+                </div>
+
+                <hr style="border:none; border-top:1px solid var(--gray-200); margin:20px 0;">
+
+                <div class="booking-form">
+                  <div class="form-group">
+                    <label class="form-label" for="book-date">Travel Date</label>
+                    <input type="date" id="book-date" name="travel_date" class="form-control" required>
+                  </div>
+
+                  <div class="grid grid-2" style="gap:12px;">
+                    <div class="form-group">
+                      <label class="form-label" for="book-adults">Adults (12+ yrs)</label>
+                      <select id="book-adults" name="adults" class="form-control filter-select">
+                        <option value="1">1 Adult</option>
+                        <option value="2" selected>2 Adults</option>
+                        <option value="3">3 Adults</option>
+                        <option value="4">4 Adults</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="book-children">Children</label>
+                      <select id="book-children" name="children" class="form-control filter-select">
+                        <option value="0">0 Children</option>
+                        <option value="1">1 Child</option>
+                        <option value="2">2 Children</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="book-hotel">Hotel Choice</label>
+                    <select id="book-hotel" name="hotel" class="form-control filter-select">
+                      <option value="heritage">4★ Heritage Haveli (Included)</option>
+                      <option value="5star">5★ Palace Luxury (+₹10,000)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="book-name">Full Name</label>
+                    <input type="text" id="book-name" name="name" class="form-control" placeholder="e.g. Vikram Sharma"
+                      required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="book-email">Email Address</label>
+                    <input type="email" id="book-email" name="email" class="form-control" placeholder="name@domain.com"
+                      required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="book-phone">Phone / WhatsApp</label>
+                    <input type="tel" id="book-phone" name="phone" class="form-control" placeholder="+91 98765 43210"
+                      required>
+                  </div>
+
+                  <div
+                    style="background:var(--gray-100); border-radius:var(--radius-md); padding:12px; margin-bottom:20px; font-size:13px;">
+                    <div class="flex-between mb-4"><span>Subtotal (2 Adults):</span> <strong>₹50,000</strong></div>
+                    <div class="flex-between mb-4"><span>Discount (EPIC10):</span> <strong
+                        style="color:#22C55E;">-₹5,000</strong></div>
+                    <div class="flex-between"
+                      style="font-weight:700; font-size:14px; border-top:1px solid var(--gray-200); padding-top:6px; margin-top:6px;">
+                      <span>Total Payable:</span> <span style="color:var(--primary);">₹45,000</span>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">
+                    <i class="fa-solid fa-bolt"></i> Book Now (Instant Confirmation)
+                  </button>
+                </div>
+
+                <div style="margin-top:16px; text-align:center; font-size:12px; color:var(--text-muted);">
+                  🔒 256-Bit SSL Encrypted & Secure Checkout
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div id="page-about" class="spa-page" style="display:none;">
+        <!-- Hero Banner -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">About Us</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              Unveiling <span style="color:var(--accent-light);">Incredible India</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              For over 12 years, Epic-Travellers has been inspiring global explorers to experience the soul, heritage,
+              and natural magnificence of India.
+            </p>
+          </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section class="section">
+          <div class="container">
+            <div class="grid grid-2" style="gap:48px; align-items:center;">
+              <div class="anim-fade-left">
+                <div class="section-label"><i class="fa-solid fa-book-open"></i> Our Story</div>
+                <h2 class="section-title">Born from a Passion for <span class="text-gradient">Indian Culture</span></h2>
+                <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:16px;">
+                  Founded in 2013 in New Delhi, Epic-Travellers began with a single mission: to redefine travel across
+                  India by providing authentic, seamless, and luxury experiences for travelers from every corner of the
+                  world.
+                </p>
+                <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
+                  Whether navigating Rajasthan's royal palaces, cruising Kerala's serene lagoons, or trekking high
+                  Himalayan passes in Ladakh, we ensure every detail is meticulously curated.
+                </p>
+
+                <div class="grid grid-2" style="gap:16px;">
+                  <div class="card p-16" style="padding:16px; background:var(--bg-secondary);">
+                    <h4 style="font-size:16px; font-weight:700; color:var(--primary); margin-bottom:4px;">🎯 Mission
+                    </h4>
+                    <p style="font-size:13px; color:var(--text-secondary);">To connect travellers with the rich heritage
+                      and diverse landscapes of India through safe, sustainable, and unforgettable journeys.</p>
+                  </div>
+                  <div class="card p-16" style="padding:16px; background:var(--bg-secondary);">
+                    <h4 style="font-size:16px; font-weight:700; color:var(--secondary); margin-bottom:4px;">👁️ Vision
+                    </h4>
+                    <p style="font-size:13px; color:var(--text-secondary);">To be India's most trusted and sustainable
+                      luxury travel brand recognized globally for excellence in hospitality.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="anim-fade-right" style="position:relative;">
+                <img src="../Content/images/img_26.jpg"
+                  style="border-radius:var(--radius-2xl); box-shadow:var(--shadow-xl); width:100%;"
+                  alt="Epic Travellers Team in Jaipur">
+                <div
+                  style="position:absolute; bottom:-20px; left:-20px; background:var(--gradient-primary); color:white; padding:20px; border-radius:var(--radius-xl); box-shadow:var(--shadow-lg); max-width:220px;"
+                  class="hide-mobile">
+                  <div style="font-size:32px; font-weight:800; line-height:1;">12+</div>
+                  <div style="font-size:13px; font-weight:500;">Years of Tourism Leadership in India</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stats Banner -->
+        <section class="section" style="background:var(--bg-secondary);">
+          <div class="container">
+            <div class="grid grid-4 text-center stagger-children">
+              <div class="anim-scale">
+                <div class="stat-value" data-counter="50000" data-suffix="+">0</div>
+                <div class="stat-label">Happy Travellers Hosted</div>
+              </div>
+              <div class="anim-scale">
+                <div class="stat-value" data-counter="500" data-suffix="+">0</div>
+                <div class="stat-label">Indian Destinations</div>
+              </div>
+              <div class="anim-scale">
+                <div class="stat-value" data-counter="98" data-suffix="%">0</div>
+                <div class="stat-label">Satisfaction Rate</div>
+              </div>
+              <div class="anim-scale">
+                <div class="stat-value" data-counter="25" data-suffix="+">0</div>
+                <div class="stat-label">National Awards</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Team Members Section -->
+        <section class="section">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-users"></i> Leadership</div>
+              <h2 class="section-title">Meet Our <span class="text-gradient">Travel Experts</span></h2>
+              <p class="section-subtitle">Passionate explorers, cultural historians, and hospitality veterans leading
+                Epic-Travellers.</p>
+            </div>
+
+            <div class="grid grid-4 stagger-children">
+              <div class="team-card anim-fade-up">
+                <img src="../Content/images/img_17.jpg" alt="Vikramaditya Singh CEO" class="team-img">
+                <div class="team-body">
+                  <h3 style="font-size:18px; font-weight:700;">Vikramaditya Singh</h3>
+                  <p style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Founder & CEO</p>
+                  <p style="font-size:13px; color:var(--text-secondary);">18+ years in Indian heritage tourism and
+                    palace hospitality.</p>
+                </div>
+              </div>
+
+              <div class="team-card anim-fade-up">
+                <img src="../Content/images/img_29.jpg" alt="Meera Iyer COO" class="team-img">
+                <div class="team-body">
+                  <h3 style="font-size:18px; font-weight:700;">Meera Iyer</h3>
+                  <p style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Chief Operations
+                    Officer</p>
+                  <p style="font-size:13px; color:var(--text-secondary);">Specialist in South Indian backwaters and
+                    eco-tourism.</p>
+                </div>
+              </div>
+
+              <div class="team-card anim-fade-up">
+                <img src="../Content/images/img_8.jpg" alt="Kabir Sharma Head of Adventure" class="team-img">
+                <div class="team-body">
+                  <h3 style="font-size:18px; font-weight:700;">Kabir Sharma</h3>
+                  <p style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Head of Himalayan
+                    Adventures</p>
+                  <p style="font-size:13px; color:var(--text-secondary);">Certified mountain mountaineer with 100+ high
+                    pass treks.</p>
+                </div>
+              </div>
+
+              <div class="team-card anim-fade-up">
+                <img src="../Content/images/img_29.jpg" alt="Sunita Roy Customer Success" class="team-img">
+                <div class="team-body">
+                  <h3 style="font-size:18px; font-weight:700;">Sunita Roy</h3>
+                  <p style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Director of Guest
+                    Experience</p>
+                  <p style="font-size:13px; color:var(--text-secondary);">Ensuring 24/7 care and personalized trip
+                    itineraries.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section class="section" style="background:var(--bg-secondary);">
+          <div class="container">
+            <div class="section-header anim-fade-up">
+              <div class="section-label"><i class="fa-solid fa-trophy"></i> Recognition</div>
+              <h2 class="section-title">Awards & <span class="text-gradient">Certifications</span></h2>
+            </div>
+            <div class="grid grid-3 text-center stagger-children">
+              <div class="card p-24 anim-fade-up" style="padding:28px;">
+                <div style="font-size:40px; margin-bottom:12px;">🏆</div>
+                <h3 style="font-size:18px; font-weight:700;">Best Luxury Tour Operator</h3>
+                <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">India Tourism Excellence Awards
+                  2024</p>
+              </div>
+              <div class="card p-24 anim-fade-up" style="padding:28px;">
+                <div style="font-size:40px; margin-bottom:12px;">🥇</div>
+                <h3 style="font-size:18px; font-weight:700;">Top Responsible Tourism Brand</h3>
+                <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">National Heritage & Culture
+                  Council 2023</p>
+              </div>
+              <div class="card p-24 anim-fade-up" style="padding:28px;">
+                <div style="font-size:40px; margin-bottom:12px;">⭐</div>
+                <h3 style="font-size:18px; font-weight:700;">TripAdvisor Choice Best of Best</h3>
+                <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">Consistent 5-Star Traveler
+                  Rating</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-blog" class="spa-page" style="display:none;">
+        <!-- Hero Header -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">Travel Blog</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              India Travel <span style="color:var(--accent-light);">Stories & Guides</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              Expert itineraries, secret travel hacks, local food guides, and photo inspiration for exploring Incredible
+              India.
+            </p>
+          </div>
+        </section>
+
+        <!-- Main Section -->
+        <section class="section">
+          <div class="container">
+
+            <!-- Featured Post Banner -->
+            <div class="featured-blog-card mb-48 anim-fade-up">
+              <div style="height:340px; overflow:hidden;">
+                <img src="../Content/images/img_15.jpg" style="width:100%; height:100%; object-fit:cover;"
+                  alt="Ladakh Roadtrip">
+              </div>
+              <div style="padding:32px; display:flex; flex-direction:column; justify-content:center;">
+                <span class="badge badge-accent mb-12" style="width:max-content;">⭐ Featured Article</span>
+                <h2 style="font-size:24px; font-weight:800; line-height:1.3; margin-bottom:12px;">
+                  <a href="/Pages/blog-details.aspx?id=ladakh-biking-guide" style="color:var(--text-primary);">The
+                    Ultimate Ladakh Biking Expedition Guide 2025</a>
+                </h2>
+                <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
+                  Everything you need to plan a bike journey over Khardung La, Chang La, and Pangong Tso. Permits,
+                  oxygen tips, gear checklist, and road conditions explained.
+                </p>
+                <div class="blog-meta mb-20">
+                  <span><i class="fa-regular fa-user"></i> Kabir Sharma</span>
+                  <span><i class="fa-regular fa-calendar"></i> Jan 15, 2025</span>
+                  <span><i class="fa-regular fa-clock"></i> 8 min read</span>
+                </div>
+                <a href="/Pages/blog-details.aspx?id=ladakh-biking-guide" class="btn btn-primary btn-sm"
+                  style="width:max-content;">Read Full Story <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+
+            <!-- Grid Layout: Articles + Sidebar -->
+            <div class="grid" style="grid-template-columns: 2.2fr 1fr; gap:40px;">
+
+              <!-- Article Cards Grid -->
+              <div>
+                <div class="grid grid-2 stagger-children" id="blog-articles-grid-spa">
+
+                  <!-- Article 1 -->
+                  <article class="blog-card anim-fade-up">
+                    <div class="blog-card-image">
+                      <a href="/Pages/blog-details.aspx?id=kerala-backwaters-houseboat"><img
+                          src="../Content/images/img_55.jpg" alt="Kerala backwaters" loading="lazy"></a>
+                    </div>
+                    <div class="blog-card-body">
+                      <span class="blog-category">Nature & Backwaters</span>
+                      <h3 class="blog-card-title"><a
+                          href="/Pages/blog-details.aspx?id=kerala-backwaters-houseboat">Kerala Backwaters: Houseboat
+                          Cruise Experience</a></h3>
+                      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                        Float through green waterways in Alleppey and Kumarakom with authentic Karimeen fish fry.
+                      </p>
+                      <div class="blog-meta">
+                        <span><i class="fa-regular fa-calendar"></i> Jan 10, 2025</span>
+                        <span><i class="fa-regular fa-clock"></i> 5 min</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Article 2 -->
+                  <article class="blog-card anim-fade-up">
+                    <div class="blog-card-image">
+                      <a href="/Pages/blog-details.aspx?id=rajasthan-forts"><img src="../Content/images/img_48.jpg"
+                          alt="Rajasthan palaces" loading="lazy"></a>
+                    </div>
+                    <div class="blog-card-body">
+                      <span class="blog-category">Heritage & Palaces</span>
+                      <h3 class="blog-card-title"><a href="/Pages/blog-details.aspx?id=rajasthan-forts">10 Forts in
+                          Rajasthan That Transport You Back in Time</a></h3>
+                      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                        Explore Mehrangarh Fort, Amber Palace, and Chittorgarh – legends of valor and royal
+                        architecture.
+                      </p>
+                      <div class="blog-meta">
+                        <span><i class="fa-regular fa-calendar"></i> Jan 04, 2025</span>
+                        <span><i class="fa-regular fa-clock"></i> 7 min</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Article 3 -->
+                  <article class="blog-card anim-fade-up">
+                    <div class="blog-card-image">
+                      <a href="/Pages/blog-details.aspx?id=goa-hidden-spots"><img src="../Content/images/img_21.jpg"
+                          alt="Goa beaches" loading="lazy"></a>
+                    </div>
+                    <div class="blog-card-body">
+                      <span class="blog-category">Beach & Nightlife</span>
+                      <h3 class="blog-card-title"><a href="/Pages/blog-details.aspx?id=goa-hidden-spots">Beyond Beaches:
+                          Hidden Secret Spots in South Goa</a></h3>
+                      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                        Discover quiet spice plantations, Cabo de Rama fort, and serene Butterfly beach away from
+                        crowds.
+                      </p>
+                      <div class="blog-meta">
+                        <span><i class="fa-regular fa-calendar"></i> Dec 28, 2024</span>
+                        <span><i class="fa-regular fa-clock"></i> 6 min</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Article 4 -->
+                  <article class="blog-card anim-fade-up">
+                    <div class="blog-card-image">
+                      <a href="/Pages/blog-details.aspx?id=varanasi-ganga-aarti"><img src="../Content/images/img_41.jpg"
+                          alt="Varanasi Ghats" loading="lazy"></a>
+                    </div>
+                    <div class="blog-card-body">
+                      <span class="blog-category">Spiritual Journey</span>
+                      <h3 class="blog-card-title"><a href="/Pages/blog-details.aspx?id=varanasi-ganga-aarti">A Spiritual
+                          Morning in Varanasi: Boat Ride & Ganga Aarti</a></h3>
+                      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                        Witnessing the divine energy at Dashashwamedh Ghat as priests perform sacred fire rituals.
+                      </p>
+                      <div class="blog-meta">
+                        <span><i class="fa-regular fa-calendar"></i> Dec 18, 2024</span>
+                        <span><i class="fa-regular fa-clock"></i> 5 min</span>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
+              </div>
+
+              <!-- Sidebar -->
+              <div>
+                <!-- Search Widget -->
+                <div class="sidebar-widget">
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">Search Blog</h4>
+                  <div class="form-group mb-0">
+                    <input type="text" class="form-control" placeholder="Search topics, cities..." id="blog-search">
+                  </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">Categories</h4>
+                  <ul style="display:flex; flex-direction:column; gap:10px;">
+                    <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
+                      <a href="#">🏔️ Himalayan Treks</a> <span>(14)</span>
+                    </li>
+                    <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
+                      <a href="#">🏖️ Coastal & Beaches</a> <span>(18)</span>
+                    </li>
+                    <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
+                      <a href="#">🏰 Forts & Heritage</a> <span>(22)</span>
+                    </li>
+                    <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
+                      <a href="#">🍛 Indian Food & Dining</a> <span>(11)</span>
+                    </li>
+                    <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
+                      <a href="#">🛕 Spiritual Guides</a> <span>(9)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget" style="background:var(--gradient-primary); color:white;">
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:8px; color:white;">✈️ Travel Newsletter</h4>
+                  <p style="font-size:13px; opacity:0.9; margin-bottom:16px;">Get weekly India destination guides and
+                    exclusive tour discounts directly in your inbox.</p>
+                  <div class="newsletter-form">
+                    <input type="email" placeholder="Your email..." required class="form-control mb-12"
+                      style="background:white; color:var(--text-primary);">
+                    <button type="submit" class="btn btn-accent btn-sm" style="width:100%;">Subscribe Free</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-gallery" class="spa-page" style="display:none;">
+        <!-- Hero Header -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">Gallery</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              Visual <span style="color:var(--accent-light);">Wonders of India</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              High-definition photo gallery showcasing India's breathtaking landscapes, royal architecture, and vibrant
+              festivals.
+            </p>
+          </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section">
+          <div class="container">
+
+            <!-- Category Filters -->
+            <div class="flex-center gap-12 flex-wrap mb-48" id="gallery-filters">
+              <button class="tag active" data-filter="all">📸 All Photos</button>
+              <button class="tag" data-filter="mountains">🏔️ Mountains</button>
+              <button class="tag" data-filter="beaches">🏖️ Beaches</button>
+              <button class="tag" data-filter="monuments">🏰 Forts & Palaces</button>
+              <button class="tag" data-filter="culture">🛕 Culture & Spiritual</button>
+              <button class="tag" data-filter="nature">🌿 Nature & Wildlife</button>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="gallery-masonry" id="masonry-grid">
+
+              <!-- Photo 1: Jaipur -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="monuments"
+                onclick="openLightbox('../Content/images/img_44.jpg', 'Jaipur Hawa Mahal & Amber Fort')">
+                <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-accent mb-4" style="width:max-content;">🏰 Rajasthan</span>
+                  <h4 style="font-size:16px; font-weight:700;">Hawa Mahal & Amber Fort, Jaipur</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 2: Kerala -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="nature"
+                onclick="openLightbox('../Content/images/img_50.jpg', 'Kerala Backwaters Houseboat')">
+                <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-secondary mb-4" style="width:max-content;">🌿 Kerala</span>
+                  <h4 style="font-size:16px; font-weight:700;">Tranquil Alleppey Backwaters</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 3: Ladakh -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="mountains"
+                onclick="openLightbox('../Content/images/img_9.jpg', 'Pangong Lake Ladakh')">
+                <img src="../Content/images/img_14.jpg" alt="Pangong Tso Ladakh" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-dark mb-4" style="width:max-content;">🏔️ Ladakh</span>
+                  <h4 style="font-size:16px; font-weight:700;">Azure Waters of Pangong Lake</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 4: Goa -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="beaches"
+                onclick="openLightbox('../Content/images/img_18.jpg', 'Goa Palolem Beach')">
+                <img src="../Content/images/img_21.jpg" alt="Goa Palolem" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-primary mb-4" style="width:max-content;">🏖️ Goa</span>
+                  <h4 style="font-size:16px; font-weight:700;">Golden Sunset at Palolem Beach</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 5: Taj Mahal -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="monuments"
+                onclick="openLightbox('../Content/images/img_22.jpg', 'Taj Mahal Agra')">
+                <img src="../Content/images/img_25.jpg" alt="Taj Mahal" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-accent mb-4" style="width:max-content;">🕌 Agra</span>
+                  <h4 style="font-size:16px; font-weight:700;">Majestic Sunrise over Taj Mahal</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 6: Varanasi -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="culture"
+                onclick="openLightbox('../Content/images/img_38.jpg', 'Varanasi Ganga Aarti')">
+                <img src="../Content/images/img_41.jpg" alt="Varanasi Ghats" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-accent mb-4" style="width:max-content;">🛕 Varanasi</span>
+                  <h4 style="font-size:16px; font-weight:700;">Evening Ganga Aarti at Ghats</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 7: Andaman -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="beaches"
+                onclick="openLightbox('../Content/images/img_30.jpg', 'Andaman Radhanagar Beach')">
+                <img src="../Content/images/img_33.jpg" alt="Andaman Havelock" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-primary mb-4" style="width:max-content;">🏝️ Andaman</span>
+                  <h4 style="font-size:16px; font-weight:700;">Turquoise Waters of Havelock</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 8: Manali -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="mountains"
+                onclick="openLightbox('../Content/images/img_42.jpg', 'Manali Snow Valleys')">
+                <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-secondary mb-4" style="width:max-content;">❄️ Himachal</span>
+                  <h4 style="font-size:16px; font-weight:700;">Snowcapped Pines in Manali</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+              <!-- Photo 9: Jaisalmer -->
+              <div class="gallery-masonry-item anim-fade-up" data-category="culture"
+                onclick="openLightbox('../Content/images/img_45.jpg', 'Jaisalmer Desert Safari')">
+                <img src="../Content/images/img_48.jpg" alt="Thar Desert Jaisalmer" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <span class="badge badge-accent mb-4" style="width:max-content;">🏜️ Thar Desert</span>
+                  <h4 style="font-size:16px; font-weight:700;">Sunset Camel Trek in Jaisalmer</h4>
+                  <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Lightbox Modal (inside gallery section) -->
+        <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+          <button
+            style="position:absolute; top:20px; right:20px; color:white; font-size:36px; background:none; border:none; cursor:pointer; z-index:1; line-height:1;"
+            onclick="closeLightbox()">&times;</button>
+          <div class="lightbox-content" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Full size photo preview">
+            <div
+              style="background:var(--bg-primary); padding:16px; text-align:center; color:var(--text-primary); font-weight:700; font-size:15px;"
+              id="lightbox-caption"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page-contact" class="spa-page" style="display:none;">
+        <!-- Hero Header -->
+        <section class="page-hero">
+          <div class="container">
+            <div class="breadcrumb flex-center mb-16" style="justify-content:center;">
+              <a href="#page-home" class="breadcrumb-item" style="color:rgba(255,255,255,0.7);">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-item active" style="color:white;">Contact Us</span>
+            </div>
+            <h1 class="section-title" style="color:white; font-size:clamp(32px, 5vw, 54px);">
+              Get in Touch <span style="color:var(--accent-light);">With Us</span>
+            </h1>
+            <p style="color:rgba(255,255,255,0.85); max-width:600px; margin:0 auto; font-size:16px;">
+              Have questions about a package or need a custom trip plan? Our travel specialists are available 24/7.
+            </p>
+          </div>
+        </section>
+
+        <!-- Main Contact Section -->
+        <section class="section">
+          <div class="container">
+
+            <!-- Info Cards Row -->
+            <div class="grid grid-4 mb-48 stagger-children">
+
+              <div class="contact-info-card anim-fade-up">
+                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div>
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">Headquarters</h4>
+                  <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    Connaught Place, Block C, Inner Circle, New Delhi 110001, India
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-info-card anim-fade-up">
+                <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">Call Us 24/7</h4>
+                  <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    +91 98765 43210<br>+91 11 2345 6789
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-info-card anim-fade-up">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">Email Us</h4>
+                  <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    support@epic-travellers.com<br>bookings@epic-travellers.com
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-info-card anim-fade-up">
+                <div class="contact-icon" style="background:linear-gradient(135deg, #25D366, #128C7E);"><i
+                    class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">WhatsApp Chat</h4>
+                  <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    +91 98765 43210<br><span style="color:#25D366; font-weight:600;">Instant Reply</span>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Form + Map Grid -->
+            <div class="grid grid-2" style="gap:40px; align-items:start;">
+
+              <!-- Contact Form -->
+              <div class="card p-32 anim-fade-left" style="padding:32px;">
+                <h2 style="font-size:22px; font-weight:700; margin-bottom:8px;">Send Us a Message</h2>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:24px;">Fill out the form below and
+                  our travel advisor will respond within 30 minutes.</p>
+
+                <div id="contact-form"
+                  onsubmit="event.preventDefault(); Toast.show('Message sent successfully! We\'ll reply shortly. 📩', 'success'); this.reset();">
+                  <div class="grid grid-2" style="gap:16px;">
+                    <div class="form-group">
+                      <label class="form-label" for="c-name">Your Full Name</label>
+                      <input type="text" id="c-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="c-email">Email Address</label>
+                      <input type="email" id="c-email" class="form-control" placeholder="name@example.com" required>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-2" style="gap:16px;">
+                    <div class="form-group">
+                      <label class="form-label" for="c-phone">Phone Number</label>
+                      <input type="tel" id="c-phone" class="form-control" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="c-dest">Destination Interested In</label>
+                      <select id="c-dest" class="form-control filter-select">
+                        <option value="rajasthan">Royal Rajasthan</option>
+                        <option value="kerala">Kerala Backwaters</option>
+                        <option value="goa">Goa Beaches</option>
+                        <option value="ladakh">Ladakh Adventure</option>
+                        <option value="andaman">Andaman Islands</option>
+                        <option value="other">Custom / Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="c-msg">Your Message / Special Requests</label>
+                    <textarea id="c-msg" class="form-control" rows="4"
+                      placeholder="Tell us your dates, number of travelers, budget preferences..." required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+                    <i class="fa-solid fa-paper-plane"></i> Send Inquiry Now
+                  </button>
+                </div>
+              </div>
+
+              <!-- Office Map & Location -->
+              <div class="anim-fade-right">
+                <div class="card p-24" style="padding:24px; margin-bottom:24px;">
+                  <h3 style="font-size:18px; font-weight:700; margin-bottom:12px;">Visit New Delhi Headquarters</h3>
+                  <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+                    Open Monday to Saturday: 9:00 AM – 8:00 PM IST. Walk-ins welcome for coffee and trip planning!
+                  </p>
+                  <div
+                    style="height:320px; border-radius:var(--radius-lg); overflow:hidden; position:relative; background:#cbd5e1;">
+                    <div
+                      style="width:100%; height:100%; min-height:320px; background:linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border-radius:var(--radius-lg); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; text-align:center; padding:24px;">
+                      <div style="font-size:42px; margin-bottom:12px;">🗺️</div>
+                      <h4 style="font-size:18px; font-weight:700; margin-bottom:6px; color:white;">Connaught Place
+                        Headquarters</h4>
+                      <p style="font-size:13px; color:rgba(255,255,255,0.7); max-width:320px;">Block C, Inner Circle,
+                        New Delhi 110001, India</p>
+                      <div
+                        style="margin-top:16px; font-size:12px; color:var(--primary-light); background:rgba(14,165,233,0.15); padding:6px 16px; border-radius:var(--radius-full);">
+                        📍 Offline Map View • Coordinates: 28.6301° N, 77.2167° E</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <div id="page-dashboard" class="spa-page" style="display:none;">
+        <div class="dashboard-layout">
+
+          <!-- Sidebar -->
+          <aside class="dashboard-sidebar anim-fade-left">
+            <div
+              style="text-align:center; padding-bottom:20px; border-bottom:1px solid var(--gray-200); margin-bottom:20px;">
+              <img src="../Content/images/img_27.jpg"
+                style="width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:12px; border:3px solid var(--primary);"
+                alt="User Profile Avatar">
+              <h3 style="font-size:18px; font-weight:700;">Aisha Patel</h3>
+              <span class="badge badge-primary">⭐ Gold Explorer</span>
+            </div>
+
+            <nav style="display:flex; flex-direction:column;">
+              <a class="dash-menu-item active" onclick="showTab('tab-bookings', this)"><i
+                  class="fa-solid fa-suitcase"></i> My Bookings</a>
+              <a class="dash-menu-item" onclick="showTab('tab-wishlist', this)"><i class="fa-solid fa-heart"></i> Saved
+                Wishlist</a>
+              <a class="dash-menu-item" onclick="showTab('tab-payments', this)"><i class="fa-solid fa-receipt"></i>
+                Payment History</a>
+              <a class="dash-menu-item" onclick="showTab('tab-profile', this)"><i class="fa-solid fa-user-gear"></i>
+                Profile Settings</a>
+              <a class="dash-menu-item" href="#page-auth" style="color:#EF4444;"><i
+                  class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+            </nav>
+          </aside>
+
+          <!-- Main Dashboard Panels -->
+          <section class="anim-fade-right">
+
+            <!-- Tab 1: Bookings -->
+            <div id="tab-bookings" class="dash-tab-content">
+              <div class="flex-between mb-24">
+                <div>
+                  <h2 style="font-size:24px; font-weight:700;">My Tour Bookings</h2>
+                  <p style="font-size:14px; color:var(--text-secondary);">Manage your upcoming and past travel
+                    itineraries</p>
+                </div>
+                <a href="#page-packages" class="btn btn-primary btn-sm">+ Book New Tour</a>
+              </div>
+
+              <!-- Active Booking 1 -->
+              <div class="booking-history-card">
+                <img src="../Content/images/img_46.jpg"
+                  style="width:140px; height:100px; border-radius:var(--radius-lg); object-fit:cover;"
+                  alt="Royal Rajasthan">
+                <div style="flex:1;">
+                  <div class="flex-between mb-4">
+                    <h3 style="font-size:17px; font-weight:700;">Royal Rajasthan Expedition</h3>
+                    <span class="badge badge-success">✓ Confirmed</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-regular fa-calendar"></i> Oct 15
+                    – Oct 22, 2025 (8 Days)</p>
+                  <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-solid fa-ticket"></i> Booking ID:
+                    #EPIC-89210 • 2 Adults</p>
+                </div>
+                <div style="text-align:right;">
+                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="45000">₹45,000</strong>
+                  <div style="margin-top:8px;">
+                    <button class="btn btn-secondary btn-sm" onclick="window.print()"><i
+                        class="fa-solid fa-file-pdf"></i> Invoice</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active Booking 2 -->
+              <div class="booking-history-card">
+                <img src="../Content/images/img_52.jpg"
+                  style="width:140px; height:100px; border-radius:var(--radius-lg); object-fit:cover;"
+                  alt="Kerala Backwaters">
+                <div style="flex:1;">
+                  <div class="flex-between mb-4">
+                    <h3 style="font-size:17px; font-weight:700;">Kerala Backwaters Romantic Bliss</h3>
+                    <span class="badge badge-primary">⏳ Upcoming</span>
+                  </div>
+                  <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-regular fa-calendar"></i> Dec 05
+                    – Dec 11, 2025 (6 Days)</p>
+                  <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-solid fa-ticket"></i> Booking ID:
+                    #EPIC-94102 • 2 Adults</p>
+                </div>
+                <div style="text-align:right;">
+                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="36000">₹36,000</strong>
+                  <div style="margin-top:8px;">
+                    <button class="btn btn-secondary btn-sm" onclick="window.print()"><i
+                        class="fa-solid fa-file-pdf"></i> Invoice</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Wishlist -->
+            <div id="tab-wishlist" class="dash-tab-content" style="display:none;">
+              <h2 style="font-size:24px; font-weight:700; margin-bottom:16px;">Saved Wishlist</h2>
+              <div class="grid grid-2" style="gap:20px;">
+                <div class="card p-16 flex" style="gap:16px; padding:16px;">
+                  <img src="../Content/images/img_11.jpg"
+                    style="width:100px; height:80px; border-radius:var(--radius-md); object-fit:cover;" alt="Ladakh">
+                  <div style="flex:1;">
+                    <h4 style="font-size:15px; font-weight:700;">Ladakh High Altitude Expedition</h4>
+                    <p style="font-size:12px; color:var(--primary); font-weight:700;">₹32,000 / person</p>
+                    <a href="#page-package-details" class="btn btn-primary btn-sm mt-8">Book Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Payments -->
+            <div id="tab-payments" class="dash-tab-content" style="display:none;">
+              <h2 style="font-size:24px; font-weight:700; margin-bottom:16px;">Payment Invoices</h2>
+              <div class="card p-24" style="padding:20px;">
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                  <thead>
+                    <tr style="text-align:left; border-bottom:2px solid var(--gray-200);">
+                      <th style="padding:10px;">Date</th>
+                      <th style="padding:10px;">Transaction ID</th>
+                      <th style="padding:10px;">Package</th>
+                      <th style="padding:10px;">Amount</th>
+                      <th style="padding:10px;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--gray-200);">
+                      <td style="padding:10px;">12 Aug 2025</td>
+                      <td style="padding:10px;">TXN_9871239</td>
+                      <td style="padding:10px;">Royal Rajasthan Expedition</td>
+                      <td style="padding:10px; font-weight:700;">₹45,000</td>
+                      <td style="padding:10px;"><button class="btn btn-secondary btn-sm"
+                          onclick="window.print()">Download</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 4: Profile -->
+            <div id="tab-profile" class="dash-tab-content" style="display:none;">
+              <h2 style="font-size:24px; font-weight:700; margin-bottom:16px;">Edit Profile</h2>
+              <div class="card p-24" style="padding:28px;"
+                onsubmit="event.preventDefault(); Toast.show('Profile updated successfully! 👤', 'success');">
+                <div class="grid grid-2" style="gap:16px;">
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" value="Aisha Patel">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" value="aisha.patel@example.com">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" value="+91 98765 12345">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Preferred Currency</label>
+                    <select class="form-control filter-select">
+                      <option value="INR">₹ INR (Indian Rupee)</option>
+                      <option value="USD">$ USD (US Dollar)</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-16">Save Changes</button>
+              </div>
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Combined Tabbed Auth Page -->
+      <div id="page-auth" class="spa-page" style="display:none;">
+        <div class="auth-container">
+          <div class="auth-card anim-scale">
+            <!-- Auth Header Tabs -->
+            <div class="tabs mb-32">
+              <button class="tab active" id="tab-login-btn" onclick="toggleAuth('login')">Sign In</button>
+              <button class="tab" id="tab-register-btn" onclick="toggleAuth('register')">Create Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form"
+              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in... 🚀', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              <div class="text-center mb-24">
+                <h2 style="font-size:22px; font-weight:700;">Welcome Back</h2>
+                <p style="font-size:14px; color:var(--text-secondary);">Enter your credentials to access your trips</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="login-email">Email Address</label>
+                <input type="email" id="login-email" class="form-control" placeholder="name@domain.com" required>
+              </div>
+
+              <div class="form-group">
+                <div class="flex-between mb-6">
+                  <label class="form-label mb-0" for="login-pass">Password</label>
+                  <a href="#" style="font-size:12px; color:var(--primary);"
+                    onclick="alert('Password reset link sent to your email!')">Forgot Password?</a>
+                </div>
+                <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In ➔</button>
+
+              <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
+                <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
+                  CONTINUE WITH</span>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="social-btn" onclick="Toast.show('Google Sign-In initialized', 'info')">
+                  <i class="fa-brands fa-google" style="color:#EA4335;"></i> Continue with Google
+                </button>
+                <button type="button" class="social-btn" onclick="Toast.show('Facebook Sign-In initialized', 'info')">
+                  <i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Continue with Facebook
+                </button>
+              </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" style="display:none;"
+              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard ✈️', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              <div class="text-center mb-24">
+                <h2 style="font-size:22px; font-weight:700;">Join Epic-Travellers</h2>
+                <p style="font-size:14px; color:var(--text-secondary);">Start your journey across Incredible India</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" class="form-control" placeholder="e.g. Vikram Sharma" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" class="form-control" placeholder="name@domain.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reg-pass">Create Password</label>
+                <input type="password" id="reg-pass" class="form-control" placeholder="Min 8 characters" required>
+              </div>
+
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account 🎉</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dedicated Log In Page -->
+      <div id="page-login" class="spa-page" style="display:none;">
+        <div class="auth-container">
+          <div class="auth-card anim-scale">
+            <div class="text-center mb-24">
+              <h2 style="font-size:24px; font-weight:800;">Welcome Back</h2>
+              <p style="font-size:14px; color:var(--text-secondary);">Sign in to your Epic-Travellers account</p>
+            </div>
+
+            <div id="standalone-login-form"
+              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in... 🚀', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              <div class="form-group">
+                <label class="form-label" for="s-login-email">Email Address</label>
+                <input type="email" id="s-login-email" class="form-control" placeholder="name@domain.com" required>
+              </div>
+
+              <div class="form-group">
+                <div class="flex-between mb-6">
+                  <label class="form-label mb-0" for="s-login-pass">Password</label>
+                  <a href="#" style="font-size:12px; color:var(--primary);"
+                    onclick="alert('Password reset link sent to your email!')">Forgot Password?</a>
+                </div>
+                <input type="password" id="s-login-pass" class="form-control" placeholder="••••••••" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In ➔</button>
+
+              <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
+                <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
+                  CONTINUE WITH</span>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="social-btn" onclick="Toast.show('Google Sign-In initialized', 'info')">
+                  <i class="fa-brands fa-google" style="color:#EA4335;"></i> Continue with Google
+                </button>
+                <button type="button" class="social-btn" onclick="Toast.show('Facebook Sign-In initialized', 'info')">
+                  <i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Continue with Facebook
+                </button>
+              </div>
+            </div>
+
+            <div class="text-center mt-24" style="font-size:14px; color:var(--text-secondary);">
+              Don't have an account? <a href="#page-register" style="color:var(--primary); font-weight:600;">Create
+                Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dedicated Register Page -->
+      <div id="page-register" class="spa-page" style="display:none;">
+        <div class="auth-container">
+          <div class="auth-card anim-scale">
+            <div class="text-center mb-24">
+              <h2 style="font-size:24px; font-weight:800;">Create Account</h2>
+              <p style="font-size:14px; color:var(--text-secondary);">Join 50,000+ travellers exploring Incredible India
+              </p>
+            </div>
+
+            <div id="standalone-register-form"
+              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard ✈️', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              <div class="form-group">
+                <label class="form-label" for="s-reg-name">Full Name</label>
+                <input type="text" id="s-reg-name" class="form-control" placeholder="e.g. Vikram Sharma" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="s-reg-email">Email Address</label>
+                <input type="email" id="s-reg-email" class="form-control" placeholder="name@domain.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="s-reg-pass">Create Password</label>
+                <input type="password" id="s-reg-pass" class="form-control" placeholder="Min 8 characters" required>
+              </div>
+
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account 🎉</button>
+
+              <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
+                <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
+                  SIGN UP WITH</span>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="social-btn" onclick="Toast.show('Google Sign-Up initialized', 'info')">
+                  <i class="fa-brands fa-google" style="color:#EA4335;"></i> Sign up with Google
+                </button>
+              </div>
+            </div>
+
+            <div class="text-center mt-24" style="font-size:14px; color:var(--text-secondary);">
+              Already have an account? <a href="#page-login" style="color:var(--primary); font-weight:600;">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page-admin" class="spa-page" style="display:none;">
+        <div class="admin-layout">
+
+          <!-- Admin Sidebar -->
+          <aside class="admin-sidebar"
+            style="background:#0f172a; color:white; padding:24px 16px; padding-top:calc(var(--header-height) + 24px); min-height:100vh;">
+            <div
+              style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--primary); font-weight:700; margin-bottom:16px; padding:0 8px;">
+              ⚙️ Admin Control
+            </div>
+            <nav style="display:flex; flex-direction:column;">
+              <a class="admin-menu-link active"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,255,255,0.8); cursor:pointer; margin-bottom:4px; background:var(--gradient-primary);"
+                onclick="switchAdminTab('tab-overview', this)"><i class="fa-solid fa-chart-line"></i> Overview</a>
+              <a class="admin-menu-link"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,255,255,0.6); cursor:pointer; margin-bottom:4px; transition:all 0.2s;"
+                onclick="switchAdminTab('admin-tab-bookings', this)"><i class="fa-solid fa-suitcase"></i> Bookings
+                (1,420)</a>
+              <a class="admin-menu-link"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,255,255,0.6); cursor:pointer; margin-bottom:4px; transition:all 0.2s;"
+                onclick="switchAdminTab('admin-tab-packages', this)"><i class="fa-solid fa-box"></i> Manage Packages</a>
+              <a class="admin-menu-link"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,255,255,0.6); cursor:pointer; margin-bottom:4px; transition:all 0.2s;"
+                onclick="switchAdminTab('admin-tab-destinations', this)"><i class="fa-solid fa-location-dot"></i>
+                Destinations</a>
+              <a class="admin-menu-link"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,255,255,0.6); cursor:pointer; margin-bottom:4px; transition:all 0.2s;"
+                onclick="switchAdminTab('admin-tab-users', this)"><i class="fa-solid fa-users"></i> Users (52.4k)</a>
+              <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:16px 0;">
+              <a href="#page-home" class="admin-menu-link"
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,100,100,0.8); cursor:pointer;"><i
+                  class="fa-solid fa-arrow-left"></i> Back to Website</a>
+            </nav>
+          </aside>
+
+          <!-- Admin Main Content -->
+          <main
+            style="padding:32px; background:var(--bg-secondary); padding-top:calc(var(--header-height) + 32px); min-height:100vh; overflow-y:auto;">
+
+            <!-- Tab: Overview -->
+            <div id="tab-overview" class="admin-tab-panel">
+              <div class="flex-between mb-32">
+                <div>
+                  <h1 style="font-size:26px; font-weight:800;">Analytics Dashboard</h1>
+                  <p style="font-size:14px; color:var(--text-secondary);">Real-time metrics for Epic-Travellers India
+                  </p>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="Toast.show('Report downloaded!', 'success')"><i
+                    class="fa-solid fa-download"></i> Export Report</button>
+              </div>
+
+              <!-- 4 Metric Cards -->
+              <div class="grid grid-4 mb-32 stagger-children">
+                <div class="stat-card anim-scale">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Total
+                      Revenue</small>
+                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">₹42.8 Lakhs
+                    </div>
+                    <span style="font-size:12px; color:#22C55E;">↑ +18.4% this month</span>
+                  </div>
+                  <div class="stat-icon-wrapper" style="background:var(--gradient-primary);"><i
+                      class="fa-solid fa-indian-rupee-sign"></i></div>
+                </div>
+
+                <div class="stat-card anim-scale">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Total
+                      Bookings</small>
+                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">1,420</div>
+                    <span style="font-size:12px; color:#22C55E;">↑ +12.1% from last week</span>
+                  </div>
+                  <div class="stat-icon-wrapper" style="background:var(--gradient-accent);"><i
+                      class="fa-solid fa-suitcase"></i></div>
+                </div>
+
+                <div class="stat-card anim-scale">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Active
+                      Travelers</small>
+                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">348</div>
+                    <span style="font-size:12px; color:var(--primary);">Currently on trip</span>
+                  </div>
+                  <div class="stat-icon-wrapper" style="background:linear-gradient(135deg, #10B981, #059669);"><i
+                      class="fa-solid fa-user-group"></i></div>
+                </div>
+
+                <div class="stat-card anim-scale">
+                  <div>
+                    <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Customer
+                      Rating</small>
+                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">4.9 / 5.0
+                    </div>
+                    <span style="font-size:12px; color:var(--accent);">⭐ Based on 12k reviews</span>
+                  </div>
+                  <div class="stat-icon-wrapper" style="background:linear-gradient(135deg, #F59E0B, #D97706);"><i
+                      class="fa-solid fa-star"></i></div>
+                </div>
+              </div>
+
+              <!-- Recent Bookings Table -->
+              <div class="card p-24" style="padding:24px;">
+                <h3 style="font-size:18px; font-weight:700; margin-bottom:16px;">Recent Bookings Log</h3>
+                <div style="overflow-x:auto;">
+                  <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead>
+                      <tr
+                        style="text-align:left; border-bottom:2px solid var(--gray-200); background:var(--bg-secondary);">
+                        <th style="padding:12px;">Booking ID</th>
+                        <th style="padding:12px;">Customer</th>
+                        <th style="padding:12px;">Package</th>
+                        <th style="padding:12px;">Date</th>
+                        <th style="padding:12px;">Amount</th>
+                        <th style="padding:12px;">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="border-bottom:1px solid var(--gray-200);">
+                        <td style="padding:12px; font-weight:700;">#EPIC-9021</td>
+                        <td style="padding:12px;">Rahul Verma</td>
+                        <td style="padding:12px;">Royal Rajasthan Expedition</td>
+                        <td style="padding:12px;">15 Oct 2025</td>
+                        <td style="padding:12px; font-weight:700;">₹50,000</td>
+                        <td style="padding:12px;"><span class="badge badge-success">Confirmed</span></td>
+                      </tr>
+                      <tr style="border-bottom:1px solid var(--gray-200);">
+                        <td style="padding:12px; font-weight:700;">#EPIC-9022</td>
+                        <td style="padding:12px;">Ananya Roy</td>
+                        <td style="padding:12px;">Kerala Backwaters Romantic Bliss</td>
+                        <td style="padding:12px;">20 Oct 2025</td>
+                        <td style="padding:12px; font-weight:700;">₹36,000</td>
+                        <td style="padding:12px;"><span class="badge badge-primary">Processing</span></td>
+                      </tr>
+                      <tr style="border-bottom:1px solid var(--gray-200);">
+                        <td style="padding:12px; font-weight:700;">#EPIC-9023</td>
+                        <td style="padding:12px;">Siddharth Nair</td>
+                        <td style="padding:12px;">Ladakh Bike Expedition</td>
+                        <td style="padding:12px;">02 Nov 2025</td>
+                        <td style="padding:12px; font-weight:700;">₹64,000</td>
+                        <td style="padding:12px;"><span class="badge badge-success">Confirmed</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Other tabs placeholder for demo -->
+            <div id="admin-tab-bookings" class="admin-tab-panel" style="display:none;">
+              <h2 style="font-size:24px; font-weight:800;">Manage All Bookings</h2>
+              <p style="color:var(--text-secondary); margin-top:8px;">Full list of 1,420 bookings with status controls.
+              </p>
+            </div>
+        </div>
+
+        <div id="page-404" class="spa-page" style="display:none;">
+          <div class="container" style="max-width:600px;">
+            <div class="anim-scale">
+              <div class="error-code">404</div>
+              <h1 style="font-size:28px; font-weight:800; margin-bottom:12px;">Looks Like You're Lost!</h1>
+              <p style="color:var(--text-secondary); font-size:16px; margin-bottom:32px; line-height:1.7;">
+                The travel destination or page you are looking for has wandered off the map or no longer exists.
+              </p>
+
+              <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                <a href="#page-home" class="btn btn-primary btn-lg"><i class="fa-solid fa-house"></i> Return Home</a>
+                <a href="#page-destinations" class="btn btn-secondary btn-lg"><i class="fa-solid fa-compass"></i>
+                  Explore Destinations</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          // Packing Checklist
+          const checklist = document.getElementById('checklist');
+          const items = [
+            'Valid Photo ID / Passport', 'Travel Insurance Documents',
+            'Comfortable Walking Shoes', 'Sunscreen & Sunglasses',
+            'Power Bank & Chargers', 'First Aid Kit',
+            'Insect Repellent', 'Rain Jacket / Poncho',
+            'Camera & Memory Cards', 'Water Bottle',
+            'Local Currency (Cash)', 'Emergency Contacts'
+          ];
+          if (checklist) {
+            checklist.innerHTML = items.map((item, i) => `
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:8px; border-radius:var(--radius-md); transition:background 0.2s;"
+               onmouseover="this.style.background='var(--gray-100)'" onmouseout="this.style.background=''">
+          <input type="checkbox" id="check-${i}" style="width:16px;height:16px;accent-color:var(--primary);" aria-label="${item}">
+          <span style="font-size:14px; color:var(--text-primary);">${item}</span>
+        </label>
+      `).join('');
+          }
+        </script>
+
+
+        <script>
+          /* Inline Script from destinations.html */
+          function applyDestFilters() {
+            const searchEl = document.getElementById('filter-search');
+            const regionEl = document.getElementById('filter-region');
+            const budgetEl = document.getElementById('filter-budget');
+            const seasonEl = document.getElementById('filter-season');
+            const countEl = document.getElementById('results-count');
+
+            if (!searchEl || !regionEl || !budgetEl || !seasonEl) return;
+
+            const query = searchEl.value.toLowerCase().trim();
+            const region = regionEl.value;
+            const budget = budgetEl.value;
+            const season = seasonEl.value;
+
+            const cards = document.querySelectorAll('.destination-full-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+              const name = (card.dataset.name || '').toLowerCase();
+              const cardRegion = card.dataset.region;
+              const cardPrice = parseInt(card.dataset.price || '0');
+              const cardSeason = card.dataset.season;
+
+              let match = true;
+
+              if (query && !name.includes(query)) match = false;
+              if (region !== 'all' && cardRegion !== region) match = false;
+              if (season !== 'all' && cardSeason !== season) match = false;
+              if (budget !== 'all') {
+                const maxB = parseInt(budget);
+                if (maxB === 50000) {
+                  if (cardPrice < 35000) match = false;
+                } else if (cardPrice > maxB) {
+                  match = false;
+                }
+              }
+
+              card.style.display = match ? 'flex' : 'none';
+              if (match) visibleCount++;
+            });
+
+            if (countEl) countEl.textContent = `Showing ${visibleCount} Destinations`;
+          }
+
+          function sortDestinations(type) {
+            const container = document.getElementById('destinations-grid-container');
+            if (!container) return;
+            const cards = Array.from(container.querySelectorAll('.destination-full-card'));
+
+            cards.sort((a, b) => {
+              if (type === 'price-low') return parseInt(a.dataset.price || '0') - parseInt(b.dataset.price || '0');
+              if (type === 'price-high') return parseInt(b.dataset.price || '0') - parseInt(a.dataset.price || '0');
+              if (type === 'rating') return parseFloat(b.dataset.rating || '0') - parseFloat(a.dataset.rating || '0');
+              return 0; // default
+            });
+
+            cards.forEach(c => container.appendChild(c));
+          }
+
+          // Auto load search parameter if passed in URL
+          document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const search = params.get('search') || params.get('dest');
+            const searchInput = document.getElementById('filter-search');
+            if (search && searchInput) {
+              searchInput.value = search;
+              applyDestFilters();
+            }
+          });
+
+          /* Inline Script from packages.html */
+          function filterPackages() {
+            const searchEl = document.getElementById('pkg-search');
+            const styleEl = document.getElementById('pkg-category');
+            const durationEl = document.getElementById('pkg-duration');
+            const budgetEl = document.getElementById('pkg-budget');
+
+            if (!searchEl || !styleEl || !durationEl || !budgetEl) return;
+
+            const search = searchEl.value.toLowerCase().trim();
+            const style = styleEl.value;
+            const duration = durationEl.value;
+            const budget = budgetEl.value;
+
+            const cards = document.querySelectorAll('#packages-grid .package-card');
+
+            cards.forEach(card => {
+              const title = (card.dataset.title || '').toLowerCase();
+              const cardStyle = card.dataset.style;
+              const days = parseInt(card.dataset.days || '0');
+              const price = parseInt(card.dataset.price || '0');
+
+              let match = true;
+
+              if (search && !title.includes(search)) match = false;
+              if (style !== 'all' && cardStyle !== style) match = false;
+
+              if (duration === 'short' && days > 4) match = false;
+              if (duration === 'medium' && (days < 5 || days > 8)) match = false;
+              if (duration === 'long' && days < 9) match = false;
+
+              if (budget !== 'all' && price > parseInt(budget)) match = false;
+
+              card.style.display = match ? 'flex' : 'none';
+            });
+          }
+
+          function selectPill(btn, style) {
+            document.querySelectorAll('#pill-filters .category-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const catEl = document.getElementById('pkg-category');
+            if (catEl) {
+              catEl.value = style;
+              filterPackages();
+            }
+          }
+
+          // Auto set parameter if passed via URL
+          document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type');
+            const catEl = document.getElementById('pkg-category');
+            if (type && catEl) {
+              catEl.value = type;
+              const pill = Array.from(document.querySelectorAll('#pill-filters .category-pill')).find(p => p.getAttribute('onclick')?.includes(`'${type}'`));
+              if (pill) {
+                document.querySelectorAll('#pill-filters .category-pill').forEach(b => b.classList.remove('active'));
+                pill.classList.add('active');
+              }
+              filterPackages();
+            }
+          });
+
+          /* Inline Script from package-details.html */
+          document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            const bread = document.getElementById('pkg-title-bread');
+            const main = document.getElementById('pkg-title-main');
+            const img1 = document.getElementById('gallery-img-1');
+
+            if (id === 'kerala') {
+              if (bread) bread.textContent = 'Kerala Backwaters & Beaches';
+              if (main) main.textContent = 'Kerala Backwaters Romantic Bliss';
+              if (img1) img1.src = '../Content/images/img_56.jpg';
+            } else if (id === 'ladakh-adventure') {
+              if (bread) bread.textContent = 'Ladakh Bike Expedition';
+              if (main) main.textContent = 'Ladakh High Altitude Bike Expedition';
+              if (img1) img1.src = '../Content/images/img_15.jpg';
+            }
+          });
+
+          /* Inline Script from gallery.html */
+          function openLightbox(src, caption) {
+            const img = document.getElementById('lightbox-img');
+            const cap = document.getElementById('lightbox-caption');
+            const modal = document.getElementById('lightbox');
+            if (img) img.src = src;
+            if (cap) cap.textContent = caption;
+            if (modal) modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+
+          function closeLightbox() {
+            const modal = document.getElementById('lightbox');
+            if (modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+
+          // Filter tags
+          document.querySelectorAll('#gallery-filters .tag').forEach(btn => {
+            btn.addEventListener('click', () => {
+              document.querySelectorAll('#gallery-filters .tag').forEach(t => t.classList.remove('active'));
+              btn.classList.add('active');
+
+              const filter = btn.dataset.filter;
+              document.querySelectorAll('#masonry-grid .gallery-masonry-item').forEach(item => {
+                if (filter === 'all' || item.dataset.category === filter) {
+                  item.style.display = 'block';
+                } else {
+                  item.style.display = 'none';
+                }
+              });
+            });
+          });
+
+          /* Inline Script from dashboard.html */
+          function showTab(tabId, element) {
+            document.querySelectorAll('.dash-tab-content').forEach(tab => tab.style.display = 'none');
+            document.querySelectorAll('.dash-menu-item').forEach(btn => btn.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (target) target.style.display = 'block';
+            if (element) element.classList.add('active');
+          }
+
+          /* Inline Script from auth.html */
+          function toggleAuth(mode) {
+            const loginForm = document.getElementById('login-form');
+            const regForm = document.getElementById('register-form');
+            const loginBtn = document.getElementById('tab-login-btn');
+            const regBtn = document.getElementById('tab-register-btn');
+
+            if (mode === 'login') {
+              if (loginForm) loginForm.style.display = 'block';
+              if (regForm) regForm.style.display = 'none';
+              if (loginBtn) loginBtn.classList.add('active');
+              if (regBtn) regBtn.classList.remove('active');
+            } else {
+              if (loginForm) loginForm.style.display = 'none';
+              if (regForm) regForm.style.display = 'block';
+              if (loginBtn) loginBtn.classList.remove('active');
+              if (regBtn) regBtn.classList.add('active');
+            }
+          }
+
+          /* Inline Script from admin.html */
+          function switchAdminTab(panelId, link) {
+            document.querySelectorAll('.admin-tab-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.admin-menu-link').forEach(l => l.classList.remove('active'));
+
+            const target = document.getElementById(panelId);
+            if (target) target.style.display = 'block';
+            if (link) link.classList.add('active');
+          }
+        </script>
+  </asp:Content>

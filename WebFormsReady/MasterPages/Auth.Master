@@ -1,0 +1,46 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Auth.Master.cs" Inherits="Epic_Travelers.MasterPages.Auth" %>
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/components.css" />
+    <link rel="stylesheet" href="~/Content/css/animations.css" />
+    <link rel="stylesheet" href="~/Content/css/dark-mode.css" />
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="stylesheet" href="~/Content/css/fonts.css" />
+    <link rel="stylesheet" href="~/Content/fontawesome/css/all.min.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>✈️</text></svg>">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- Minimal Header for Auth Pages -->
+        <div id="header-placeholder"></div>
+
+        <!-- Auth Content -->
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <!-- Minimal Footer for Auth Pages -->
+        <div id="footer-placeholder"></div>
+
+        <!-- JS -->
+        <script src="<%= ResolveUrl("~/Scripts/js/components.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Scripts/js/main.js") %>"></script>
+
+        <asp:ContentPlaceHolder ID="scripts" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>
