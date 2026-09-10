@@ -16,7 +16,7 @@ namespace Epic_Travelers.Pages
         void getcon()
         {
             con = new SqlConnection(s);
-            con.Open();
+            con.Open(); // Edited by Jaydeep
         }
 
         protected void Page_Load(object sender, EventArgs e) 
