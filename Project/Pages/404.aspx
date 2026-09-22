@@ -19,7 +19,9 @@
       font-weight: 900;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
       line-height: 1;
     }
   </style>

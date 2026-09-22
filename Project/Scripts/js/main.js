@@ -7,6 +7,7 @@
 'use strict';
 
 // ============================================================
+// ============================================================
 // DARK MODE
 // ============================================================
 const DarkMode = {
@@ -24,8 +25,9 @@ const DarkMode = {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(this.key, theme);
     document.querySelectorAll('.dark-toggle').forEach(btn => {
-      btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
-      btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      btn.innerHTML = theme === 'dark' ? '🌙' : '☀️';
+      btn.setAttribute('aria-label', theme === 'dark' ? 'Current theme: Dark (Click to switch to Light)' : 'Current theme: Light (Click to switch to Dark)');
+      btn.setAttribute('title', theme === 'dark' ? 'Current theme: Dark' : 'Current theme: Light');
     });
   },
 
@@ -938,49 +940,6 @@ const CurrencyWidget = {
   }
 };
 
-// ============================================================
-// LIVE CHAT BUBBLE (Simulated)
-// ============================================================
-const LiveChat = {
-  init() {
-    const chatBtn      = document.querySelector('.chat-bubble');
-    const chatWindow   = document.querySelector('.chat-window');
-    const sendBtn      = chatWindow?.querySelector('.chat-send');
-    const chatInput    = chatWindow?.querySelector('.chat-input');
-    const chatMessages = chatWindow?.querySelector('.chat-messages');
-
-    if (!chatBtn || !chatWindow) return;
-
-    sendBtn?.addEventListener('click', () => this.sendMessage(chatInput, chatMessages));
-    chatInput?.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') this.sendMessage(chatInput, chatMessages);
-    });
-  },
-
-  sendMessage(input, messages) {
-    if (!input?.value.trim()) return;
-
-    const userMsg = `<div class="chat-msg user" style="background:var(--gradient-primary); color:white; padding:10px 12px; border-radius:var(--radius-md) var(--radius-md) 0 var(--radius-md); font-size:13px; max-width:85%; align-self:flex-end;">${input.value}</div>`;
-    messages.insertAdjacentHTML('beforeend', userMsg);
-    const userText = input.value;
-    input.value = '';
-
-    setTimeout(() => {
-      const replies = [
-        "Hello! I'm here to help you plan your dream trip to India! 🇮🇳",
-        "We have amazing packages for Rajasthan, Kerala, Goa and more!",
-        "Our team will get back to you within minutes. Please share your travel dates.",
-        "Would you like to explore our featured packages? I can suggest the best options!"
-      ];
-      const reply  = replies[Math.floor(Math.random() * replies.length)];
-      const botMsg = `<div class="chat-msg bot" style="background:var(--gray-100); padding:10px 12px; border-radius:var(--radius-md) var(--radius-md) var(--radius-md) 0; font-size:13px; max-width:85%; color:var(--text-primary);">🤖 ${reply}</div>`;
-      messages.insertAdjacentHTML('beforeend', botMsg);
-      messages.scrollTop = messages.scrollHeight;
-    }, 1000);
-
-    messages.scrollTop = messages.scrollHeight;
-  }
-};
 
 // ============================================================
 // TILT EFFECT (3D Card Hover)
@@ -1117,7 +1076,6 @@ document.addEventListener('DOMContentLoaded', () => {
   Currency.init();
   CurrencyWidget.init();
   AITripPlanner.init();
-  LiveChat.init();
   LazyLoad.init();
 
   // SPA Router (replaces old inline hashchange code)

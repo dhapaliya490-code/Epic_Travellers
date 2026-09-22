@@ -5,10 +5,106 @@
 
 'use strict';
 
+// Resolve active authentication state synchronously
+function getActiveAuth() {
+  // 1. Check window.EPIC_USER (injected synchronously by Site.Master)
+  if (window.EPIC_USER && typeof window.EPIC_USER.isLoggedIn === 'boolean') {
+    return window.EPIC_USER;
+  }
+  // 2. Check localStorage fallback
+  try {
+    const raw = localStorage.getItem('epic_user');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.isLoggedIn) {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  // 3. Check auth cookie fallback
+  try {
+    const match = document.cookie.match(/(?:^|;\s*)epic_auth=([^;]*)/);
+    if (match) {
+      const val = decodeURIComponent(match[1]);
+      const params = new URLSearchParams(val.replace(/&/g, '&'));
+      const role = params.get('role');
+      if (role) {
+        return {
+          isLoggedIn: true,
+          role: role,
+          name: params.get('name') || (role === 'admin' ? 'Admin' : 'User'),
+          email: params.get('email') || ''
+        };
+      }
+    }
+  } catch (e) {}
+
+  return { isLoggedIn: false, role: '', name: '', email: '' };
+}
+
 // ============================================================
 // HEADER COMPONENT
 // ============================================================
 function renderHeader(activePage = '') {
+  const auth = getActiveAuth();
+
+  // ------------------------------------------------------------
+  // SPECIALIZED ADMIN CONTROL TOPBAR (Clean, No Public Nav Links)
+  // ------------------------------------------------------------
+  if (activePage === 'admin') {
+    return `
+      <!-- Admin Top Command Bar -->
+      <header class="header" role="banner" style="background:var(--bg-primary); border-bottom:1px solid var(--gray-200); box-shadow:var(--shadow-sm); z-index:1000;">
+        <div class="header-inner" style="max-width:100%; padding:0 24px; justify-content:space-between;">
+          
+          <!-- Admin Brand -->
+          <div style="display:flex; align-items:center; gap:12px;">
+            <a href="/Pages/admin.aspx" class="logo" aria-label="Epic-Travellers Admin Control Panel" style="text-decoration:none;">
+              <div class="logo-icon" style="background:linear-gradient(135deg, #0284c7, #0ea5e9);" aria-hidden="true">✈</div>
+              <div class="logo-text">
+                <span class="logo-name" style="font-size:18px;">Epic-Travellers</span>
+                <span class="logo-tagline" style="color:var(--primary); font-weight:700;">Admin Command Center</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Quick Search Bar -->
+          <div class="hide-mobile" style="flex:1; max-width:400px; margin:0 24px;">
+            <div style="position:relative; display:flex; align-items:center;">
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; color:var(--text-muted); font-size:13px;"></i>
+              <input type="text" placeholder="Quick search users, bookings, packages..." 
+                style="width:100%; padding:8px 12px 8px 34px; border-radius:999px; border:1px solid var(--gray-300); background:var(--bg-secondary); font-size:13px; outline:none; transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='var(--primary)';" onblur="this.style.borderColor='var(--gray-300)';"
+                onkeyup="if(event.key==='Enter') Toast.show('Search completed', 'info');">
+            </div>
+          </div>
+
+          <!-- Right Admin Actions -->
+          <div style="display:flex; align-items:center; gap:12px;">
+            <!-- Public Site Link -->
+            <a href="/Pages/index.aspx" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:6px; font-weight:600;">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span class="hide-mobile">Live Website</span>
+            </a>
+
+            <!-- Dark / Light Toggle -->
+            <button type="button" class="dark-toggle" aria-label="Toggle theme" title="Toggle Light / Dark Mode" style="border:1px solid var(--gray-300); border-radius:var(--radius-md); width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--bg-primary);">☀️</button>
+
+            <!-- Administrator Profile Chip -->
+            <div style="display:flex; align-items:center; gap:8px; padding:4px 12px 4px 6px; background:rgba(14,165,233,0.08); border:1px solid rgba(14,165,233,0.2); border-radius:999px;">
+              <span style="width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg, #0284c7, #0ea5e9); color:white; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800;">👑</span>
+              <span style="font-size:13px; font-weight:700; color:var(--text-primary);" class="hide-mobile">Admin</span>
+            </div>
+          </div>
+
+        </div>
+      </header>
+      <div class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    `;
+  }
+
+  // ------------------------------------------------------------
+  // STANDARD PUBLIC WEBSITE HEADER
+  // ------------------------------------------------------------
   const nav = [
     { label: 'Home', href: '/Pages/index.aspx', id: 'home' },
     {
@@ -68,6 +164,48 @@ function renderHeader(activePage = '') {
     `;
   }).join('');
 
+  // Generate Authentication Buttons dynamically (Sign out is exclusively in sidebar)
+  let authButtonsHTML = '';
+  if (auth.isLoggedIn && auth.role === 'admin') {
+    authButtonsHTML = `
+      <div class="header-auth-group" style="display:flex; align-items:center; gap:10px;">
+        <a href="/Pages/admin.aspx" class="auth-pill-badge" title="Go to Admin Panel" style="display:inline-flex; align-items:center; gap:8px; padding:5px 14px 5px 6px; background:rgba(14,165,233,0.12); border:1px solid rgba(14,165,233,0.3); border-radius:999px; font-size:13px; font-weight:700; color:var(--primary); text-decoration:none; transition:all 0.2s ease; box-shadow:0 2px 8px rgba(14,165,233,0.15);">
+          <span style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, #0284c7, #0ea5e9); color:white; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; box-shadow:0 2px 6px rgba(0,0,0,0.15);">🛡️</span>
+          <span>Admin</span>
+        </a>
+        <a href="/Pages/admin.aspx" class="btn btn-secondary btn-sm hide-mobile" aria-label="Admin Control Panel" style="display:inline-flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-gauge-high"></i> <span>Admin Panel</span>
+        </a>
+      </div>
+    `;
+  } else if (auth.isLoggedIn && auth.role === 'user') {
+    const initial = auth.name ? auth.name.trim().charAt(0).toUpperCase() : 'U';
+    const rawName = auth.name ? auth.name.trim() : 'Explorer';
+    const displayName = rawName.length > 14 ? rawName.split(' ')[0] : rawName;
+    authButtonsHTML = `
+      <div class="header-auth-group" style="display:flex; align-items:center; gap:10px;">
+        <a href="/Pages/dashboard.aspx" class="auth-pill-badge" title="Go to My Dashboard" style="display:inline-flex; align-items:center; gap:8px; padding:5px 14px 5px 6px; background:rgba(14,165,233,0.1); border:1px solid rgba(14,165,233,0.25); border-radius:999px; font-size:13px; font-weight:700; color:var(--text-primary); text-decoration:none; transition:all 0.2s ease; box-shadow:0 2px 8px rgba(14,165,233,0.1);">
+          <span style="width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, #0ea5e9, #6366f1); color:white; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; box-shadow:0 2px 6px rgba(14,165,233,0.3);">${initial}</span>
+          <span style="max-width:130px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Hi, ${displayName}</span>
+        </a>
+        <a href="/Pages/dashboard.aspx" class="btn btn-secondary btn-sm hide-mobile" aria-label="My Dashboard" style="display:inline-flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-suitcase"></i> <span>My Dashboard</span>
+        </a>
+      </div>
+    `;
+  } else {
+    authButtonsHTML = `
+      <div class="header-auth-group" style="display:flex; align-items:center; gap:8px;">
+        <a href="/Pages/login.aspx" class="btn btn-secondary btn-sm" aria-label="Log in to your account" style="display:inline-flex; align-items:center; gap:5px;">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Log In
+        </a>
+        <a href="/Pages/register.aspx" class="btn btn-primary btn-sm" aria-label="Register a new account" style="display:inline-flex; align-items:center; gap:5px;">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </a>
+      </div>
+    `;
+  }
+
   return `
     <!-- Page Loader -->
     <div class="page-loader" role="status" aria-label="Loading page" aria-live="polite">
@@ -106,10 +244,8 @@ function renderHeader(activePage = '') {
             <option value="GBP">£ GBP</option>
             <option value="AED">AED</option>
           </select>
-          <button class="dark-toggle" aria-label="Switch to dark mode" title="Toggle dark mode">🌙</button>
-          <a href="/Pages/dashboard.aspx" class="btn btn-secondary btn-sm hide-mobile" aria-label="My Dashboard">My Trips</a>
-          <a href="/Pages/login.aspx" class="btn btn-secondary btn-sm" aria-label="Log in to your account">Log In</a>
-          <a href="/Pages/register.aspx" class="btn btn-primary btn-sm" aria-label="Register a new account">Register</a>
+          <button type="button" class="dark-toggle" aria-label="Toggle theme" title="Current theme: Light">☀️</button>
+          ${authButtonsHTML}
         </div>
       </div>
     </header>
@@ -118,7 +254,7 @@ function renderHeader(activePage = '') {
     <div class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Back to Top -->
-    <button class="back-to-top" aria-label="Scroll back to top" title="Back to top">
+    <button type="button" class="back-to-top" aria-label="Scroll back to top" title="Back to top">
       <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
     </button>
 
@@ -126,52 +262,38 @@ function renderHeader(activePage = '') {
     <a href="/Pages/packages.aspx" class="floating-book-btn" aria-label="Book a tour now">
       <span aria-hidden="true">🏔️</span> Book a Tour
     </a>
-
-    <!-- Live Chat Bubble -->
-    <div style="position:fixed; bottom:90px; left:24px; z-index:var(--z-fixed);">
-      <button class="chat-bubble" aria-label="Open live chat" aria-expanded="false" aria-controls="chat-window" style="
-        width:52px; height:52px; border-radius:50%;
-        background:var(--gradient-primary); color:white;
-        border:none; font-size:22px; cursor:pointer;
-        box-shadow:var(--shadow-lg); transition:var(--transition-bounce);
-        animation: pulseShadow 2s ease-in-out infinite;
-      ">💬</button>
-      <div class="chat-window" id="chat-window" role="dialog" aria-label="Live support chat" aria-hidden="true" style="
-        position:absolute; bottom:64px; left:0;
-        width:300px; background:var(--bg-primary);
-        border-radius:var(--radius-xl); box-shadow:var(--shadow-xl);
-        border:1px solid var(--gray-200); overflow:hidden;
-        display:none; flex-direction:column;
-      ">
-        <div style="padding:16px; background:var(--gradient-primary); color:white;">
-          <div style="font-weight:700; font-size:15px;">💬 Live Support</div>
-          <div style="font-size:12px; opacity:0.85;">We typically reply in minutes</div>
-        </div>
-        <div class="chat-messages" style="height:200px; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px;" aria-live="polite">
-          <div class="chat-msg bot" style="background:var(--gray-100); padding:10px 12px; border-radius:var(--radius-md) var(--radius-md) var(--radius-md) 0; font-size:13px; max-width:85%; color:var(--text-primary);">
-            🤖 Hi! Welcome to Epic-Travellers! How can I help you plan your trip to India? 🇮🇳
-          </div>
-        </div>
-        <div style="padding:12px; border-top:1px solid var(--gray-200); display:flex; gap:8px;">
-          <input class="chat-input form-control" placeholder="Type a message..." style="flex:1; padding:8px 12px; font-size:13px;" aria-label="Chat message">
-          <button class="chat-send btn btn-primary btn-sm" style="padding:8px 14px;" aria-label="Send message">➤</button>
-        </div>
-      </div>
-    </div>
-
-    <style>
-      @keyframes pulseShadow {
-        0%, 100% { box-shadow: var(--shadow-lg), 0 0 0 0 rgba(14,165,233,0.4); }
-        50% { box-shadow: var(--shadow-lg), 0 0 0 10px rgba(14,165,233,0); }
-      }
-    </style>
   `;
 }
 
 // ============================================================
 // FOOTER COMPONENT
 // ============================================================
-function renderFooter() {
+function renderFooter(activePage = '') {
+  if (activePage === 'admin') {
+    return `
+      <footer style="background:#0b1329; border-top:1px solid rgba(255,255,255,0.08); padding:16px 24px; color:rgba(255,255,255,0.5); font-size:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>© 2025 Epic-Travellers Admin Control Panel • All Systems Operational</div>
+        <div style="display:flex; gap:16px; align-items:center;">
+          <span style="color:#22C55E; font-weight:600;"><i class="fa-solid fa-shield-halved"></i> Secure TLS 1.3 Node</span>
+          <span>Enterprise Edition v2.4</span>
+        </div>
+      </footer>
+    `;
+  }
+
+  const auth = getActiveAuth();
+  const accountLinks = auth.isLoggedIn
+    ? `
+      <li><a href="/Pages/dashboard.aspx" class="footer-link">→ My Dashboard</a></li>
+      <li><a href="/Pages/packages.aspx"  class="footer-link">→ My Bookings</a></li>
+      <li><a href="/Pages/logout.aspx"    class="footer-link" style="color:#ef4444;">→ Sign Out</a></li>
+    `
+    : `
+      <li><a href="/Pages/login.aspx"    class="footer-link">→ Log In / Sign In</a></li>
+      <li><a href="/Pages/register.aspx" class="footer-link">→ Create Account / Register</a></li>
+      <li><a href="/Pages/dashboard.aspx"class="footer-link">→ My Trips</a></li>
+    `;
+
   return `
     <footer class="footer" role="contentinfo">
       <div class="container">
@@ -182,7 +304,7 @@ function renderFooter() {
               <div class="footer-logo-icon" aria-hidden="true">✈</div>
               <div>
                 <div class="footer-brand-name">Epic-Travellers</div>
-                <div style="font-size:11px; letter-spacing:2px; color:rgba(255,255,255,0.4); text-transform:uppercase;">Discover Incredible India</div>
+                <div class="footer-brand-tagline">Discover Incredible India</div>
               </div>
             </div>
             <p class="footer-description">
@@ -194,7 +316,7 @@ function renderFooter() {
               <a href="https://instagram.com" class="social-link" aria-label="Follow us on Instagram"  target="_blank" rel="noopener noreferrer">📷</a>
               <a href="https://twitter.com"   class="social-link" aria-label="Follow us on Twitter/X"  target="_blank" rel="noopener noreferrer">🐦</a>
               <a href="https://youtube.com"   class="social-link" aria-label="Watch us on YouTube"     target="_blank" rel="noopener noreferrer">▶️</a>
-              <a href="https://wa.me/919876543210" class="social-link" aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
+              <a href="https://wa.me/919099107637" class="social-link" aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
             </div>
           </div>
 
@@ -230,9 +352,7 @@ function renderFooter() {
           <div>
             <h3 class="footer-heading">Account & Support</h3>
             <ul class="footer-links">
-              <li><a href="/Pages/login.aspx"    class="footer-link">→ Log In / Sign In</a></li>
-              <li><a href="/Pages/register.aspx" class="footer-link">→ Create Account / Register</a></li>
-              <li><a href="/Pages/dashboard.aspx"class="footer-link">→ My Dashboard</a></li>
+              ${accountLinks}
               <li><a href="/Pages/contact.aspx"  class="footer-link">→ Help Center</a></li>
               <li><a href="/Pages/contact.aspx"  class="footer-link">→ Terms & Privacy</a></li>
               <li><a href="/Pages/contact.aspx"  class="footer-link">→ Refund Policy</a></li>
@@ -242,7 +362,7 @@ function renderFooter() {
           <!-- Newsletter -->
           <div>
             <h3 class="footer-heading">Newsletter</h3>
-            <p style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:16px; line-height:1.7;">
+            <p class="footer-newsletter-text">
               Get exclusive deals, travel tips, and destination guides delivered to your inbox.
             </p>
             <form class="footer-newsletter newsletter-form" novalidate aria-label="Newsletter sign-up">
@@ -250,12 +370,12 @@ function renderFooter() {
               <button type="submit" class="btn btn-primary" style="width:100%;" aria-label="Subscribe to newsletter">Subscribe ✈</button>
             </form>
             <div style="margin-top:16px;">
-              <div style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">We accept</div>
+              <div class="footer-badge-title">We accept</div>
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <span style="padding:4px 10px; background:rgba(255,255,255,0.08); border-radius:4px; font-size:12px; color:rgba(255,255,255,0.7);">💳 Stripe</span>
-                <span style="padding:4px 10px; background:rgba(255,255,255,0.08); border-radius:4px; font-size:12px; color:rgba(255,255,255,0.7);">🅿️ PayPal</span>
-                <span style="padding:4px 10px; background:rgba(255,255,255,0.08); border-radius:4px; font-size:12px; color:rgba(255,255,255,0.7);">💸 Razorpay</span>
-                <span style="padding:4px 10px; background:rgba(255,255,255,0.08); border-radius:4px; font-size:12px; color:rgba(255,255,255,0.7);">📱 UPI</span>
+                <span class="footer-payment-badge">💳 Stripe</span>
+                <span class="footer-payment-badge">🅿️ PayPal</span>
+                <span class="footer-payment-badge">💸 Razorpay</span>
+                <span class="footer-payment-badge">📱 UPI</span>
               </div>
             </div>
           </div>
@@ -280,42 +400,31 @@ function renderFooter() {
 // INJECT COMPONENTS
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  let activePage = document.body.dataset.page || '';
+  if (!activePage) {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('admin.aspx')) activePage = 'admin';
+    else if (path.includes('destinations.aspx')) activePage = 'destinations';
+    else if (path.includes('packages.aspx') || path.includes('package-details.aspx')) activePage = 'packages';
+    else if (path.includes('gallery.aspx')) activePage = 'gallery';
+    else if (path.includes('blog.aspx') || path.includes('blog-details.aspx')) activePage = 'blog';
+    else if (path.includes('about.aspx')) activePage = 'about';
+    else if (path.includes('contact.aspx')) activePage = 'contact';
+    else if (path.includes('dashboard.aspx')) activePage = 'dashboard';
+    else if (path.includes('login.aspx')) activePage = 'login';
+    else if (path.includes('register.aspx')) activePage = 'register';
+    else if (path.includes('index.aspx') || path === '/' || path.endsWith('/pages/')) activePage = 'home';
+  }
+
   // Inject Header
   const headerTarget = document.getElementById('header-placeholder');
   if (headerTarget) {
-    let activePage = document.body.dataset.page || '';
-    if (!activePage) {
-      const path = window.location.pathname.toLowerCase();
-      if (path.includes('destinations.aspx')) activePage = 'destinations';
-      else if (path.includes('packages.aspx')) activePage = 'packages';
-      else if (path.includes('gallery.aspx')) activePage = 'gallery';
-      else if (path.includes('blog.aspx')) activePage = 'blog';
-      else if (path.includes('about.aspx')) activePage = 'about';
-      else if (path.includes('contact.aspx')) activePage = 'contact';
-      else if (path.includes('dashboard.aspx')) activePage = 'dashboard';
-      else if (path.includes('login.aspx')) activePage = 'login';
-      else if (path.includes('register.aspx')) activePage = 'register';
-      else if (path.includes('index.aspx') || path === '/' || path.endsWith('/pages/')) activePage = 'home';
-    }
     headerTarget.innerHTML = renderHeader(activePage);
   }
 
   // Inject Footer
   const footerTarget = document.getElementById('footer-placeholder');
   if (footerTarget) {
-    footerTarget.innerHTML = renderFooter();
+    footerTarget.innerHTML = renderFooter(activePage);
   }
-
-  // Wire up chat bubble toggle (after injection)
-  document.addEventListener('click', (e) => {
-    const chatBtn = e.target.closest('.chat-bubble');
-    if (chatBtn) {
-      const win = document.getElementById('chat-window');
-      if (!win) return;
-      const isOpen = win.style.display === 'flex';
-      win.style.display = isOpen ? 'none' : 'flex';
-      chatBtn.setAttribute('aria-expanded', String(!isOpen));
-      win.setAttribute('aria-hidden', String(isOpen));
-    }
-  });
 });

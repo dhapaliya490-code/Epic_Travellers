@@ -183,14 +183,10 @@
 [data-theme="dark"] .contact-info-card {
   background: var(--bg-secondary);
   border-color: var(--gray-200);
-}
-
-/* Footer stays dark regardless */
-.footer { color-scheme: dark; }
-
 /* Smooth transitions for dark mode switch */
 body,
 .header,
+.footer,
 .card,
 .package-card,
 .blog-card,

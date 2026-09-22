@@ -69,7 +69,7 @@ namespace Epic_Travelers.Pages
                 clear();
                 fillgird();
 
-                Response.Redirect("register.aspx");
+                Response.Redirect("login.aspx");
             }
             else
             {

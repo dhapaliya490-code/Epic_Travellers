@@ -411,7 +411,7 @@
 
               <div class="form-group">
                 <label class="form-label" for="book-phone">Phone / WhatsApp</label>
-                <input type="tel" id="book-phone" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+                <input type="tel" id="book-phone" name="phone" class="form-control" placeholder="+91 90991 07637" required>
               </div>
 
               <div style="background:var(--gray-100); border-radius:var(--radius-md); padding:12px; margin-bottom:20px; font-size:13px;">
@@ -422,7 +422,7 @@
                 </div>
               </div>
 
-              <button type="button" onclick="Toast.show('Booking request received!', 'success')" class="btn btn-accent btn-lg" style="width:100%;">
+              <button type="button" onclick="bookTourNow()" class="btn btn-accent btn-lg" style="width:100%;">
                 <i class="fa-solid fa-bolt"></i> Book Now (Instant Confirmation)
               </button>
             </div>
@@ -438,19 +438,226 @@
     </div>
   </div>
   <script>
+    function bookTourNow() {
+      const user = window.EPIC_USER || {};
+      const email = (user.email || 'guest').toLowerCase();
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id') || 'royal-rajasthan';
+      const pkg = PKG_CATALOG[id] || PKG_CATALOG['royal-rajasthan'];
+
+      const pkgTitle = pkg.title || document.getElementById('pkg-title-main')?.innerText.trim() || 'Royal Rajasthan Expedition';
+      const pkgImage = pkg.img || document.getElementById('gallery-img-1')?.src || '../Content/images/img_48.jpg';
+      const bookingId = '#EPIC-' + Math.floor(10000 + Math.random() * 90000);
+      const invoiceNo = 'INV-EPIC-2025-' + Math.floor(1000 + Math.random() * 9000);
+      const todayStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+      const enteredName = document.getElementById('book-name')?.value?.trim() || user.name || 'Valued Traveler';
+      const enteredEmail = document.getElementById('book-email')?.value?.trim() || user.email || 'traveler@epictravellers.com';
+      const enteredPhone = document.getElementById('book-phone')?.value?.trim() || '+91 90991 07637';
+
+      const newBooking = {
+        id: bookingId,
+        invoiceNo: invoiceNo,
+        title: pkgTitle,
+        image: pkgImage,
+        bookingDate: todayStr,
+        travelDates: 'Upcoming • 2025',
+        duration: pkg.duration || '8 Days / 7 Nights',
+        guests: '2 Adults',
+        travelerName: enteredName,
+        travelerEmail: enteredEmail,
+        travelerPhone: enteredPhone,
+        inclusions: pkg.inclusions || 'Heritage Stays, Private AC SUV, Daily Meals, Guided Sightseeing',
+        price: pkg.price || '₹45,000',
+        subtotal: pkg.subtotal || '₹42,857',
+        gst: pkg.gst ? `${pkg.gst} (5% GST)` : '₹2,143 (5% GST)',
+        paymentMode: 'UPI / NetBanking (Online Verified)',
+        txnId: 'TXN_EPIC_' + Math.floor(100000 + Math.random() * 900000),
+        status: 'Confirmed'
+      };
+
+      try {
+        const key = 'epic_bookings_' + email;
+        let existing = JSON.parse(localStorage.getItem(key) || '[]');
+        existing.unshift(newBooking);
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch(e) {}
+
+      Toast.show('🎉 Tour Booked Successfully! Opening your dashboard...', 'success');
+      setTimeout(() => {
+        window.location.href = '/Pages/dashboard.aspx';
+      }, 1000);
+    }
+
+    // Comprehensive Package Catalog Data for Dynamic Details View
+    const PKG_CATALOG = {
+      'royal-rajasthan': {
+        bread: 'Royal Rajasthan Expedition',
+        title: 'Royal Rajasthan Heritage Expedition',
+        location: 'Jaipur • Jodhpur • Jaisalmer • Udaipur, India',
+        img: '../Content/images/img_48.jpg',
+        img2: '../Content/images/img_49.jpg',
+        img3: '../Content/images/img_24.jpg',
+        img4: '../Content/images/img_37.jpg',
+        duration: '8 Days / 7 Nights',
+        type: 'Royal Heritage',
+        price: '₹45,000',
+        subtotal: '₹42,857',
+        gst: '₹2,143',
+        inclusions: '4★ Heritage Haveli Stays, Private AC SUV with Chauffeur, Daily Breakfast & Gourmet Dinners, Thar Desert Camel Safari & Tent Stay, Guided City Sightseeing & Monument Entries.'
+      },
+      'kerala': {
+        bread: 'Kerala Backwaters Romantic Bliss',
+        title: 'Kerala Backwaters Romantic Bliss',
+        location: 'Munnar • Alleppey • Kovalam • Kochi, India',
+        img: '../Content/images/img_55.jpg',
+        img2: '../Content/images/img_18.jpg',
+        img3: '../Content/images/img_20.jpg',
+        img4: '../Content/images/img_27.jpg',
+        duration: '6 Days / 5 Nights',
+        type: 'Honeymoon Special',
+        price: '₹36,000',
+        subtotal: '₹34,285',
+        gst: '₹1,715',
+        inclusions: 'Luxury Air-conditioned Houseboat, 5★ Tea Plantation Resort in Munnar, Candlelight Dinner, Ayurvedic Spa Session, Private Chauffeur Transfers.'
+      },
+      'ladakh-adventure': {
+        bread: 'Ladakh Bike Expedition',
+        title: 'Ladakh High Altitude Bike Expedition',
+        location: 'Leh • Khardung La • Pangong Tso • Nubra Valley, India',
+        img: '../Content/images/img_14.jpg',
+        img2: '../Content/images/img_13.jpg',
+        img3: '../Content/images/img_43.jpg',
+        img4: '../Content/images/img_12.jpg',
+        duration: '10 Days / 9 Nights',
+        type: 'Extreme Adventure',
+        price: '₹32,000',
+        subtotal: '₹30,476',
+        gst: '₹1,524',
+        inclusions: 'Royal Enfield Himalayan 411cc Bikes, Fuel & Mechanic Backup Van, Deluxe Camp Stays at Pangong Lake & Nubra Valley, Inner Line Permits, Oxygen Kits.'
+      },
+      'kashmir-paradise': {
+        bread: 'Kashmir Paradise Tour',
+        title: 'Kashmir Paradise: Srinagar & Gulmarg',
+        location: 'Srinagar • Gulmarg • Pahalgam • Dal Lake, India',
+        img: '../Content/images/img_13.jpg',
+        img2: '../Content/images/img_14.jpg',
+        img3: '../Content/images/img_43.jpg',
+        img4: '../Content/images/img_55.jpg',
+        duration: '7 Days / 6 Nights',
+        type: 'Luxury Paradise',
+        price: '₹38,000',
+        subtotal: '₹36,190',
+        gst: '₹1,810',
+        inclusions: 'Luxury Dal Lake Houseboat with Shikara Ride, Gulmarg Phase-1 Gondola Cable Car Tickets, Betaab Valley Excursion, Daily Kashmiri Wazwan Dinners.'
+      },
+      'goa-beach': {
+        bread: 'Goa Beach Resort & Cruise Retreat',
+        title: 'Goa Beach Resort & Cruise Retreat',
+        location: 'Calangute • Baga • Panaji • Old Goa, India',
+        img: '../Content/images/img_21.jpg',
+        img2: '../Content/images/img_33.jpg',
+        img3: '../Content/images/img_27.jpg',
+        img4: '../Content/images/img_20.jpg',
+        duration: '5 Days / 4 Nights',
+        type: 'Beach & Coastal',
+        price: '₹18,000',
+        subtotal: '₹17,142',
+        gst: '₹858',
+        inclusions: '4★ Beachfront Resort, Mandovi Luxury Sunset Dinner Cruise, Island Scuba & Snorkeling, Dudhsagar Waterfalls Safari, Airport Private Transfers.'
+      },
+      'manali-shimla': {
+        bread: 'Manali-Shimla Snow Explorer',
+        title: 'Manali-Shimla Snow Explorer',
+        location: 'Shimla • Kufri • Manali • Solang Valley, India',
+        img: '../Content/images/img_43.jpg',
+        img2: '../Content/images/img_14.jpg',
+        img3: '../Content/images/img_13.jpg',
+        img4: '../Content/images/img_48.jpg',
+        duration: '7 Days / 6 Nights',
+        type: 'Snow & Mountains',
+        price: '₹24,000',
+        subtotal: '₹22,857',
+        gst: '₹1,143',
+        inclusions: 'Luxury Volvo Coach Transfers, Solang Valley Snow Activities Pass, Cedar Forest Cottage Stay, Rohtang Pass Excursion, Daily Breakfast & Dinner.'
+      },
+      'andaman': {
+        bread: 'Andaman Luxury Coral Island Tour',
+        title: 'Andaman Luxury Coral Island Tour',
+        location: 'Port Blair • Havelock Island • Neil Island, India',
+        img: '../Content/images/img_33.jpg',
+        img2: '../Content/images/img_21.jpg',
+        img3: '../Content/images/img_55.jpg',
+        img4: '../Content/images/img_18.jpg',
+        duration: '6 Days / 5 Nights',
+        type: 'Island Luxury',
+        price: '₹42,000',
+        subtotal: '₹40,000',
+        gst: '₹2,000',
+        inclusions: 'High-speed Catamaran Ferry between Port Blair, Havelock & Neil, 5★ Beach Resort, Scuba Diving Session at Elephant Beach, Cellular Jail Light & Sound.'
+      },
+      'golden-triangle': {
+        bread: 'Golden Triangle Tour',
+        title: 'Golden Triangle: Delhi, Agra & Jaipur',
+        location: 'New Delhi • Agra • Fatehpur Sikri • Jaipur, India',
+        img: '../Content/images/img_32.jpg',
+        img2: '../Content/images/img_24.jpg',
+        img3: '../Content/images/img_48.jpg',
+        img4: '../Content/images/img_49.jpg',
+        duration: '6 Days / 5 Nights',
+        type: 'Heritage & Culture',
+        price: '₹28,000',
+        subtotal: '₹26,666',
+        gst: '₹1,334',
+        inclusions: 'Sunrise Taj Mahal VIP Entry, Agra Fort, Amber Fort Elephant Experience, 4★ Heritage Stays, Private Chauffeur Driven AC Sedan, Certified Guides.'
+      },
+      'varanasi-spiritual': {
+        bread: 'Spiritual Varanasi Odyssey',
+        title: 'Spiritual Varanasi & Ganges Odyssey',
+        location: 'Varanasi • Sarnath • Ganges Ghats, India',
+        img: '../Content/images/img_39.jpg',
+        img2: '../Content/images/img_48.jpg',
+        img3: '../Content/images/img_32.jpg',
+        img4: '../Content/images/img_24.jpg',
+        duration: '4 Days / 3 Nights',
+        type: 'Spiritual Heritage',
+        price: '₹16,000',
+        subtotal: '₹15,238',
+        gst: '₹762',
+        inclusions: 'Private Sunrise Boat Row on Ganges, Evening VIP Ganga Aarti Seating at Dashashwamedh Ghat, Sarnath Guided Tour, Heritage Haveli Stay near Ghats.'
+      }
+    };
+
     // Customize page based on URL parameters if provided
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
+      const id = params.get('id') || 'royal-rajasthan';
+      const pkg = PKG_CATALOG[id] || PKG_CATALOG['royal-rajasthan'];
 
-      if (id === 'kerala') {
-        document.getElementById('pkg-title-bread').textContent = 'Kerala Backwaters & Beaches';
-        document.getElementById('pkg-title-main').textContent = 'Kerala Backwaters Romantic Bliss';
-        document.getElementById('gallery-img-1').src = '../Content/images/img_56.jpg';
-      } else if (id === 'ladakh-adventure') {
-        document.getElementById('pkg-title-bread').textContent = 'Ladakh Bike Expedition';
-        document.getElementById('pkg-title-main').textContent = 'Ladakh High Altitude Bike Expedition';
-        document.getElementById('gallery-img-1').src = '../Content/images/img_15.jpg';
+      if (pkg) {
+        const bTitle = document.getElementById('pkg-title-bread');
+        const mTitle = document.getElementById('pkg-title-main');
+        const gImg1 = document.getElementById('gallery-img-1');
+        const gImg2 = document.getElementById('gallery-img-2');
+        const gImg3 = document.getElementById('gallery-img-3');
+        const gImg4 = document.getElementById('gallery-img-4');
+        
+        if (bTitle) bTitle.textContent = pkg.bread;
+        if (mTitle) mTitle.textContent = pkg.title;
+        if (gImg1 && pkg.img) gImg1.src = pkg.img;
+        if (gImg2 && pkg.img2) gImg2.src = pkg.img2;
+        if (gImg3 && pkg.img3) gImg3.src = pkg.img3;
+        if (gImg4 && pkg.img4) gImg4.src = pkg.img4;
+
+        // Auto-fill user contact info if logged in
+        const user = window.EPIC_USER || {};
+        if (user.name) {
+          const nameInput = document.getElementById('book-name');
+          if (nameInput) nameInput.value = user.name;
+        }
+        if (user.email) {
+          const emailInput = document.getElementById('book-email');
+          if (emailInput) emailInput.value = user.email;
+        }
       }
     });
   </script>

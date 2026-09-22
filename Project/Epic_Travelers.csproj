@@ -172,6 +172,13 @@
     <Compile Include="Pages\blog.aspx.designer.cs">
       <DependentUpon>blog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\blog-details.aspx.cs">
+      <DependentUpon>blog-details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\blog-details.aspx.designer.cs">
+      <DependentUpon>blog-details.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\contact.aspx.cs">
       <DependentUpon>contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -214,6 +221,13 @@
     <Compile Include="Pages\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\package-details.aspx.cs">
       <DependentUpon>package-details.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -250,12 +264,14 @@
     <Content Include="Pages\admin.aspx" />
     <Content Include="Pages\auth.aspx" />
     <Content Include="Pages\blog.aspx" />
+    <Content Include="Pages\blog-details.aspx" />
     <Content Include="Pages\contact.aspx" />
     <Content Include="Pages\dashboard.aspx" />
     <Content Include="Pages\destinations.aspx" />
     <Content Include="Pages\gallery.aspx" />
     <Content Include="Pages\index.aspx" />
     <Content Include="Pages\login.aspx" />
+    <Content Include="Pages\logout.aspx" />
     <Content Include="Pages\package-details.aspx" />
     <Content Include="Pages\packages.aspx" />
     <Content Include="Pages\register.aspx" />
@@ -298,6 +314,14 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <StartPageUrl>Pages/login.aspx</StartPageUrl>
+          <StartAction>SpecificPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
