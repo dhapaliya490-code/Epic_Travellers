@@ -19,6 +19,7 @@
       color: white;
       text-align: center;
       overflow: hidden;
+      
     }
 
     .blog-hero::before {
@@ -313,6 +314,16 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 28px;
+    }
+
+    /* Seamless DataList Integration */
+    #blog-articles-grid > span,
+    #blog-articles-grid span {
+      display: contents !important;
+    }
+    #blog-articles-grid br,
+    #blog-articles-grid span br {
+      display: none !important;
     }
 
     .mag-card {
@@ -770,261 +781,49 @@
             
             <div class="magazine-grid stagger-children" id="blog-articles-grid">
 
-              <!-- Article 1: Kerala -->
-              <article class="mag-card anim-fade-up" data-category="kerala" data-title="kerala backwaters authentic houseboat ayurveda guide alleppey munnar" data-readtime="5" data-date="2025-01-10">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=kerala-backwaters-houseboat">
-                    <img src="../Content/images/img_55.jpg" alt="Kerala backwaters houseboat cruise" loading="lazy">
-                  </a>
-                  <span class="badge badge-success mag-card-tag">🌿 Backwaters &amp; Spa</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Kerala Backwaters: Authentic Houseboat Guide')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=kerala-backwaters-houseboat">Kerala Backwaters: Authentic Houseboat &amp; Ayurveda Guide</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Float through tranquil emerald waterways in Alleppey, feast on fresh Karimeen fish wrapped in banana leaves, and experience authentic Ayurvedic rejuvenation.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Alleppey')">#Alleppey</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Ayurveda')">#Ayurveda</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Houseboat')">#Houseboat</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Jan 10, 2025</span>
-                    <a href="/Pages/blog-details.aspx?id=kerala-backwaters-houseboat" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+              <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList1_ItemCommand">
+                <ItemTemplate>
+                  <asp:Panel ID="pnlMagCard" runat="server" CssClass="mag-card anim-fade-up" 
+                             data-category='<%# Eval("Blog_Category") %>' 
+                             data-title='<%# Eval("Blog_SearchKeywords") %>' 
+                             data-readtime='<%# Eval("Blog_ReadTime") %>' 
+                             data-date='<%# Eval("Blog_DateValue") %>'>
+                    
+                    <asp:Panel ID="pnlMagMedia" runat="server" CssClass="mag-card-media">
+                      <asp:LinkButton ID="btnImgLink" runat="server" CommandName="cmd_read" CommandArgument='<%# Eval("Blog_Url") %>'>
+                        <asp:Image ID="imgBlog" runat="server" ImageUrl='<%# Eval("Blog_Image") %>' AlternateText='<%# Eval("Blog_Title") %>' />
+                      </asp:LinkButton>
+                      <asp:Label ID="lblBadge" runat="server" CssClass='<%# "badge " + Eval("Blog_BadgeClass") + " mag-card-tag" %>' Text='<%# Eval("Blog_BadgeText") %>' />
+                      <asp:LinkButton ID="btnBookmark" runat="server" CssClass="mag-bookmark-btn" 
+                                      OnClientClick='<%# "toggleBookmark(this, \"" + Eval("Blog_Title") + "\"); return false;" %>' 
+                                      ToolTip="Save story">
+                        <i class="fa-regular fa-bookmark"></i>
+                      </asp:LinkButton>
+                    </asp:Panel>
 
-              <!-- Article 2: Rajasthan Forts -->
-              <article class="mag-card anim-fade-up" data-category="rajasthan" data-title="10 majestic rajasthan forts royal heritage jaipur jodhpur jaisalmer amber mehrangarh" data-readtime="7" data-date="2025-01-04">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=rajasthan-forts">
-                    <img src="../Content/images/img_48.jpg" alt="Rajasthan palaces and hill forts" loading="lazy">
-                  </a>
-                  <span class="badge badge-accent mag-card-tag">👑 Royal Heritage</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, '10 Majestic Rajasthan Forts')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=rajasthan-forts">10 Majestic Rajasthan Forts That Transport You Back in Time</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Stand atop the sun-drenched ramparts of Mehrangarh, mirror-palace Amber, and the golden living citadel of Jaisalmer — epic stories of Rajput chivalry.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Jodhpur')">#Jodhpur</span>
-                    <span class="mag-tag-chip" onclick="searchTag('AmberFort')">#AmberFort</span>
-                    <span class="mag-tag-chip" onclick="searchTag('History')">#History</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Jan 04, 2025</span>
-                    <a href="/Pages/blog-details.aspx?id=rajasthan-forts" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+                    <asp:Panel ID="pnlMagBody" runat="server" CssClass="mag-card-body">
+                      <h3 class="mag-card-title">
+                        <asp:LinkButton ID="btnTitleLink" runat="server" CommandName="cmd_read" CommandArgument='<%# Eval("Blog_Url") %>' Text='<%# Eval("Blog_Title") %>' />
+                      </h3>
+                      <asp:Label ID="lblExcerpt" runat="server" CssClass="mag-card-text" Text='<%# Eval("Blog_Excerpt") %>' />
 
-              <!-- Article 3: Goa Hidden Spots -->
-              <article class="mag-card anim-fade-up" data-category="goa" data-title="beyond beaches hidden secret spots south goa spice trails cabo de rama fontainhas" data-readtime="6" data-date="2024-12-28">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=goa-hidden-spots">
-                    <img src="../Content/images/img_21.jpg" alt="Goa secret beaches and heritage" loading="lazy">
-                  </a>
-                  <span class="badge badge-primary mag-card-tag">🏖️ Secret Coves</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Hidden Secret Spots in South Goa')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=goa-hidden-spots">Beyond Beaches: Hidden Secret Spots &amp; Spice Trails in South Goa</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Venture beyond the crowded shacks to dramatic cliff ruins at Cabo de Rama, Latin quarters in Fontainhas, and dolphin-filled Butterfly Beach.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('SouthGoa')">#SouthGoa</span>
-                    <span class="mag-tag-chip" onclick="searchTag('CaboDeRama')">#CaboDeRama</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Fontainhas')">#Fontainhas</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Dec 28, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=goa-hidden-spots" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+                      <asp:Panel ID="pnlTagsRow" runat="server" CssClass="mag-tags-row">
+                        <span class="mag-tag-chip" onclick='<%# "searchTag(\"" + Eval("Blog_Tag1").ToString().Replace("#","") + "\")" %>'><%# Eval("Blog_Tag1") %></span>
+                        <span class="mag-tag-chip" onclick='<%# "searchTag(\"" + Eval("Blog_Tag2").ToString().Replace("#","") + "\")" %>'><%# Eval("Blog_Tag2") %></span>
+                        <span class="mag-tag-chip" onclick='<%# "searchTag(\"" + Eval("Blog_Tag3").ToString().Replace("#","") + "\")" %>'><%# Eval("Blog_Tag3") %></span>
+                      </asp:Panel>
 
-              <!-- Article 4: Varanasi Spiritual Dawn -->
-              <article class="mag-card anim-fade-up" data-category="varanasi" data-title="a spiritual dawn in varanasi rowing boat ganga aarti ghats kashi sunrise" data-readtime="5" data-date="2024-12-18">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=varanasi-ganga-aarti">
-                    <img src="../Content/images/img_41.jpg" alt="Varanasi Ganga Aarti ghats" loading="lazy">
-                  </a>
-                  <span class="badge badge-accent mag-card-tag">🛕 Spiritual India</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'A Spiritual Dawn in Varanasi')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=varanasi-ganga-aarti">A Spiritual Dawn in Varanasi: Rowing Boat &amp; Evening Ganga Aarti</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Witness divine sunrise mist lifting over sacred Ganges ghats as Sanskrit hymns chant and brass fire lamps illuminate the twilight at Dashashwamedh.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Kashi')">#Kashi</span>
-                    <span class="mag-tag-chip" onclick="searchTag('GangaAarti')">#GangaAarti</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Spiritual')">#Spiritual</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Dec 18, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=varanasi-ganga-aarti" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+                      <asp:Panel ID="pnlFooter" runat="server" CssClass="mag-card-footer">
+                        <span><i class="fa-regular fa-calendar"></i> <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Blog_DateStr") %>' /></span>
+                        <asp:LinkButton ID="btnReadStory" runat="server" CssClass="read-story-link" CommandName="cmd_read" CommandArgument='<%# Eval("Blog_Url") %>'>
+                          Read Story <i class="fa-solid fa-arrow-right"></i>
+                        </asp:LinkButton>
+                      </asp:Panel>
+                    </asp:Panel>
 
-              <!-- Article 5: Kashmir Winter Guide -->
-              <article class="mag-card anim-fade-up" data-category="himalayas" data-title="kashmir in winter gulmarg gondola snow skiing dal lake shikara pahalgam" data-readtime="7" data-date="2024-12-05">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=kashmir-winter-guide">
-                    <img src="../Content/images/img_13.jpg" alt="Kashmir winter snow and Dal Lake" loading="lazy">
-                  </a>
-                  <span class="badge badge-dark mag-card-tag">❄️ Snow &amp; Alps</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Kashmir in Winter Guide')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=kashmir-winter-guide">Kashmir in Winter: Gulmarg Gondola Snow &amp; Dal Lake Shikara Guide</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Ski world-class powder at 13,780 ft on Apharwat Peak, sleep aboard heated cedarwood houseboats, and warm your hands with traditional earthen Kangris.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Gulmarg')">#Gulmarg</span>
-                    <span class="mag-tag-chip" onclick="searchTag('DalLake')">#DalLake</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Skiing')">#Skiing</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Dec 05, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=kashmir-winter-guide" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Article 6: Andaman Scuba -->
-              <article class="mag-card anim-fade-up" data-category="andaman" data-title="andaman scuba diving havelock radhanagar neil coral reefs bioluminescence" data-readtime="6" data-date="2024-11-24">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=andaman-scuba-guide">
-                    <img src="../Content/images/img_33.jpg" alt="Andaman coral islands and scuba diving" loading="lazy">
-                  </a>
-                  <span class="badge badge-primary mag-card-tag">🤿 Island Scuba</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Andaman Scuba Diving Guide')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=andaman-scuba-guide">Andaman Scuba Diving: Havelock Coral Reefs &amp; Night Kayaking</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Dive alongside green sea turtles at Dixon's Pinnacle, kayak through starry mangrove lagoons glowing with blue bioluminescence, and unwind at Radhanagar.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Havelock')">#Havelock</span>
-                    <span class="mag-tag-chip" onclick="searchTag('ScubaDiving')">#ScubaDiving</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Bioluminescence')">#Bioluminescence</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Nov 24, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=andaman-scuba-guide" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Article 7: Golden Triangle -->
-              <article class="mag-card anim-fade-up" data-category="rajasthan" data-title="golden triangle in 6 days sunrise taj mahal agra delhi jaipur secrets" data-readtime="6" data-date="2024-11-15">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=golden-triangle-guide">
-                    <img src="../Content/images/img_32.jpg" alt="Taj Mahal Golden Triangle tour guide" loading="lazy">
-                  </a>
-                  <span class="badge badge-accent mag-card-tag">🏛️ World Heritage</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Golden Triangle in 6 Days')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=golden-triangle-guide">Golden Triangle in 6 Days: Sunrise Taj Mahal &amp; Pink City Secrets</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Beat the crowds for magical sunrise rays at the Taj Mahal, taste legendary Chandni Chowk street kebabs, and uncover royal hidden courtyards in Jaipur.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('TajMahal')">#TajMahal</span>
-                    <span class="mag-tag-chip" onclick="searchTag('Jaipur')">#Jaipur</span>
-                    <span class="mag-tag-chip" onclick="searchTag('OldDelhi')">#OldDelhi</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Nov 15, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=golden-triangle-guide" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Article 8: Himachal / Manali -->
-              <article class="mag-card anim-fade-up" data-category="himalayas" data-title="himachal mountain roadmap manali solang valley cedar treks atal tunnel" data-readtime="5" data-date="2024-11-02">
-                <div class="mag-card-media">
-                  <a href="/Pages/blog-details.aspx?id=himachal-mountain-guide">
-                    <img src="../Content/images/img_43.jpg" alt="Himachal Pradesh pine valley" loading="lazy">
-                  </a>
-                  <span class="badge badge-secondary mag-card-tag">🌲 Pine Valley</span>
-                  <button type="button" class="mag-bookmark-btn" onclick="toggleBookmark(this, 'Himachal Mountain Roadmap')" title="Save story">
-                    <i class="fa-regular fa-bookmark"></i>
-                  </button>
-                </div>
-                <div class="mag-card-body">
-                  <h3 class="mag-card-title">
-                    <a href="/Pages/blog-details.aspx?id=himachal-mountain-guide">Himachal Mountain Roadmap: Manali, Solang Valley &amp; Cedar Treks</a>
-                  </h3>
-                  <p class="mag-card-text">
-                    Paraglide high above the Beas river, cruise through the engineering marvel of Atal Tunnel to frozen Sissu, and hike fragrant deodar pine trails in Old Manali.
-                  </p>
-                  <div class="mag-tags-row">
-                    <span class="mag-tag-chip" onclick="searchTag('Manali')">#Manali</span>
-                    <span class="mag-tag-chip" onclick="searchTag('SolangValley')">#SolangValley</span>
-                    <span class="mag-tag-chip" onclick="searchTag('AtalTunnel')">#AtalTunnel</span>
-                  </div>
-                  <div class="mag-card-footer">
-                    <span><i class="fa-regular fa-calendar"></i> Nov 02, 2024</span>
-                    <a href="/Pages/blog-details.aspx?id=himachal-mountain-guide" class="read-story-link">
-                      Read Story <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+                  </asp:Panel>
+                </ItemTemplate>
+              </asp:DataList>
 
             </div>
 
@@ -1280,7 +1079,8 @@
         }
       });
 
-      articles.forEach(card => grid.appendChild(card));
+      const targetParent = grid.querySelector('span') || grid;
+      articles.forEach(card => targetParent.appendChild(card));
     }
 
     function toggleBookmark(btn, storyTitle) {

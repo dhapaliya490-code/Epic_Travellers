@@ -10,7 +10,8 @@
   <style>
     .page-hero {
       background: linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(20,184,166,0.7) 100%),
-                  url('../Content/images/img_23.jpg') center/cover no-repeat;
+                  url('../Content/images/img_23.jpg') center center no-repeat;
+      background-size: cover;
       padding: 150px 0 90px;
       color: white;
       text-align: center;
@@ -53,12 +54,26 @@
     }
 
     .destinations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 32px;
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 20px !important;
+      width: 100%;
+    }
+
+    /* Seamless DataList CSS Grid Integration */
+    #destinations-grid-container > span,
+    #destinations-grid-container span {
+      display: contents !important;
+    }
+
+    /* Hide any <br> tags emitted by DataList so they never occupy grid cells */
+    #destinations-grid-container br,
+    #destinations-grid-container span br {
+      display: none !important;
     }
 
     .destination-full-card {
+      min-width: 0;
       background: var(--bg-primary);
       border-radius: var(--radius-2xl);
       overflow: hidden;
@@ -77,7 +92,7 @@
 
     .dest-card-img {
       position: relative;
-      height: 230px;
+      height: 210px;
       overflow: hidden;
     }
 
@@ -121,6 +136,7 @@
       transition: all 0.2s ease;
       z-index: 2;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-decoration: none !important;
     }
 
     .dest-wishlist-btn:hover {
@@ -135,61 +151,79 @@
     }
 
     .dest-card-body {
-      padding: 24px;
+      padding: 18px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
+    .dest-card-body h3, .dest-card-body .dest-title {
+      font-size: 18px !important;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0;
+      display: block;
+    }
+
     .weather-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: linear-gradient(135deg, rgba(14,165,233,0.15) 0%, rgba(2,132,199,0.2) 100%);
       color: var(--primary);
       border: 1px solid rgba(14,165,233,0.3);
-      padding: 4px 12px;
+      padding: 3px 8px;
       border-radius: var(--radius-full);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .dest-info-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
+      gap: 5px;
+      font-size: 11px;
       color: var(--text-secondary);
-      margin: 10px 0 16px;
+      margin: 8px 0 14px;
       flex-wrap: wrap;
     }
 
     .dest-info-item {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: var(--bg-secondary);
-      padding: 4px 10px;
+      padding: 3px 6px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--gray-200);
       font-weight: 600;
+      font-size: 11px;
+      white-space: nowrap;
     }
 
     .dest-footer {
-      padding: 16px 24px;
+      padding: 12px 18px;
       background: var(--bg-secondary);
       border-top: 1px solid var(--gray-200);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 8px;
     }
 
     .dest-price-val {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--primary);
       line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .dest-footer .btn {
+      padding: 6px 12px !important;
+      font-size: 12px !important;
+      white-space: nowrap !important;
     }
 
     /* Map Section */
@@ -209,7 +243,8 @@
       border-radius: var(--radius-xl);
       position: relative;
       overflow: hidden;
-      background: url('../Content/images/img_22.jpg') center/cover no-repeat;
+      background: url('../Content/images/img_22.jpg') center center no-repeat;
+      background-size: cover;
     }
 
     .simulated-map-overlay {
@@ -284,15 +319,26 @@
       box-shadow: var(--shadow-md);
     }
 
-    @media (max-width: 768px) {
-      .destinations-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 1024px) {
       .dest-filter-card {
         padding: 20px;
       }
       .simulated-map {
         height: 380px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .destinations-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .destinations-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
       }
     }
   </style>
@@ -419,497 +465,72 @@
 
         <div class="destinations-grid stagger-children" id="destinations-grid-container">
 
-          <!-- Destination 1: Jaipur & Udaipur (Rajasthan) -->
-          <article class="destination-full-card anim-fade-up" data-name="jaipur udaipur rajasthan thar desert jodhpur" data-region="north" data-price="45000" data-season="winter" data-rating="4.9" data-reviews="2400">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City Rajasthan" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">👑 Royal Heritage</span>
-                <span class="badge badge-dark" style="font-size:10px;">⭐ Top Rated</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Jaipur & Udaipur (Rajasthan)', '₹45,000', '../Content/images/img_48.jpg', '/Pages/package-details.aspx?id=royal-rajasthan')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Jaipur &amp; Udaipur</h3>
-                <span class="weather-badge">☀️ 26°C Sunny</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Rajasthan, North-West India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Discover opulent pink sandstone forts, sunset boat cruises on Lake Pichola, camel safaris across Thar dunes, and rich royal heritage.
-              </p>
+          <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList1_ItemCommand">
+            <ItemTemplate>
+              <asp:Panel ID="pnlCard" runat="server" CssClass="destination-full-card anim-fade-up" 
+                         data-name='<%# Eval("Dest_SearchKeywords") %>' 
+                         data-region='<%# Eval("Dest_Region") %>' 
+                         data-price='<%# Eval("Dest_Price") %>' 
+                         data-season='<%# Eval("Dest_Season") %>' 
+                         data-rating='<%# Eval("Dest_Rating") %>' 
+                         data-reviews='<%# Eval("Dest_Reviews") %>'>
+                
+                <asp:Panel ID="pnlCardImg" runat="server" CssClass="dest-card-img">
+                  <asp:Image ID="imgDest" runat="server" ImageUrl='<%# Eval("Dest_Image") %>' AlternateText='<%# Eval("Dest_Name") %>' />
+                  <asp:Panel ID="pnlBadgesTop" runat="server" CssClass="dest-badges-top">
+                    <asp:Label ID="lblBadge1" runat="server" CssClass='<%# "badge " + Eval("Dest_Badge1_Class") %>' Text='<%# Eval("Dest_Badge1") %>' style="font-size:11px;" />
+                    <asp:Label ID="lblBadge2" runat="server" CssClass='<%# "badge " + Eval("Dest_Badge2_Class") %>' Text='<%# Eval("Dest_Badge2") %>' style="font-size:10px;" />
+                  </asp:Panel>
+                  <asp:LinkButton ID="btnWishlist" runat="server" CssClass="dest-wishlist-btn" 
+                                  OnClientClick='<%# "toggleDestWishlist(this, \"" + Eval("Dest_Name") + "\", \"₹" + Eval("Dest_Price", "{0:N0}") + "\", \"" + Eval("Dest_Image") + "\", \"" + Eval("Dest_PackageUrl") + "\"); return false;" %>' 
+                                  aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </asp:LinkButton>
+                </asp:Panel>
 
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Oct – Mar</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 6–8 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (2.4k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹45,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=royal-rajasthan" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                <asp:Panel ID="pnlCardBody" runat="server" CssClass="dest-card-body">
+                  <asp:Panel ID="pnlTitleRow" runat="server" CssClass="flex-between mb-8">
+                    <asp:Label ID="lblDestName" runat="server" CssClass="dest-title" Text='<%# Eval("Dest_Name") %>' />
+                    <asp:Label ID="lblWeather" runat="server" CssClass="weather-badge" Text='<%# Eval("Dest_Weather") %>' />
+                  </asp:Panel>
+                  <asp:Panel ID="pnlLocationRow" runat="server" style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:4px;"></i>
+                    <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("Dest_Location") %>' />
+                  </asp:Panel>
+                  <asp:Label ID="lblDescription" runat="server" style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1; display:block;" Text='<%# Eval("Dest_Description") %>' />
 
-          <!-- Destination 2: Goa Beaches -->
-          <article class="destination-full-card anim-fade-up" data-name="goa beaches calangute baga panaji mandovi" data-region="west" data-price="18000" data-season="winter" data-rating="4.8" data-reviews="3800">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_21.jpg" alt="Goa Beaches" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-primary" style="font-size:11px;">🏖️ Beach &amp; Cruise</span>
-                <span class="badge badge-secondary" style="font-size:10px;">🍹 Tropical</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'North & South Goa', '₹18,000', '../Content/images/img_21.jpg', '/Pages/package-details.aspx?id=goa-beach')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">North &amp; South Goa</h3>
-                <span class="weather-badge">🌤️ 29°C Tropical</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Goa, West Coast India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Golden sun-kissed beaches, Portuguese colonial architecture, Mandovi river luxury sunset cruises, vibrant nightlife, and thrilling water sports.
-              </p>
+                  <asp:Panel ID="pnlInfoRow" runat="server" CssClass="dest-info-row">
+                    <asp:Panel ID="pnlBestSeason" runat="server" CssClass="dest-info-item">
+                      <i class="fa-regular fa-calendar" style="color:var(--primary);"></i>
+                      <asp:Label ID="lblBestSeason" runat="server" Text='<%# "Best: " + Eval("Dest_BestSeason") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlDuration" runat="server" CssClass="dest-info-item">
+                      <i class="fa-regular fa-clock" style="color:var(--primary);"></i>
+                      <asp:Label ID="lblDuration" runat="server" Text='<%# Eval("Dest_Duration") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlRating" runat="server" CssClass="dest-info-item">
+                      <i class="fa-solid fa-star" style="color:#F59E0B;"></i>
+                      <asp:Label ID="lblRating" runat="server" Text='<%# Eval("Dest_Rating") + " (" + Eval("Dest_Reviews") + ")" %>' />
+                    </asp:Panel>
+                  </asp:Panel>
+                </asp:Panel>
 
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Nov – Feb</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 4–6 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8 (3.8k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹18,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=goa-beach" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                <asp:Panel ID="pnlFooter" runat="server" CssClass="dest-footer">
+                  <asp:Panel ID="pnlPriceWrap" runat="server">
+                    <asp:Label ID="lblCostTag" runat="server" style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;" Text="Avg. Tour Cost" />
+                    <asp:Label ID="lblPrice" runat="server" CssClass="dest-price-val" Text='<%# "₹" + Eval("Dest_Price", "{0:N0}") %>' />
+                  </asp:Panel>
+                  
+                  <asp:LinkButton ID="btnExplore" runat="server" CssClass="btn btn-primary btn-sm" 
+                                  CommandName="cmd_details" 
+                                  CommandArgument='<%# Eval("Dest_PackageUrl") %>'>
+                    Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
+                  </asp:LinkButton>
+                </asp:Panel>
 
-          <!-- Destination 3: Munnar & Alleppey (Kerala) -->
-          <article class="destination-full-card anim-fade-up" data-name="kerala munnar alleppey backwaters tea kochi" data-region="south" data-price="36000" data-season="winter" data-rating="4.9" data-reviews="3100">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">💑 Honeymoon Bliss</span>
-                <span class="badge badge-success" style="font-size:10px;">🌿 Nature Retreat</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Munnar & Alleppey (Kerala)', '₹36,000', '../Content/images/img_55.jpg', '/Pages/package-details.aspx?id=kerala')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Munnar &amp; Alleppey</h3>
-                <span class="weather-badge">🌧️ 22°C Pleasant</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Kerala, South India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Tranquil private houseboat cruises along palm-fringed lagoons, rolling emerald tea gardens of Munnar, and authentic Ayurvedic wellness therapies.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Sep – Mar</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 5–8 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (3.1k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹36,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=kerala" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 4: Leh & Ladakh -->
-          <article class="destination-full-card anim-fade-up" data-name="leh ladakh pangong khardung la nubra himalayas" data-region="north" data-price="32000" data-season="summer" data-rating="4.9" data-reviews="2100">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_14.jpg" alt="Leh Ladakh" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-dark" style="font-size:11px;">🏔️ High Altitude</span>
-                <span class="badge badge-danger" style="font-size:10px;">🏍️ Bike Adventure</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Leh & Pangong Lake (Ladakh)', '₹32,000', '../Content/images/img_14.jpg', '/Pages/package-details.aspx?id=ladakh-adventure')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Leh &amp; Pangong Lake</h3>
-                <span class="weather-badge">❄️ 14°C Crisp</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Ladakh UT, Far North India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Dramatic cold desert mountains, Khardung La pass, centuries-old Buddhist monasteries, and shimmering color-changing Pangong Lake camps.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: May – Sep</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 7–10 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (2.1k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹32,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=ladakh-adventure" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 5: Kashmir (Srinagar & Gulmarg) -->
-          <article class="destination-full-card anim-fade-up" data-name="kashmir srinagar gulmarg pahalgam dal lake snow" data-region="north" data-price="38000" data-season="winter" data-rating="5.0" data-reviews="4100">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_13.jpg" alt="Kashmir Dal Lake" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">👑 Crown of India</span>
-                <span class="badge badge-success" style="font-size:10px;">⭐ 5.0 Star</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Srinagar & Gulmarg (Kashmir)', '₹38,000', '../Content/images/img_13.jpg', '/Pages/package-details.aspx?id=kashmir-paradise')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Srinagar &amp; Gulmarg</h3>
-                <span class="weather-badge">❄️ 8°C Alpine</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Jammu &amp; Kashmir, North India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Gliding on luxury Dal Lake Shikaras, riding the Gulmarg Gondola over snow peaks, walking through saffron fields, and Betaab Valley streams.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: All Year</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 6–8 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 5.0 (4.1k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹38,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=kashmir-paradise" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 6: Andaman Islands -->
-          <article class="destination-full-card anim-fade-up" data-name="andaman havelock port blair neil coral islands scuba" data-region="islands" data-price="42000" data-season="winter" data-rating="4.9" data-reviews="1950">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_33.jpg" alt="Andaman Islands" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🏝️ Island Luxury</span>
-                <span class="badge badge-success" style="font-size:10px;">🤿 Scuba &amp; Coral</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Andaman & Nicobar Islands', '₹42,000', '../Content/images/img_33.jpg', '/Pages/package-details.aspx?id=andaman')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Andaman &amp; Nicobar</h3>
-                <span class="weather-badge">🌤️ 28°C Tropical</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Bay of Bengal, Islands
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                White sands of Radhanagar beach, rich coral reef scuba diving at Elephant Beach, catamaran cruises, and historic Cellular Jail sound show.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Oct – May</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 6–8 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (1.9k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹42,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=andaman" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 7: Manali & Solang Valley (Himachal) -->
-          <article class="destination-full-card anim-fade-up" data-name="manali solang valley shimla himachal snow rohtang" data-region="north" data-price="24000" data-season="summer" data-rating="4.8" data-reviews="2900">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_43.jpg" alt="Manali Himachal" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">❄️ Snow &amp; Hills</span>
-                <span class="badge badge-dark" style="font-size:10px;">🌲 Pine Valley</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Manali & Solang Valley', '₹24,000', '../Content/images/img_43.jpg', '/Pages/package-details.aspx?id=manali-shimla')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Manali &amp; Solang Valley</h3>
-                <span class="weather-badge">❄️ 12°C Cool</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Himachal Pradesh, North India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Snowcapped Himalayan crests, skiing and paragliding at Solang Valley, Rohtang Pass excursions, and strolls through fragrant pine woodlands.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Mar–Jun, Dec</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 5–7 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8 (2.9k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹24,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=manali-shimla" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 8: Golden Triangle (Agra & Delhi) -->
-          <article class="destination-full-card anim-fade-up" data-name="golden triangle delhi agra taj mahal mughal jaipur" data-region="north" data-price="28000" data-season="winter" data-rating="4.9" data-reviews="3300">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_32.jpg" alt="Taj Mahal Agra" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🏛️ World Heritage</span>
-                <span class="badge badge-dark" style="font-size:10px;">🕌 Taj Mahal</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Golden Triangle (Delhi & Agra)', '₹28,000', '../Content/images/img_32.jpg', '/Pages/package-details.aspx?id=golden-triangle')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Delhi &amp; Agra (Taj Mahal)</h3>
-                <span class="weather-badge">🌤️ 24°C Pleasant</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> National Capital Region &amp; UP
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Sunrise marvels at the legendary Taj Mahal, grand Agra Fort, Qutub Minar, Chandni Chowk food trails, and iconic monuments of Delhi.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Oct – Mar</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 5–6 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (3.3k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹28,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=golden-triangle" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 9: Varanasi Ghats -->
-          <article class="destination-full-card anim-fade-up" data-name="varanasi kashi ganges ghats sarnath spiritual aarti" data-region="north" data-price="16000" data-season="winter" data-rating="4.9" data-reviews="2800">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_39.jpg" alt="Varanasi Ghats" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🛕 Spiritual Heart</span>
-                <span class="badge badge-dark" style="font-size:10px;">🕯️ Ganga Aarti</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Varanasi & Ganges Ghats', '₹16,000', '../Content/images/img_39.jpg', '/Pages/package-details.aspx?id=varanasi-spiritual')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Varanasi &amp; Ganges Ghats</h3>
-                <span class="weather-badge">🌤️ 25°C Pleasant</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Uttar Pradesh, North India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                World's oldest living holy city. Mesmerizing evening Dashashwamedh Ganga Aarti, dawn rowing boats on the holy river, and Buddhist stupas at Sarnath.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Oct – Mar</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 3–5 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9 (2.8k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹16,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=varanasi-spiritual" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 10: Darjeeling & Gangtok (East) -->
-          <article class="destination-full-card anim-fade-up" data-name="darjeeling sikkim gangtok tea kanchenjunga monasteries east" data-region="east" data-price="22000" data-season="summer" data-rating="4.8" data-reviews="1900">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_18.jpg" alt="Darjeeling Tea Garden" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">🍵 Tea &amp; Monasteries</span>
-                <span class="badge badge-success" style="font-size:10px;">🚂 Toy Train</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Darjeeling & Gangtok (Sikkim)', '₹22,000', '../Content/images/img_18.jpg', '/Pages/packages.aspx')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Darjeeling &amp; Gangtok</h3>
-                <span class="weather-badge">🌤️ 16°C Cool</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Sikkim &amp; West Bengal, East India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Breathtaking sunrise views over Mount Kanchenjunga from Tiger Hill, heritage Himalayan Toy Train, sprawling tea estates, and Rumtek monastery.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Mar–May, Oct–Dec</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 6–8 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8 (1.9k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹22,000</div>
-              </div>
-              <a href="/Pages/packages.aspx" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 11: Coorg & Mysore (Karnataka) -->
-          <article class="destination-full-card anim-fade-up" data-name="coorg mysore karnataka coffee estate waterfalls south" data-region="south" data-price="14000" data-season="winter" data-rating="4.8" data-reviews="1700">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_20.jpg" alt="Coorg Coffee Estate" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-primary" style="font-size:11px;">☕ Coffee Hills</span>
-                <span class="badge badge-accent" style="font-size:10px;">👑 Mysore Palace</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Coorg & Mysore (Karnataka)', '₹14,000', '../Content/images/img_20.jpg', '/Pages/packages.aspx')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Coorg &amp; Mysore</h3>
-                <span class="weather-badge">🌤️ 21°C Mild</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Karnataka, South India
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                Known as the Scotland of India. Aromatic misty coffee estates, cascading Abbey Falls, royal architecture of illuminated Mysore Palace, and wildlife.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Oct – Mar</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 4–5 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8 (1.7k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹14,000</div>
-              </div>
-              <a href="/Pages/packages.aspx" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Destination 12: Rishikesh & Haridwar (Uttarakhand) -->
-          <article class="destination-full-card anim-fade-up" data-name="rishikesh haridwar uttarakhand rafting yoga ganges spiritual" data-region="north" data-price="12000" data-season="summer" data-rating="4.8" data-reviews="2300">
-            <div class="dest-card-img">
-              <img src="../Content/images/img_41.jpg" alt="Rishikesh Uttarakhand" loading="lazy">
-              <div class="dest-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🧘 Yoga Capital</span>
-                <span class="badge badge-primary" style="font-size:10px;">🌊 River Rafting</span>
-              </div>
-              <button type="button" class="dest-wishlist-btn" onclick="toggleDestWishlist(this, 'Rishikesh & Haridwar', '₹12,000', '../Content/images/img_41.jpg', '/Pages/packages.aspx')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="dest-card-body">
-              <div class="flex-between mb-8">
-                <h3 style="font-size:20px; font-weight:800; color:var(--text-primary);">Rishikesh &amp; Haridwar</h3>
-                <span class="weather-badge">🌤️ 22°C Refreshing</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:600; margin-bottom:8px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Uttarakhand, Himalayan Foothills
-              </p>
-              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:14px; flex:1;">
-                World Capital of Yoga. White water river rafting on the Ganges, cliff jumping, bungee adventure, iconic suspension bridges, and Har Ki Pauri evening Aarti.
-              </p>
-
-              <div class="dest-info-row">
-                <div class="dest-info-item"><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> Best: Sep–Nov, Mar–May</div>
-                <div class="dest-info-item"><i class="fa-regular fa-clock" style="color:var(--primary);"></i> 3–5 Days</div>
-                <div class="dest-info-item"><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.8 (2.3k)</div>
-              </div>
-            </div>
-            <div class="dest-footer">
-              <div>
-                <small style="font-size:11px; color:var(--text-muted); display:block; font-weight:700; text-transform:uppercase;">Avg. Tour Cost</small>
-                <div class="dest-price-val">₹12,000</div>
-              </div>
-              <a href="/Pages/packages.aspx" class="btn btn-primary btn-sm">
-                Explore Packages <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+              </asp:Panel>
+            </ItemTemplate>
+          </asp:DataList>
 
         </div>
 
@@ -1117,6 +738,8 @@
           }
         }
 
+        const wrapper = (card.parentElement && card.parentElement.tagName === 'SPAN' && card.parentElement.id !== 'destinations-grid-container') ? card.parentElement : card;
+        wrapper.style.display = match ? 'flex' : 'none';
         card.style.display = match ? 'flex' : 'none';
         if (match) visibleCount++;
       });
@@ -1149,7 +772,10 @@
         return reviewsB - reviewsA; // 'popular'
       });
 
-      cards.forEach(c => container.appendChild(c));
+      cards.forEach(c => {
+        const target = (c.parentElement && c.parentElement.tagName === 'SPAN' && c.parentElement.id !== 'destinations-grid-container') ? c.parentElement : c;
+        target.parentElement.appendChild(target);
+      });
       applyDestFilters();
     }
 

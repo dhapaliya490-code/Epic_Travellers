@@ -3,34 +3,31 @@
    Offline caching & PWA support
    ============================================================ */
 
-const CACHE_NAME = 'epic-travellers-v1';
+const CACHE_NAME = 'epic-travellers-v2';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/destinations.html',
-  '/packages.html',
-  '/package-details.html',
-  '/about.html',
-  '/blog.html',
-  '/gallery.html',
-  '/contact.html',
-  '/dashboard.html',
-  '/auth.html',
-  '/admin.html',
-  '/404.html',
-  '/css/style.css',
-  '/css/components.css',
-  '/css/animations.css',
-  '/css/dark-mode.css',
-  '/js/main.js',
-  '/js/components.js'
+  '/Pages/index.aspx',
+  '/Pages/destinations.aspx',
+  '/Pages/packages.aspx',
+  '/Pages/about.aspx',
+  '/Pages/blog.aspx',
+  '/Pages/gallery.aspx',
+  '/Pages/contact.aspx',
+  '/Content/css/style.css',
+  '/Content/css/components.css',
+  '/Content/css/animations.css',
+  '/Content/css/dark-mode.css',
+  '/Content/fontawesome/css/all.min.css',
+  '/Scripts/js/main.js',
+  '/Scripts/js/components.js'
 ];
 
 // Install Event
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(ASSETS_TO_CACHE).catch((err) => {
+        console.warn('PWA caching partial:', err);
+      });
     })
   );
   self.skipWaiting();
@@ -52,18 +49,16 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event (Offline Fallback)
+// Fetch Event (Network First, Cache Fallback)
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).catch(() => {
-        if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/404.html');
-        }
-      });
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        return networkResponse;
+      })
+      .catch(() => {
+        return caches.match(event.request);
+      })
   );
 });

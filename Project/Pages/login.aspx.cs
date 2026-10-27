@@ -11,8 +11,6 @@ namespace Epic_Travelers.Pages
     {
         SqlConnection con;
         SqlCommand cmd;
-        SqlDataAdapter da;
-        DataSet ds;
         int i;
 
         string s = ConfigurationManager.ConnectionStrings["dbcon"].ConnectionString;
@@ -27,35 +25,3 @@ namespace Epic_Travelers.Pages
         {
 
         }
-
-        protected void btnSignIn_Click(object sender, EventArgs e)
-        {
-            if (!(string.IsNullOrEmpty(txtLoginEmail.Text)) && !(string.IsNullOrEmpty(txtLoginPass.Text)))
-            {
-                getcon();
-                cmd = new SqlCommand("select count(*) from user_tbl where Email = '" + txtLoginEmail.Text + "' and Password = '" + txtLoginPass.Text + "'", con);
-
-                i = Convert.ToInt16(cmd.ExecuteScalar());
-
-                if (i > 0)
-                {
-                    if (txtLoginEmail.Text == "epictravelers365@gmail.com" && txtLoginPass.Text == "admin@123")
-                    {
-                        Response.Redirect("~/Pages/admin.aspx");
-                    }
-                    else
-                    {
-                        Session["admin"] = txtLoginEmail.Text;
-                        Response.Redirect("~/Pages/dashboard.aspx");
-                    }
-                }
-                else
-                {
-                    Response.Write("Invalid Email or Password");
-                }
-            }
-        }
-
-
-    }
-}

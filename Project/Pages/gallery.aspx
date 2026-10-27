@@ -79,6 +79,16 @@
       column-gap: 24px;
     }
 
+    /* Seamless DataList Integration */
+    #masonry-grid > span,
+    #masonry-grid span {
+      display: contents !important;
+    }
+    #masonry-grid br,
+    #masonry-grid span br {
+      display: none !important;
+    }
+
     .gallery-masonry-item {
       break-inside: avoid;
       margin-bottom: 24px;
@@ -393,185 +403,35 @@
         <!-- Masonry Grid -->
         <div class="gallery-masonry" id="masonry-grid">
 
-          <!-- Photo 1: Jaipur Hawa Mahal -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="monuments" data-index="0" onclick="openLightboxByIndex(0)">
-            <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-accent">🏰 Rajasthan</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Hawa Mahal &amp; Amber Fort</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Jaipur, Rajasthan • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
+          <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList1_ItemCommand">
+            <ItemTemplate>
+              <asp:Panel ID="pnlItem" runat="server" CssClass="gallery-masonry-item anim-fade-up" 
+                         data-category='<%# Eval("Gallery_Category") %>' 
+                         data-index='<%# Container.ItemIndex %>' 
+                         onclick='<%# "openLightboxByIndex(" + Container.ItemIndex + ")" %>'>
+                
+                <asp:Image ID="imgItem" runat="server" ImageUrl='<%# Eval("Gallery_Image") %>' AlternateText='<%# Eval("Gallery_Title") %>' />
+                
+                <asp:Panel ID="pnlOverlay" runat="server" CssClass="gallery-item-overlay">
+                  <asp:Panel ID="pnlTopBadge" runat="server" CssClass="overlay-top-badge">
+                    <asp:Label ID="lblBadge" runat="server" CssClass='<%# "badge " + Eval("Gallery_BadgeClass") %>' Text='<%# Eval("Gallery_Badge") %>' />
+                    <asp:Panel ID="pnlZoomIcon" runat="server" CssClass="overlay-zoom-icon">
+                      <i class="fa-solid fa-expand"></i>
+                    </asp:Panel>
+                  </asp:Panel>
+                  <asp:Panel ID="pnlDetails" runat="server">
+                    <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">
+                      <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Gallery_Title") %>' />
+                    </h4>
+                    <p style="font-size:12.5px; opacity:0.9;">
+                      <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("Gallery_Location") %>' /> • Click to enlarge
+                    </p>
+                  </asp:Panel>
+                </asp:Panel>
 
-          <!-- Photo 2: Kerala Backwaters -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="nature" data-index="1" onclick="openLightboxByIndex(1)">
-            <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-success">🌿 Kerala</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Tranquil Alleppey Houseboat</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Alleppey, Kerala • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 3: Ladakh Pangong -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="mountains" data-index="2" onclick="openLightboxByIndex(2)">
-            <img src="../Content/images/img_14.jpg" alt="Pangong Tso Ladakh" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-dark">🏔️ Ladakh</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Azure Waters of Pangong Lake</h4>
-                <p style="font-size:12.5px; opacity:0.9;">14,270 ft Altitude, Ladakh • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 4: Goa Sunset -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="beaches" data-index="3" onclick="openLightboxByIndex(3)">
-            <img src="../Content/images/img_21.jpg" alt="Goa Palolem Beach" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-primary">🏖️ Goa</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Golden Sunset at Palolem Beach</h4>
-                <p style="font-size:12.5px; opacity:0.9;">South Goa Coastline • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 5: Taj Mahal -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="monuments" data-index="4" onclick="openLightboxByIndex(4)">
-            <img src="../Content/images/img_25.jpg" alt="Taj Mahal" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-accent">🕌 Agra</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Majestic Sunrise over Taj Mahal</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Agra, Uttar Pradesh • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 6: Varanasi Ganga Aarti -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="culture" data-index="5" onclick="openLightboxByIndex(5)">
-            <img src="../Content/images/img_41.jpg" alt="Varanasi Ghats" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-accent">🛕 Varanasi</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Evening Maha Aarti on the Ghats</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Dashashwamedh Ghat, Kashi • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 7: Andaman Havelock -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="beaches" data-index="6" onclick="openLightboxByIndex(6)">
-            <img src="../Content/images/img_33.jpg" alt="Andaman Havelock" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-primary">🏝️ Andaman</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Turquoise Waters of Radhanagar</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Havelock Island • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 8: Manali Snow -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="mountains" data-index="7" onclick="openLightboxByIndex(7)">
-            <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-secondary">❄️ Himachal</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Snowcapped Pines of Solang Valley</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Manali, Himachal Pradesh • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 9: Jaisalmer Desert Safari -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="culture" data-index="8" onclick="openLightboxByIndex(8)">
-            <img src="../Content/images/img_45.jpg" alt="Thar Desert Jaisalmer" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-accent">🏜️ Thar Desert</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Golden Dunes Sunset Safari</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Sam Sand Dunes, Jaisalmer • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 10: Kashmir Gulmarg -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="mountains" data-index="9" onclick="openLightboxByIndex(9)">
-            <img src="../Content/images/img_13.jpg" alt="Kashmir Snow Valley" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-dark">❄️ Kashmir</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Gulmarg Gondola &amp; Snow Alps</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Apharwat Peak, Kashmir • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 11: Munnar Tea Gardens -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="nature" data-index="10" onclick="openLightboxByIndex(10)">
-            <img src="../Content/images/img_50.jpg" alt="Munnar Tea Estate" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-success">🌿 Western Ghats</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">Rolling Emerald Hills of Munnar</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Munnar Tea Plantations, Kerala • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo 12: Ladakh Bike Trail -->
-          <div class="gallery-masonry-item anim-fade-up" data-category="mountains" data-index="11" onclick="openLightboxByIndex(11)">
-            <img src="../Content/images/img_15.jpg" alt="Ladakh Royal Enfield Roadtrip" loading="lazy">
-            <div class="gallery-item-overlay">
-              <div class="overlay-top-badge">
-                <span class="badge badge-dark">🏔️ Himalayas</span>
-                <div class="overlay-zoom-icon"><i class="fa-solid fa-expand"></i></div>
-              </div>
-              <div>
-                <h4 style="font-size:17px; font-weight:800; margin-bottom:4px;">High Mountain Pass Expedition</h4>
-                <p style="font-size:12.5px; opacity:0.9;">Khardung La Pass, Ladakh • Click to enlarge</p>
-              </div>
-            </div>
-          </div>
+              </asp:Panel>
+            </ItemTemplate>
+          </asp:DataList>
 
         </div>
 
@@ -640,120 +500,11 @@
        4. CLIENT-SIDE SCRIPT CONTROLLER
        ========================================================================= -->
   <script>
-    // Gallery Dataset
-    const GALLERY_ITEMS = [
-      {
-        src: '../Content/images/img_48.jpg',
-        title: 'Hawa Mahal & Amber Fort, Jaipur',
-        location: 'Jaipur, Rajasthan',
-        badge: '🏰 Rajasthan',
-        badgeClass: 'badge-accent',
-        category: 'monuments',
-        ctaLink: '/Pages/package-details.aspx?id=rajasthan'
-      },
-      {
-        src: '../Content/images/img_55.jpg',
-        title: 'Tranquil Alleppey Houseboat Backwaters',
-        location: 'Alleppey, Kerala',
-        badge: '🌿 Kerala',
-        badgeClass: 'badge-success',
-        category: 'nature',
-        ctaLink: '/Pages/package-details.aspx?id=kerala'
-      },
-      {
-        src: '../Content/images/img_14.jpg',
-        title: 'Azure Waters of Pangong Tso Lake',
-        location: '14,270 ft Altitude, Ladakh',
-        badge: '🏔️ Ladakh',
-        badgeClass: 'badge-dark',
-        category: 'mountains',
-        ctaLink: '/Pages/package-details.aspx?id=ladakh-adventure'
-      },
-      {
-        src: '../Content/images/img_21.jpg',
-        title: 'Golden Sunset at Palolem Beach',
-        location: 'South Goa Coastline',
-        badge: '🏖️ Goa',
-        badgeClass: 'badge-primary',
-        category: 'beaches',
-        ctaLink: '/Pages/package-details.aspx?id=goa'
-      },
-      {
-        src: '../Content/images/img_25.jpg',
-        title: 'Majestic Sunrise over Taj Mahal',
-        location: 'Agra, Uttar Pradesh',
-        badge: '🕌 Agra',
-        badgeClass: 'badge-accent',
-        category: 'monuments',
-        ctaLink: '/Pages/package-details.aspx?id=golden-triangle'
-      },
-      {
-        src: '../Content/images/img_41.jpg',
-        title: 'Evening Maha Aarti on Sacred Ganga Ghats',
-        location: 'Dashashwamedh Ghat, Varanasi',
-        badge: '🛕 Varanasi',
-        badgeClass: 'badge-accent',
-        category: 'culture',
-        ctaLink: '/Pages/packages.aspx'
-      },
-      {
-        src: '../Content/images/img_33.jpg',
-        title: 'Turquoise Waters of Radhanagar Beach',
-        location: 'Havelock Island, Andaman',
-        badge: '🏝️ Andaman',
-        badgeClass: 'badge-primary',
-        category: 'beaches',
-        ctaLink: '/Pages/package-details.aspx?id=andaman'
-      },
-      {
-        src: '../Content/images/img_43.jpg',
-        title: 'Snowcapped Pines & Peaks in Solang Valley',
-        location: 'Manali, Himachal Pradesh',
-        badge: '❄️ Himachal',
-        badgeClass: 'badge-secondary',
-        category: 'mountains',
-        ctaLink: '/Pages/packages.aspx'
-      },
-      {
-        src: '../Content/images/img_45.jpg',
-        title: 'Golden Sunset Camel Safari over Thar Desert',
-        location: 'Sam Sand Dunes, Jaisalmer',
-        badge: '🏜️ Thar Desert',
-        badgeClass: 'badge-accent',
-        category: 'culture',
-        ctaLink: '/Pages/package-details.aspx?id=rajasthan'
-      },
-      {
-        src: '../Content/images/img_13.jpg',
-        title: 'Gulmarg Gondola & Winter Snow Alps',
-        location: 'Apharwat Peak, Kashmir',
-        badge: '❄️ Kashmir',
-        badgeClass: 'badge-dark',
-        category: 'mountains',
-        ctaLink: '/Pages/package-details.aspx?id=kashmir'
-      },
-      {
-        src: '../Content/images/img_50.jpg',
-        title: 'Rolling Emerald Tea Gardens of Munnar',
-        location: 'Munnar, Kerala',
-        badge: '🌿 Western Ghats',
-        badgeClass: 'badge-success',
-        category: 'nature',
-        ctaLink: '/Pages/package-details.aspx?id=kerala'
-      },
-      {
-        src: '../Content/images/img_15.jpg',
-        title: 'High Mountain Pass Royal Enfield Expedition',
-        location: 'Khardung La Pass, Ladakh',
-        badge: '🏔️ Himalayas',
-        badgeClass: 'badge-dark',
-        category: 'mountains',
-        ctaLink: '/Pages/package-details.aspx?id=ladakh-adventure'
-      }
-    ];
+    // Gallery Dataset populated from database
+    const GALLERY_ITEMS = <%= GalleryJson %>;
 
     let currentPhotoIndex = 0;
-    let filteredIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    let filteredIndices = GALLERY_ITEMS.map((_, i) => i);
 
     function filterGallery(category, btn) {
       document.querySelectorAll('#gallery-filters .gallery-filter-pill').forEach(b => b.classList.remove('active'));
