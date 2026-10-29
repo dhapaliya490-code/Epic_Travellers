@@ -12,3 +12,13 @@ D:\ASP_Templates\Main_new\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_
 D:\ASP_Templates\Main_new\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
 D:\ASP_Templates\Main_new\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.dll
 D:\ASP_Templates\Main_new\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.pdb
+<<<<<<< HEAD
+=======
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\bin\Epic_Travelers.dll.config
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\bin\Epic_Travelers.dll
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\bin\Epic_Travelers.pdb
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.csproj.AssemblyReference.cache
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.csproj.CoreCompileInputs.cache
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.dll
+D:\SEM5\ASP_Template\Epic_Travellers.1 - Copy (3)\Epic_Travellers.1 - Copy\WebFormsReady\obj\Debug\Epic_Travelers.pdb
+>>>>>>> bc01852f792b4fec4396af373a1677e8ee63016a

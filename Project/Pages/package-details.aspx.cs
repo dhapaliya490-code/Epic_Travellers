@@ -22,6 +22,7 @@ namespace Epic_Travelers.Pages
             con = new SqlConnection(s);
             con.Open();
         }
+<<<<<<< HEAD
 
         void fillproduct()
         {
@@ -137,6 +138,14 @@ namespace Epic_Travelers.Pages
                     Response.Redirect("dashboard.aspx?packageId=" + ViewState["pid"]);
                 }
             }
+=======
+        
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           
+>>>>>>> bc01852f792b4fec4396af373a1677e8ee63016a
         }
+
     }
 }

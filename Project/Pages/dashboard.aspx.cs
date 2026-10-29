@@ -23,6 +23,7 @@ namespace Epic_Travelers.Pages
             con = new SqlConnection(s);
             con.Open();
         }
+<<<<<<< HEAD
         protected void Page_Load(object sender, EventArgs e)
         {
             string email = null;
@@ -196,5 +197,14 @@ namespace Epic_Travelers.Pages
         {
             Response.Redirect("logout.aspx");
         }
+=======
+        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        
+>>>>>>> bc01852f792b4fec4396af373a1677e8ee63016a
     }
 }
