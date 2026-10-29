@@ -50,9 +50,30 @@
     }
 
     .packages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 32px;
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 30px !important;
+      align-items: stretch !important;
+      width: 100%;
+    }
+
+    /* Seamless DataList Integration: flatten outer span, stretch item wrapper spans */
+    #packages-grid > span[id$="DataList1"] {
+      display: contents !important;
+    }
+
+    #packages-grid > span:not([id$="DataList1"]),
+    #packages-grid > span > span {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-width: 0;
+    }
+
+    /* Hide any <br> tags emitted by DataList so they never occupy grid cells */
+    #packages-grid br,
+    #packages-grid span br {
+      display: none !important;
     }
 
     .pkg-card {
@@ -63,6 +84,10 @@
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
+      height: 100%;
+      width: 100%;
+      flex: 1;
+      min-width: 0;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.2s;
     }
 
@@ -76,6 +101,7 @@
       position: relative;
       height: 230px;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .pkg-image-wrapper img {
@@ -118,6 +144,7 @@
       transition: all 0.2s ease;
       z-index: 2;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-decoration: none !important;
     }
 
     .pkg-wishlist-btn:hover {
@@ -142,43 +169,96 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       font-size: 12px;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 8px;
+      min-height: 20px;
+    }
+
+    .pkg-meta-row > div:first-child {
+      flex-shrink: 0;
+    }
+
+    .pkg-meta-row > div:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: right;
     }
 
     .pkg-title {
       font-size: 19px;
       font-weight: 800;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       line-height: 1.35;
+      min-height: 52px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .pkg-inclusions-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 8px;
       margin-bottom: 14px;
+      min-height: 58px;
     }
 
     .pkg-inclusion-pill {
       font-size: 11px;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: var(--radius-sm);
       background: var(--bg-secondary);
       color: var(--text-secondary);
       border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+      height: 26px;
+      box-sizing: border-box;
+    }
+
+    .pkg-inclusion-pill i {
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 11px;
+    }
+
+    .pkg-inclusion-pill span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .pkg-desc {
       font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-bottom: 18px;
-      flex: 1;
+      margin-bottom: 16px;
+      min-height: 63px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .pkg-rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+      min-height: 28px;
     }
 
     .pkg-footer {
@@ -189,6 +269,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      min-height: 74px;
+      box-sizing: border-box;
+      margin-top: auto;
+      flex-shrink: 0;
     }
 
     .pkg-price-val {
@@ -198,9 +282,15 @@
       line-height: 1.1;
     }
 
+    @media (max-width: 1100px) {
+      .packages-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+
     @media (max-width: 768px) {
       .packages-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
       }
       .package-filter-card {
         padding: 20px;
@@ -318,410 +408,89 @@
         
         <div class="packages-grid stagger-children" id="packages-grid">
 
-          <!-- Package 1: Rajasthan -->
-          <article class="pkg-card anim-fade-up" data-title="royal rajasthan expedition jaipur udaipur jodhpur" data-style="luxury" data-days="8" data-price="45000" data-rating="4.9" data-reviews="420">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_48.jpg" alt="Royal Rajasthan Expedition" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">⭐ Bestseller</span>
-                <span class="badge badge-dark" style="font-size:10px;">👑 Luxury Heritage</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Royal Rajasthan Expedition', '₹45,000', '../Content/images/img_48.jpg', '/Pages/package-details.aspx?id=royal-rajasthan')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 8 Days / 7 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Jaipur, Udaipur, Jodhpur</span>
-              </div>
-              <h3 class="pkg-title">Royal Rajasthan Heritage Expedition</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-hotel"></i> 4★ Haveli Stays</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-car-side"></i> Private AC SUV</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-utensils"></i> Breakfast &amp; Dinner</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-campground"></i> Desert Safari</span>
-              </div>
-              <p class="pkg-desc">
-                Experience royal Rajasthani hospitality with luxury palace hotels, camel safari over Thar sand dunes, and sunset boat cruises on Lake Pichola.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.9 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(420 reviews)</span>
-                </div>
-                <span class="badge badge-success" style="font-size:10px;">Instant Confirm</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹45,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=royal-rajasthan" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+          <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList1_ItemCommand">
+            <ItemTemplate>
+              <asp:Panel ID="pnlCard" runat="server" CssClass="pkg-card anim-fade-up" 
+                         data-title='<%# Eval("Pkg_SearchKeywords") %>' 
+                         data-style='<%# Eval("Pkg_Style") %>' 
+                         data-days='<%# Eval("Pkg_Days") %>' 
+                         data-price='<%# Eval("Pkg_Price") %>' 
+                         data-rating='<%# Eval("Pkg_Rating") %>' 
+                         data-reviews='<%# Eval("Pkg_Reviews") %>'>
+                
+                <asp:Panel ID="pnlImageWrapper" runat="server" CssClass="pkg-image-wrapper">
+                  <asp:Image ID="imgPkg" runat="server" ImageUrl='<%# Eval("Pkg_Image") %>' AlternateText='<%# Eval("Pkg_Title") %>' />
+                  <asp:Panel ID="pnlBadgesTop" runat="server" CssClass="pkg-badges-top">
+                    <asp:Label ID="lblBadge1" runat="server" CssClass='<%# "badge " + Eval("Pkg_Badge1_Class") %>' Text='<%# Eval("Pkg_Badge1") %>' style="font-size:11px;" />
+                    <asp:Label ID="lblBadge2" runat="server" CssClass='<%# "badge " + Eval("Pkg_Badge2_Class") %>' Text='<%# Eval("Pkg_Badge2") %>' style="font-size:10px;" />
+                  </asp:Panel>
+                  <asp:LinkButton ID="btnWishlist" runat="server" CssClass="pkg-wishlist-btn" 
+                                  OnClientClick='<%# "toggleWishlist(this, \"" + Eval("Pkg_Title") + "\", \"₹" + Eval("Pkg_Price", "{0:N0}") + "\", \"" + Eval("Pkg_Image") + "\", \"" + Eval("Pkg_DetailsUrl") + "\"); return false;" %>' 
+                                  aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </asp:LinkButton>
+                </asp:Panel>
 
-          <!-- Package 2: Kerala -->
-          <article class="pkg-card anim-fade-up" data-title="kerala backwaters romantic bliss munnar alleppey kovalam" data-style="honeymoon" data-days="6" data-price="36000" data-rating="4.9" data-reviews="310">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">💑 Honeymoon Special</span>
-                <span class="badge badge-success" style="font-size:10px;">🌿 Nature &amp; Backwaters</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Kerala Backwaters Romantic Bliss', '₹36,000', '../Content/images/img_55.jpg', '/Pages/package-details.aspx?id=kerala')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Munnar, Alleppey, Kovalam</span>
-              </div>
-              <h3 class="pkg-title">Kerala Backwaters Romantic Bliss</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-ship"></i> AC Houseboat</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-mug-hot"></i> Tea Plantation Stay</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-spa"></i> Ayurvedic Spa</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-wine-glass"></i> Candlelight Dinner</span>
-              </div>
-              <p class="pkg-desc">
-                Cruise on private air-conditioned houseboats, stroll through lush mist-covered tea estates in Munnar, and relax along golden Kovalam coastline.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.9 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(310 reviews)</span>
-                </div>
-                <span class="badge badge-success" style="font-size:10px;">Couple Favorite</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹36,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=kerala" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                <asp:Panel ID="pnlBody" runat="server" CssClass="pkg-body">
+                  <asp:Panel ID="pnlMetaRow" runat="server" CssClass="pkg-meta-row">
+                    <asp:Panel ID="pnlDuration" runat="server">
+                      <i class="fa-regular fa-clock"></i>
+                      <asp:Label ID="lblDuration" runat="server" Text='<%# " " + Eval("Pkg_Duration") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlLocation" runat="server">
+                      <i class="fa-solid fa-map-location-dot"></i>
+                      <asp:Label ID="lblLocation" runat="server" Text='<%# " " + Eval("Pkg_Location") %>' />
+                    </asp:Panel>
+                  </asp:Panel>
 
-          <!-- Package 3: Ladakh -->
-          <article class="pkg-card anim-fade-up" data-title="ladakh high altitude bike expedition leh khardung la pangong nubra" data-style="adventure" data-days="10" data-price="32000" data-rating="4.8" data-reviews="290">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_14.jpg" alt="Ladakh Bike Expedition" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-danger" style="font-size:11px;">🧗 High Altitude</span>
-                <span class="badge badge-dark" style="font-size:10px;">🏍️ Royal Enfield</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Ladakh High Altitude Bike Expedition', '₹32,000', '../Content/images/img_14.jpg', '/Pages/package-details.aspx?id=ladakh-adventure')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 10 Days / 9 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Leh, Khardung La, Pangong</span>
-              </div>
-              <h3 class="pkg-title">Ladakh High Altitude Bike Expedition</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-motorcycle"></i> Himalayan 411cc</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-campground"></i> Pangong Camp Stay</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-wrench"></i> Mechanic Backup</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-passport"></i> Inner Line Permits</span>
-              </div>
-              <p class="pkg-desc">
-                Conquer the world's highest motorable pass at Khardung La, camp beside the color-changing Pangong Lake, and explore surreal Nubra sand dunes.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.8 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(290 reviews)</span>
-                </div>
-                <span class="badge badge-primary" style="font-size:10px;">Extreme Thrill</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹32,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=ladakh-adventure" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                  <asp:Label ID="lblTitle" runat="server" CssClass="pkg-title" Text='<%# Eval("Pkg_Title") %>' />
 
-          <!-- Package 4: Kashmir -->
-          <article class="pkg-card anim-fade-up" data-title="kashmir paradise srinagar gulmarg pahalgam dal lake" data-style="luxury" data-days="7" data-price="38000" data-rating="5.0" data-reviews="610">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_13.jpg" alt="Kashmir Paradise" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">👑 Crown of India</span>
-                <span class="badge badge-success" style="font-size:10px;">⭐ 5.0 Top Rated</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Kashmir Paradise: Srinagar, Gulmarg & Pahalgam', '₹38,000', '../Content/images/img_13.jpg', '/Pages/package-details.aspx?id=kashmir-paradise')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 7 Days / 6 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Srinagar, Gulmarg, Pahalgam</span>
-              </div>
-              <h3 class="pkg-title">Kashmir Paradise: Srinagar &amp; Gulmarg</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-sailboat"></i> Dal Lake Houseboat</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-mountain"></i> Gondola Tickets</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-car"></i> AC Innova Private</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-utensils"></i> Kashmiri Wazwan</span>
-              </div>
-              <p class="pkg-desc">
-                Experience heaven on Earth with luxury Dal Lake Shikara rides, snow activities at Gulmarg Gondola, and walks through Betaab Valley in Pahalgam.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 5.0 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(610 reviews)</span>
-                </div>
-                <span class="badge badge-success" style="font-size:10px;">All-Inclusive</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹38,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=kashmir-paradise" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                  <asp:Panel ID="pnlInclusions" runat="server" CssClass="pkg-inclusions-list">
+                    <asp:Panel ID="pnlInc1" runat="server" CssClass="pkg-inclusion-pill">
+                      <i class='<%# "fa-solid " + Eval("Pkg_Inclusion1_Icon") %>'></i>
+                      <asp:Label ID="lblInc1" runat="server" Text='<%# " " + Eval("Pkg_Inclusion1_Text") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlInc2" runat="server" CssClass="pkg-inclusion-pill">
+                      <i class='<%# "fa-solid " + Eval("Pkg_Inclusion2_Icon") %>'></i>
+                      <asp:Label ID="lblInc2" runat="server" Text='<%# " " + Eval("Pkg_Inclusion2_Text") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlInc3" runat="server" CssClass="pkg-inclusion-pill">
+                      <i class='<%# "fa-solid " + Eval("Pkg_Inclusion3_Icon") %>'></i>
+                      <asp:Label ID="lblInc3" runat="server" Text='<%# " " + Eval("Pkg_Inclusion3_Text") %>' />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlInc4" runat="server" CssClass="pkg-inclusion-pill">
+                      <i class='<%# "fa-solid " + Eval("Pkg_Inclusion4_Icon") %>'></i>
+                      <asp:Label ID="lblInc4" runat="server" Text='<%# " " + Eval("Pkg_Inclusion4_Text") %>' />
+                    </asp:Panel>
+                  </asp:Panel>
 
-          <!-- Package 5: Goa -->
-          <article class="pkg-card anim-fade-up" data-title="goa beach resort cruise retreat calangute baga panaji" data-style="family" data-days="5" data-price="18000" data-rating="4.7" data-reviews="520">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_21.jpg" alt="Goa Beach Resort" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-primary" style="font-size:11px;">🏖️ Beach Holiday</span>
-                <span class="badge badge-secondary" style="font-size:10px;">🍹 Nightlife &amp; Cruise</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Goa Beach Resort & Cruise Retreat', '₹18,000', '../Content/images/img_21.jpg', '/Pages/package-details.aspx?id=goa-beach')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 5 Days / 4 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Calangute, Baga, Panaji</span>
-              </div>
-              <h3 class="pkg-title">Goa Beach Resort &amp; Cruise Retreat</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-umbrella-beach"></i> 4★ Beachfront</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-ship"></i> Mandovi Cruise</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-water"></i> Water Sports</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-van-shuttle"></i> Airport Transfers</span>
-              </div>
-              <p class="pkg-desc">
-                Soak in tropical sunshine at luxury beachfront resorts, enjoy a luxury sunset dinner cruise on Mandovi river, and explore historic Old Goa churches.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.7 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(520 reviews)</span>
-                </div>
-                <span class="badge badge-primary" style="font-size:10px;">Family &amp; Friends</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹18,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=goa-beach" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                  <asp:Label ID="lblDesc" runat="server" CssClass="pkg-desc" Text='<%# Eval("Pkg_Description") %>' />
 
-          <!-- Package 6: Manali & Shimla -->
-          <article class="pkg-card anim-fade-up" data-title="manali shimla himalayan snow explorer kufri solang rohtang" data-style="snow" data-days="7" data-price="24000" data-rating="4.8" data-reviews="180">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">❄️ Snow &amp; Mountains</span>
-                <span class="badge badge-dark" style="font-size:10px;">🌲 Pine Valley</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Manali-Shimla Himalayan Snow Explorer', '₹24,000', '../Content/images/img_43.jpg', '/Pages/package-details.aspx?id=manali-shimla')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 7 Days / 6 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Shimla, Kufri, Manali</span>
-              </div>
-              <h3 class="pkg-title">Manali-Shimla Snow Explorer</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-bus"></i> Volvo Luxury Coach</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-snowflake"></i> Solang Snow Pass</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-tree"></i> Valley View Resort</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-fire"></i> Campfire Night</span>
-              </div>
-              <p class="pkg-desc">
-                Trek through fragrant cedar pine forests, experience skiing in Solang Valley, visit historic Hadimba Temple, and shop on Shimla Mall Road.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.8 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(180 reviews)</span>
-                </div>
-                <span class="badge badge-secondary" style="font-size:10px;">Year-Round Snow</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹24,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=manali-shimla" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                  <asp:Panel ID="pnlRatingRow" runat="server" CssClass="pkg-rating-row">
+                    <asp:Panel ID="pnlRatingWrap" runat="server" style="font-size:13px; color:#F59E0B; font-weight:700;">
+                      <asp:Label ID="lblRating" runat="server" Text='<%# "★ " + Eval("Pkg_Rating") %>' />
+                      <asp:Label ID="lblReviews" runat="server" style="color:var(--text-muted); font-size:12px; font-weight:500;" Text='<%# " (" + Eval("Pkg_Reviews") + " reviews)" %>' />
+                    </asp:Panel>
+                    <asp:Label ID="lblBottomBadge" runat="server" CssClass='<%# "badge " + Eval("Pkg_BottomBadge_Class") %>' style="font-size:10px;" Text='<%# Eval("Pkg_BottomBadge") %>' />
+                  </asp:Panel>
+                </asp:Panel>
 
-          <!-- Package 7: Andaman -->
-          <article class="pkg-card anim-fade-up" data-title="andaman luxury coral island tour port blair havelock neil" data-style="island" data-days="6" data-price="42000" data-rating="4.9" data-reviews="240">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_33.jpg" alt="Andaman Island Tour" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🏝️ Island Luxury</span>
-                <span class="badge badge-success" style="font-size:10px;">🤿 Scuba &amp; Coral</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Andaman Luxury Coral Island Tour', '₹42,000', '../Content/images/img_33.jpg', '/Pages/package-details.aspx?id=andaman')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Port Blair, Havelock, Neil</span>
-              </div>
-              <h3 class="pkg-title">Andaman Luxury Coral Island Tour</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-ferry"></i> Catamaran Ferry</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-fish"></i> Scuba Diving</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-hotel"></i> 5★ Beach Villa</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-sun"></i> Radhanagar Sunset</span>
-              </div>
-              <p class="pkg-desc">
-                Swim in crystal clear turquoise waters, witness glowing bioluminescence, explore vibrant coral reefs, and relax on Asia's cleanest beaches.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.9 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(240 reviews)</span>
-                </div>
-                <span class="badge badge-accent" style="font-size:10px;">Island VIP</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹42,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=andaman" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                <asp:Panel ID="pnlFooter" runat="server" CssClass="pkg-footer">
+                  <asp:Panel ID="pnlPriceWrap" runat="server">
+                    <asp:Label ID="lblStartFrom" runat="server" style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700; display:block;" Text="Starting From" />
+                    <asp:Label ID="lblPrice" runat="server" CssClass="pkg-price-val" Text='<%# "₹" + Eval("Pkg_Price", "{0:N0}") %>' />
+                  </asp:Panel>
 
-          <!-- Package 8: Golden Triangle -->
-          <article class="pkg-card anim-fade-up" data-title="golden triangle delhi agra jaipur taj mahal amber fort" data-style="luxury" data-days="6" data-price="28000" data-rating="4.9" data-reviews="490">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_32.jpg" alt="Golden Triangle Tour" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-accent" style="font-size:11px;">🏛️ World Heritage</span>
-                <span class="badge badge-dark" style="font-size:10px;">🕌 Taj Mahal VIP</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Golden Triangle (Delhi – Agra – Jaipur)', '₹28,000', '../Content/images/img_32.jpg', '/Pages/package-details.aspx?id=golden-triangle')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 6 Days / 5 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Delhi, Agra, Jaipur</span>
-              </div>
-              <h3 class="pkg-title">Golden Triangle: Delhi, Agra &amp; Jaipur</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-landmark"></i> Sunrise Taj Mahal</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-car"></i> Private Chauffeur</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-hotel"></i> 4★ Heritage Hotels</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-id-card"></i> Historian Guide</span>
-              </div>
-              <p class="pkg-desc">
-                Marvel at the breathtaking Taj Mahal at sunrise, explore colossal Mughal forts in Agra, and witness the Pink City's majestic Amber Fort palaces.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.9 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(490 reviews)</span>
-                </div>
-                <span class="badge badge-success" style="font-size:10px;">Iconic India</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹28,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=golden-triangle" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+                  <asp:LinkButton ID="btnItinerary" runat="server" CssClass="btn btn-primary btn-sm" 
+                                  CommandName="cmd_details" 
+                                  CommandArgument='<%# Eval("Pkg_DetailsUrl") %>'>
+                    View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
+                  </asp:LinkButton>
+                </asp:Panel>
 
-          <!-- Package 9: Varanasi -->
-          <article class="pkg-card anim-fade-up" data-title="spiritual varanasi ganges cultural journey sarnath ganga aarti" data-style="spiritual" data-days="4" data-price="16000" data-rating="4.9" data-reviews="350">
-            <div class="pkg-image-wrapper">
-              <img src="../Content/images/img_39.jpg" alt="Varanasi Spiritual Tour" loading="lazy">
-              <div class="pkg-badges-top">
-                <span class="badge badge-secondary" style="font-size:11px;">🛕 Spiritual Journey</span>
-                <span class="badge badge-dark" style="font-size:10px;">🕯️ Ganga Aarti VIP</span>
-              </div>
-              <button type="button" class="pkg-wishlist-btn" onclick="toggleWishlist(this, 'Spiritual Varanasi & Ganges Cultural Journey', '₹16,000', '../Content/images/img_39.jpg', '/Pages/package-details.aspx?id=varanasi-spiritual')" aria-label="Add to wishlist">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="pkg-body">
-              <div class="pkg-meta-row">
-                <span><i class="fa-regular fa-clock"></i> 4 Days / 3 Nights</span>
-                <span><i class="fa-solid fa-map-location-dot"></i> Varanasi, Sarnath, Ganges</span>
-              </div>
-              <h3 class="pkg-title">Spiritual Varanasi &amp; Ganges Odyssey</h3>
-              <div class="pkg-inclusions-list">
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-sailboat"></i> Sunrise Ganges Boat</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-fire"></i> VIP Aarti Seating</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-hotel"></i> Ghat-side Heritage</span>
-                <span class="pkg-inclusion-pill"><i class="fa-solid fa-dharmachakra"></i> Sarnath Tour</span>
-              </div>
-              <p class="pkg-desc">
-                Immerse in the eternal city of Varanasi with private dawn boat rows, the mystical evening Ganga Aarti ceremony, and Buddhist heritage at Sarnath.
-              </p>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;">
-                <div style="font-size:13px; color:#F59E0B; font-weight:700;">
-                  ★ 4.9 <span style="color:var(--text-muted); font-size:12px; font-weight:500;">(350 reviews)</span>
-                </div>
-                <span class="badge badge-secondary" style="font-size:10px;">Cultural Classic</span>
-              </div>
-            </div>
-            <div class="pkg-footer">
-              <div>
-                <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Starting From</div>
-                <div class="pkg-price-val">₹16,000</div>
-              </div>
-              <a href="/Pages/package-details.aspx?id=varanasi-spiritual" class="btn btn-primary btn-sm">
-                View Itinerary <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i>
-              </a>
-            </div>
-          </article>
+              </asp:Panel>
+            </ItemTemplate>
+          </asp:DataList>
 
         </div>
 
@@ -787,6 +556,8 @@
         if (duration === 'medium' && (days < 5 || days > 8)) match = false;
         if (duration === 'long' && days < 9) match = false;
 
+        const wrapper = (card.parentElement && card.parentElement.tagName === 'SPAN' && card.parentElement.id !== 'packages-grid') ? card.parentElement : card;
+        wrapper.style.display = match ? 'flex' : 'none';
         card.style.display = match ? 'flex' : 'none';
         if (match) visibleCount++;
       });
@@ -823,7 +594,10 @@
         return reviewsB - reviewsA; // 'popular'
       });
 
-      cards.forEach(card => grid.appendChild(card));
+      cards.forEach(card => {
+        const wrapper = (card.parentElement && card.parentElement.tagName === 'SPAN' && card.parentElement.id !== 'packages-grid') ? card.parentElement : card;
+        grid.appendChild(wrapper);
+      });
       filterPackages();
     }
 

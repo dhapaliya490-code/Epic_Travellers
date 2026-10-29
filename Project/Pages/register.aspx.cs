@@ -37,7 +37,6 @@ namespace Epic_Travelers.Pages
             da.Fill(ds);
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            con.Close();
         }
 
         void filldata()
@@ -65,7 +64,6 @@ namespace Epic_Travelers.Pages
                 cmd = new SqlCommand("INSERT INTO user_tbl ([Full Name], Email, Password) " +
                                      "VALUES('" + txtFullName.Text + "','" + txtEmail.Text + "','" + txtPassword.Text + "')", con);
                 cmd.ExecuteNonQuery();
-                con.Close();
                 clear();
                 fillgird();
 

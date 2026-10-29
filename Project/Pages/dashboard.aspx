@@ -87,6 +87,80 @@
     }
 
     /* ===================================================
+       GRIDVIEW CART & BOOKINGS STYLING (Matching View_Cart.aspx with Luxury Design)
+    =================================================== */
+    .cart-grid-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .cart-gridview {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      border: none !important;
+    }
+
+    .cart-gridview th {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 14px 16px;
+      border: none !important;
+      text-align: left;
+    }
+
+    .cart-gridview th:first-child {
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+    }
+
+    .cart-gridview th:last-child {
+      border-top-right-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .cart-gridview tr {
+      background: transparent;
+    }
+
+    .cart-gridview td {
+      padding: 16px;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      border-left: none;
+      border-right: none;
+      vertical-align: middle;
+      color: var(--text-primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+    }
+
+    .cart-gridview td:first-child {
+      border-left: 1px solid var(--gray-200);
+      border-top-left-radius: var(--radius-xl);
+      border-bottom-left-radius: var(--radius-xl);
+    }
+
+    .cart-gridview td:last-child {
+      border-right: 1px solid var(--gray-200);
+      border-top-right-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
+      text-align: center;
+    }
+
+    .cart-gridview tr:hover td {
+      border-color: var(--primary);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.08);
+    }
+
+    /* ===================================================
        PREMIUM TAX INVOICE & TRAVEL VOUCHER MODAL
     =================================================== */
     .invoice-modal-backdrop {
@@ -358,10 +432,111 @@
             <a href="/Pages/packages.aspx" class="btn btn-primary btn-sm">+ Book New Tour</a>
           </div>
 
-          <!-- Dynamic Bookings Container -->
-          <div id="bookings-list-container">
-            <!-- Rendered by client JS based on user's real selections -->
+          <!-- Database Bookings Listing (Using GridView matching View_Cart.aspx with pure ASP controls) -->
+          <div class="cart-grid-wrapper">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+                          DataKeyNames="Cart_Pkg_Id" 
+                          CssClass="cart-gridview" 
+                          GridLines="None"
+                          OnRowEditing="GridView1_RowEditing" 
+                          OnRowUpdating="GridView1_RowUpdating" 
+                          OnRowCancelingEdit="GridView1_RowCancelingEdit" 
+                          OnRowCommand="GridView1_RowCommand">
+              <Columns>
+                <asp:TemplateField HeaderText="Product_Image">
+                  <ItemTemplate>
+                    <asp:Image ID="Image1" runat="server" Height="70" Width="105" 
+                               ImageUrl='<%# Eval("Pkg_Image") %>' 
+                               style="border-radius:10px; object-fit:cover; display:block; box-shadow:0 3px 10px rgba(0,0,0,0.1);" 
+                               AlternateText='<%# Eval("Pkg_Title") %>' />
+                  </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Product_Name">
+                  <ItemTemplate>
+                    <div style="font-weight:700; font-size:16px; color:var(--text-primary); margin-bottom:4px;">
+                      <asp:Label ID="Label2" runat="server" Text='<%# Eval("Pkg_Title") %>'></asp:Label>
+                    </div>
+                    <div style="font-size:12px; color:var(--text-secondary); display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                      <span><i class="fa-regular fa-calendar" style="color:var(--primary); margin-right:4px;"></i><%# Eval("Travel_Date") %></span>
+                      <span><i class="fa-regular fa-clock" style="color:var(--primary); margin-right:4px;"></i><%# Eval("Pkg_Duration") %></span>
+                      <span><i class="fa-solid fa-ticket" style="color:var(--primary); margin-right:4px;"></i>Booking: <strong style="color:var(--primary);"><%# Eval("Booking_Code") %></strong></span>
+                      <span class="badge badge-success" style="font-size:11px; padding:2px 8px;">✓ <%# Eval("Status") %></span>
+                    </div>
+                  </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Price">
+                  <ItemTemplate>
+                    <div style="font-weight:800; font-size:17px; color:var(--primary);">
+                      <asp:Label ID="Label3" runat="server" Text='<%# "₹" + Eval("Pkg_Price", "{0:N0}") %>'></asp:Label>
+                    </div>
+                    <span style="font-size:11px; color:var(--text-muted); display:block;">per person</span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Quantity">
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" style="width:75px; padding:6px 10px; font-weight:700; display:inline-block; border-color:var(--primary);">
+                      <asp:ListItem Value="1">1</asp:ListItem>
+                      <asp:ListItem Value="2">2</asp:ListItem>
+                      <asp:ListItem Value="3">3</asp:ListItem>
+                      <asp:ListItem Value="4">4</asp:ListItem>
+                      <asp:ListItem Value="5">5</asp:ListItem>
+                      <asp:ListItem Value="6">6</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                  <ItemTemplate>
+                    <span class="badge badge-info" style="font-size:13px; font-weight:700; padding:6px 12px; display:inline-flex; align-items:center; gap:6px;">
+                      <i class="fa-solid fa-users"></i>
+                      <asp:Label ID="Label4" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label> Adults
+                    </span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:CommandField HeaderText="Update Quantity" ShowEditButton="True" ButtonType="Link" ControlStyle-CssClass="btn btn-secondary btn-sm" ItemStyle-Wrap="False" />
+
+                <asp:TemplateField HeaderText="Action">
+                  <ItemTemplate>
+                    <div style="display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:nowrap;">
+                      <asp:LinkButton ID="btnInvoice" runat="server" CssClass="btn btn-secondary btn-sm" 
+                                      OnClientClick='<%# "openInvoiceModalFromDb(\"" + Eval("Pkg_Title") + "\", \"" + Eval("Booking_Code") + "\", \"" + Eval("Travel_Date") + "\", \"" + Eval("Pkg_Duration") + "\", " + Eval("Quantity") + ", " + (((int)Eval("Pkg_Price")) * ((int)Eval("Quantity"))) + "); return false;" %>'>
+                        <i class="fa-solid fa-file-invoice" style="color:var(--primary); margin-right:4px;"></i> Invoice
+                      </asp:LinkButton>
+                      <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("Cart_Pkg_Id") %>' CommandName="cmd_rmv" 
+                                      CssClass="btn btn-secondary btn-sm" style="color:#ef4444; border-color:rgba(239,68,68,0.25);" 
+                                      OnClientClick="return confirm('Are you sure you want to cancel this booking?');">
+                        <i class="fa-solid fa-trash-can" style="margin-right:4px;"></i> Remove
+                      </asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+            </asp:GridView>
           </div>
+
+          <!-- Total Booking Amount Summary (Matching View_Cart.aspx Total) -->
+          <asp:Panel ID="pnlTotalBar" runat="server" style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-secondary); padding:18px 24px; border-radius:var(--radius-lg); margin-top:20px; border:1px solid var(--gray-200);">
+            <div>
+              <span style="font-size:13px; color:var(--text-muted); text-transform:uppercase; font-weight:700; display:block;">Total Booking Amount</span>
+              <span style="font-size:12px; color:var(--text-secondary);">All verified travel packages &amp; taxes included</span>
+            </div>
+            <div style="text-align:right;">
+              <asp:Label ID="Label5" runat="server" style="font-size:22px; font-weight:800; color:var(--primary);" Text="Total Amount is ₹: 0" />
+            </div>
+          </asp:Panel>
+
+          <!-- Empty State when no bookings exist -->
+          <asp:Panel ID="pnlEmptyState" runat="server" CssClass="empty-state-card" Visible="false">
+            <div style="font-size:52px; margin-bottom:12px;">🧳</div>
+            <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">No Active Tour Bookings</h3>
+            <p style="font-size:14px; color:var(--text-secondary); max-width:440px; margin:0 auto 20px;">
+              You haven't booked any tour packages yet. Choose from our handcrafted India itineraries and start your journey!
+            </p>
+            <a href="/Pages/packages.aspx" class="btn btn-primary">
+              <i class="fa-solid fa-compass" style="margin-right:6px;"></i> Browse All Tour Packages
+            </a>
+          </asp:Panel>
         </div>
 
         <!-- Tab 2: Wishlist -->
@@ -767,6 +942,42 @@
       `;
     }
 
+    // Open Tax Invoice Modal for Database Bookings
+    function openInvoiceModalFromDb(title, code, travelDates, duration, guests, totalPrice) {
+      const email = getUserEmail();
+      const subtotal = Math.round(totalPrice / 1.05);
+      const gst = totalPrice - subtotal;
+      const todayStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+      document.getElementById('invNo').innerText = 'INV-EPIC-2025-' + (code ? code.replace(/[^0-9]/g, '') : '8910');
+      document.getElementById('invDate').innerText = todayStr;
+      document.getElementById('invBookingId').innerText = code || '#EPIC-89210';
+      document.getElementById('invTravelerName').innerText = getUserName();
+      document.getElementById('invTravelerEmail').innerText = email || 'traveler@epictravellers.com';
+      document.getElementById('invTravelerPhone').innerText = '+91 90991 07637';
+
+      document.getElementById('invTourTitle').innerText = title || 'Tour Package';
+      document.getElementById('invDuration').innerText = duration || '7 Days';
+      document.getElementById('invTravelDates').innerText = travelDates || 'Upcoming Holiday Season';
+      document.getElementById('invGuests').innerText = guests + ' Adults';
+
+      document.getElementById('invTableTitle').innerText = title || 'Tour Package';
+      document.getElementById('invTableDuration').innerText = duration || '7 Days';
+      document.getElementById('invTableGuests').innerText = guests + ' Adults';
+      document.getElementById('invTablePrice').innerText = '₹' + totalPrice.toLocaleString('en-IN');
+
+      document.getElementById('invSubtotal').innerText = '₹' + subtotal.toLocaleString('en-IN');
+      document.getElementById('invGst').innerText = '₹' + gst.toLocaleString('en-IN') + ' (5% GST)';
+      document.getElementById('invTotalPaid').innerText = '₹' + totalPrice.toLocaleString('en-IN');
+      document.getElementById('invPaymentMode').innerText = 'Paid Online via UPI / NetBanking • Instant Authorization';
+
+      const modal = document.getElementById('invoiceModal');
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
     // Open & Populate the Tax Invoice Modal with Trip Details
     function openInvoiceModal(idx) {
       const email = getUserEmail();
@@ -854,7 +1065,6 @@
           if (av) av.innerText = name.charAt(0).toUpperCase();
         }
       }
-      renderUserBookings();
       renderUserWishlist();
       renderUserPayments();
     });

@@ -1,14 +1,14 @@
-<%@ Page Title="Epic-Travellers – Discover Incredible India | Premium Travel & Tour Packages" Language="C#"
+<%@ Page Title="Epic-Travellers  -  Discover Incredible India | Premium Travel & Tour Packages" Language="C#"
   MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="Epic_Travelers.Pages.index"
   %>
 
   <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta name="description"
-      content="Epic-Travellers – Discover Incredible India! Book premium tour packages to Goa, Kerala, Rajasthan, Ladakh, Manali & more. Best travel deals, luxury packages, and customized India tours.">
+      content="Epic-Travellers  -  Discover Incredible India! Book premium tour packages to Goa, Kerala, Rajasthan, Ladakh, Manali & more. Best travel deals, luxury packages, and customized India tours.">
     <meta name="keywords"
       content="India travel, tour packages, Goa tours, Kerala backwaters, Rajasthan trip, Ladakh adventure, Manali holiday, India travel agency">
     <meta name="author" content="Epic-Travellers">  
-    <meta property="og:title" content="Epic-Travellers – Discover Incredible India">
+    <meta property="og:title" content="Epic-Travellers  -  Discover Incredible India">
     <meta property="og:description"
       content="Your premium travel partner for exploring the wonders of India. Book customized tours, luxury packages & more.">
     <meta property="og:image" content="assets/og-image.jpg">
@@ -71,6 +71,40 @@
         gap: 24px;
       }
 
+      .destinations-grid > span,
+      .destinations-grid span,
+      #featured-packages-grid > span,
+      #featured-packages-grid span,
+      #packages .grid-3 > span,
+      #packages .grid-3 span {
+        display: contents !important;
+      }
+
+      .destinations-grid br,
+      .destinations-grid span br,
+      #featured-packages-grid br,
+      #featured-packages-grid span br,
+      #packages .grid-3 br,
+      #packages .grid-3 span br {
+        display: none !important;
+      }
+
+      #packages .package-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      #packages .package-card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #packages .package-card-footer {
+        margin-top: auto;
+      }
+
       .destination-card {
         aspect-ratio: 4 / 5.2;
         min-height: 360px;
@@ -92,7 +126,7 @@
       .destination-card-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(11,19,41,0.35) 45%, rgba(11,19,41,0.95) 100%);
+        background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(11, 19, 41, 0.35) 45%, rgba(11, 19, 41, 0.95) 100%);
       }
 
       .destination-card-badge {
@@ -1154,17 +1188,17 @@
 
           <!-- Decorative Particles -->
           <div class="hero-particle"
-            style="width:200px;height:200px;background:rgba(14,165,233,0.15);top:10%;left:5%;--duration:8s;--delay:0s;border-radius:50%;filter:blur(40px);"
+            style="width:200px;height:200px;background:rgba(14, 165, 233, 0.15);top:10%;left:5%;--duration:8s;--delay:0s;border-radius:50%;filter:blur(40px);"
             aria-hidden="true"></div>
           <div class="hero-particle"
-            style="width:150px;height:150px;background:rgba(245,158,11,0.12);bottom:20%;right:10%;--duration:6s;--delay:2s;border-radius:50%;filter:blur(30px);"
+            style="width:150px;height:150px;background:rgba(245, 158, 11, 0.12);bottom:20%;right:10%;--duration:6s;--delay:2s;border-radius:50%;filter:blur(30px);"
             aria-hidden="true"></div>
 
           <!-- Hero Content -->
           <div class="container">
             <div class="hero-content">
-              <div class="hero-badge" role="text" style="background:rgba(20,184,166,0.25); border:1px solid rgba(20,184,166,0.5); color:#2DD4BF;">
-                <span>🇮🇳</span> Incredible India Awaits
+              <div class="hero-badge" role="text" style="background:rgba(20, 184, 166, 0.25); border:1px solid rgba(20, 184, 166, 0.5); color:#2DD4BF;">
+                <i class="fa-solid fa-compass" style="margin-right:6px;"></i> Incredible India Awaits
               </div>
 
               <h1 class="hero-title">
@@ -1173,7 +1207,7 @@
               </h1>
 
               <p class="hero-subtitle">
-                From the majestic Himalayas to the serene backwaters of Kerala —
+                From the majestic Himalayas to the serene backwaters of Kerala &mdash;
                 Epic-Travellers crafts unforgettable journeys across India's most breathtaking destinations.
               </p>
 
@@ -1191,7 +1225,7 @@
                   <span class="hero-stat-label">Tour Packages</span>
                 </div>
                 <div class="hero-stat" role="listitem">
-                  <span class="hero-stat-value">4.9⭐</span>
+                  <span class="hero-stat-value">4.9 <i class="fa-solid fa-star" style="color:#F59E0B; font-size:18px;"></i></span>
                   <span class="hero-stat-label">Rating</span>
                 </div>
               </div>
@@ -1228,13 +1262,13 @@
             <div class="hero-search-inner">
               <div class="search-tabs" role="tablist">
                 <button type="button" class="search-tab active" role="tab" id="tab-tours" onclick="switchHeroSearchTab('tours')">
-                  🏔️ Tours
+                  <i class="fa-solid fa-route" style="margin-right:6px;"></i> Tours
                 </button>
                 <button type="button" class="search-tab" role="tab" id="tab-hotels" onclick="switchHeroSearchTab('hotels')">
-                  🏨 Hotels
+                  <i class="fa-solid fa-hotel" style="margin-right:6px;"></i> Hotels
                 </button>
                 <button type="button" class="search-tab" role="tab" id="tab-flights" onclick="switchHeroSearchTab('flights')">
-                  ✈️ Flights
+                  <i class="fa-solid fa-plane" style="margin-right:6px;"></i> Flights
                 </button>
               </div>
 
@@ -1301,182 +1335,66 @@
                 Explore <span class="text-gradient">Incredible India</span>
               </h2>
               <p class="section-subtitle">
-                From the golden deserts of Rajasthan to the pristine beaches of Andaman — India has it all.
+                From the golden deserts of Rajasthan to the pristine beaches of Andaman &mdash; India has it all.
               </p>
             </div>
 
             <!-- Tags Filter -->
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;"
               class="anim-fade-up" role="list" aria-label="Destination filters">
-              <button class="tag active" data-filter="all" role="listitem">🌍 All</button>
-              <button class="tag" data-filter="beach" role="listitem">🏖️ Beaches</button>
-              <button class="tag" data-filter="mountains" role="listitem">🏔️ Mountains</button>
-              <button class="tag" data-filter="heritage" role="listitem">🏰 Heritage</button>
-              <button class="tag" data-filter="nature" role="listitem">🌿 Nature</button>
-              <button class="tag" data-filter="spiritual" role="listitem">🛕 Spiritual</button>
+              <button class="tag active" data-filter="all" role="listitem"><i class="fa-solid fa-globe"></i> All</button>
+              <button class="tag" data-filter="beach" role="listitem"><i class="fa-solid fa-umbrella-beach"></i> Beaches</button>
+              <button class="tag" data-filter="mountains" role="listitem"><i class="fa-solid fa-mountain"></i> Mountains</button>
+              <button class="tag" data-filter="heritage" role="listitem"><i class="fa-solid fa-monument"></i> Heritage</button>
+              <button class="tag" data-filter="nature" role="listitem"><i class="fa-solid fa-leaf"></i> Nature</button>
+              <button class="tag" data-filter="spiritual" role="listitem"><i class="fa-solid fa-om"></i> Spiritual</button>
             </div>
 
             <div class="destinations-grid stagger-children">
 
-              <!-- Destination 1: Rajasthan -->
-              <div class="destination-card anim-fade-up" data-category="heritage" onclick="window.location.href='/Pages/package-details.aspx?id=royal-rajasthan'">
-                <img src="../Content/images/img_48.jpg" alt="Jaipur - Pink City of Rajasthan" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#F59E0B; color:#000000; font-weight:800; padding:5px 12px; border-radius:999px;">👑 Royal Heritage</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Rajasthan', '₹45,000', '../Content/images/img_48.jpg', '/Pages/package-details.aspx?id=royal-rajasthan')" aria-label="Add Rajasthan to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Rajasthan</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Jaipur, Udaipur, Jodhpur</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹45,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.9 <span style="opacity:0.7; color:white; font-size:12px;">(2.4k)</span></div>
-                  </div>
-                </div>
-              </div>
+              <asp:DataList ID="DataList1" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList1_ItemCommand">
+                <ItemTemplate>
+                  <asp:Panel ID="pnlDestCard" runat="server" CssClass="destination-card anim-fade-up" 
+                             data-category='<%# Eval("Dest_Region") + " " + Eval("Dest_SearchKeywords") %>' 
+                             onclick='<%# "window.location.href=\"" + Eval("Dest_PackageUrl") + "\"" %>'>
+                    
+                    <asp:Image ID="imgDest" runat="server" ImageUrl='<%# Eval("Dest_Image") %>' AlternateText='<%# Eval("Dest_Name") %>' />
+                    <asp:Panel ID="pnlOverlay" runat="server" CssClass="destination-card-overlay" aria-hidden="true"></asp:Panel>
+                    
+                    <asp:Panel ID="pnlBadgeWrap" runat="server" CssClass="destination-card-badge">
+                      <asp:Label ID="lblBadge" runat="server" CssClass='<%# "badge " + Eval("Dest_Badge1_Class") %>' 
+                                 style="font-weight:800; padding:5px 12px; border-radius:999px;" 
+                                 Text='<%# Eval("Dest_Badge1") %>' />
+                    </asp:Panel>
 
-              <!-- Destination 2: Goa -->
-              <div class="destination-card anim-fade-up" data-category="beach" onclick="window.location.href='/Pages/package-details.aspx?id=goa-beach'">
-                <img src="../Content/images/img_21.jpg" alt="Goa Beaches" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#0EA5E9; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">🏖️ Beach &amp; Cruise</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Goa', '₹18,000', '../Content/images/img_21.jpg', '/Pages/package-details.aspx?id=goa-beach')" aria-label="Add Goa to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Goa</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> North &amp; South Goa</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹18,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.8 <span style="opacity:0.7; color:white; font-size:12px;">(3.8k)</span></div>
-                  </div>
-                </div>
-              </div>
+                    <asp:LinkButton ID="btnWishlist" runat="server" CssClass="destination-card-wishlist wishlist-btn" 
+                                    OnClientClick='<%# "event.stopPropagation(); toggleDestWishlist(this, \"" + Eval("Dest_Name") + "\", \"&#8377;" + Eval("Dest_Price", "{0:N0}") + "\", \"" + Eval("Dest_Image") + "\", \"" + Eval("Dest_PackageUrl") + "\"); return false;" %>' 
+                                    aria-label="Add to wishlist">
+                      <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                    </asp:LinkButton>
 
-              <!-- Destination 3: Kerala -->
-              <div class="destination-card anim-fade-up" data-category="nature" onclick="window.location.href='/Pages/package-details.aspx?id=kerala'">
-                <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#10B981; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">🌿 Backwaters &amp; Tea</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Kerala', '₹36,000', '../Content/images/img_55.jpg', '/Pages/package-details.aspx?id=kerala')" aria-label="Add Kerala to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Kerala</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Munnar, Alleppey, Kovalam</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹36,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.9 <span style="opacity:0.7; color:white; font-size:12px;">(3.1k)</span></div>
-                  </div>
-                </div>
-              </div>
+                    <asp:Panel ID="pnlContent" runat="server" CssClass="destination-card-content">
+                      <asp:Label ID="lblDestName" runat="server" CssClass="destination-name" Text='<%# Eval("Dest_Name") %>' style="display:block;" />
+                      
+                      <asp:Panel ID="pnlLocation" runat="server" CssClass="destination-location">
+                        <i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i>
+                        <asp:Label ID="lblLocation" runat="server" Text='<%# " " + Eval("Dest_Location") %>' />
+                      </asp:Panel>
 
-              <!-- Destination 4: Ladakh -->
-              <div class="destination-card anim-fade-up" data-category="mountains" onclick="window.location.href='/Pages/package-details.aspx?id=ladakh-adventure'">
-                <img src="../Content/images/img_14.jpg" alt="Ladakh Mountains" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#EF4444; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">🏔️ High Altitude</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Ladakh', '₹32,000', '../Content/images/img_14.jpg', '/Pages/package-details.aspx?id=ladakh-adventure')" aria-label="Add Ladakh to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Ladakh</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Leh, Pangong, Nubra Valley</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹32,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.9 <span style="opacity:0.7; color:white; font-size:12px;">(2.1k)</span></div>
-                  </div>
-                </div>
-              </div>
+                      <asp:Panel ID="pnlMeta" runat="server" CssClass="destination-meta">
+                        <asp:Panel ID="pnlPrice" runat="server" CssClass="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">
+                          From <strong style="font-size:18px; color:#38BDF8;"><asp:Label ID="lblPrice" runat="server" Text='<%# "&#8377;" + Eval("Dest_Price", "{0:N0}") %>' /></strong>/person
+                        </asp:Panel>
+                        
+                        <asp:Panel ID="pnlRating" runat="server" CssClass="destination-rating" style="font-weight:700; color:#F59E0B;">
+                          <i class="fa-solid fa-star" style="margin-right:3px;"></i><asp:Label ID="lblRating" runat="server" Text='<%# Eval("Dest_Rating") %>' /> <span style="opacity:0.7; color:white; font-size:12px;">(<asp:Label ID="lblReviews" runat="server" Text='<%# Eval("Dest_Reviews") %>' />)</span>
+                        </asp:Panel>
+                      </asp:Panel>
+                    </asp:Panel>
 
-              <!-- Destination 5: Kashmir -->
-              <div class="destination-card anim-fade-up" data-category="mountains" onclick="window.location.href='/Pages/package-details.aspx?id=kashmir-paradise'">
-                <img src="../Content/images/img_13.jpg" alt="Kashmir Dal Lake" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#F59E0B; color:#000000; font-weight:800; padding:5px 12px; border-radius:999px;">👑 Crown of India</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Kashmir', '₹38,000', '../Content/images/img_13.jpg', '/Pages/package-details.aspx?id=kashmir-paradise')" aria-label="Add Kashmir to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Kashmir</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Srinagar, Gulmarg, Pahalgam</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹38,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 5.0 <span style="opacity:0.7; color:white; font-size:12px;">(4.1k)</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Destination 6: Andaman -->
-              <div class="destination-card anim-fade-up" data-category="beach" onclick="window.location.href='/Pages/package-details.aspx?id=andaman'">
-                <img src="../Content/images/img_33.jpg" alt="Andaman Islands" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#0EA5E9; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">🏝️ Coral Island</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Andaman', '₹42,000', '../Content/images/img_33.jpg', '/Pages/package-details.aspx?id=andaman')" aria-label="Add Andaman to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Andaman</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Port Blair, Havelock, Neil</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹42,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.9 <span style="opacity:0.7; color:white; font-size:12px;">(1.9k)</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Destination 7: Himachal / Manali -->
-              <div class="destination-card anim-fade-up" data-category="mountains" onclick="window.location.href='/Pages/package-details.aspx?id=manali-shimla'">
-                <img src="../Content/images/img_43.jpg" alt="Manali Himachal" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#6366F1; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">❄️ Snow &amp; Pines</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Himachal', '₹24,000', '../Content/images/img_43.jpg', '/Pages/package-details.aspx?id=manali-shimla')" aria-label="Add Himachal to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Manali &amp; Shimla</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Solang, Kufri, Rohtang</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹24,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.8 <span style="opacity:0.7; color:white; font-size:12px;">(2.9k)</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Destination 8: Varanasi -->
-              <div class="destination-card anim-fade-up" data-category="spiritual" onclick="window.location.href='/Pages/package-details.aspx?id=varanasi-spiritual'">
-                <img src="../Content/images/img_39.jpg" alt="Varanasi Ghats" loading="lazy">
-                <div class="destination-card-overlay" aria-hidden="true"></div>
-                <div class="destination-card-badge">
-                  <span class="badge" style="background:#EC4899; color:#FFFFFF; font-weight:800; padding:5px 12px; border-radius:999px;">🛕 Spiritual Heart</span>
-                </div>
-                <button type="button" class="destination-card-wishlist wishlist-btn" onclick="event.stopPropagation(); toggleDestWishlist(this, 'Varanasi', '₹16,000', '../Content/images/img_39.jpg', '/Pages/package-details.aspx?id=varanasi-spiritual')" aria-label="Add Varanasi to wishlist">
-                  <i class="fa-regular fa-heart" aria-hidden="true"></i>
-                </button>
-                <div class="destination-card-content">
-                  <h3 class="destination-name">Varanasi</h3>
-                  <div class="destination-location"><i class="fa-solid fa-location-dot" style="color:#38BDF8;"></i> Ganges Ghats, Sarnath</div>
-                  <div class="destination-meta">
-                    <div class="destination-price" style="font-size:13px; color:rgba(255,255,255,0.85);">From <strong style="font-size:18px; color:#38BDF8;">₹16,000</strong>/person</div>
-                    <div class="destination-rating" style="font-weight:700; color:#F59E0B;">★ 4.9 <span style="opacity:0.7; color:white; font-size:12px;">(2.8k)</span></div>
-                  </div>
-                </div>
-              </div>
+                  </asp:Panel>
+                </ItemTemplate>
+              </asp:DataList>
 
             </div>
 
@@ -1520,7 +1438,7 @@
               <h2 class="section-title" id="packages-heading">
                 Handcrafted <span class="text-gradient">Tour Packages</span>
               </h2>
-              <p class="section-subtitle">Curated experiences for every kind of traveller — from luxury retreats to
+              <p class="section-subtitle">Curated experiences for every kind of traveller &mdash; from luxury retreats to
                 thrilling adventures across India.</p>
             </div>
 
@@ -1534,216 +1452,56 @@
               <button class="tab" data-tab="luxury" role="tab" aria-selected="false">Luxury</button>
             </div>
 
-            <div class="grid grid-3 stagger-children" role="list" aria-label="Tour packages">
+            <div class="grid grid-3 stagger-children" role="list" aria-label="Tour packages" id="featured-packages-grid">
 
-              <!-- Package 1: Royal Rajasthan -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="heritage luxury">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_48.jpg" alt="Royal Rajasthan tour - Jaipur palaces and deserts"
-                    loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-accent">⭐ Bestseller</span>
-                    <span class="badge badge-dark">👑 Luxury</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Royal Rajasthan Expedition</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 8 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-15 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 4 Cities</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Hotels</span>
-                    <span class="package-feature">✓ Meals</span>
-                    <span class="package-feature">✓ Transport</span>
-                    <span class="package-feature">✓ Guide</span>
-                  </div>
-                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (328 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="25000">₹25,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="/Pages/package-details.aspx?id=royal-rajasthan" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+              <asp:DataList ID="DataList2" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemCommand="DataList2_ItemCommand">
+                <ItemTemplate>
+                  <asp:Panel ID="pnlPkgCard" runat="server" CssClass="package-card anim-fade-up" role="listitem" 
+                             data-category='<%# Eval("Pkg_Style") + " " + Eval("Pkg_SearchKeywords") %>'>
+                    
+                    <asp:Panel ID="pnlPkgImage" runat="server" CssClass="package-card-image">
+                      <asp:Image ID="imgPkg" runat="server" ImageUrl='<%# Eval("Pkg_Image") %>' AlternateText='<%# Eval("Pkg_Title") %>' />
+                      <asp:Panel ID="pnlPkgBadges" runat="server" CssClass="package-card-badges">
+                        <asp:Label ID="lblBadge1" runat="server" CssClass='<%# "badge " + Eval("Pkg_Badge1_Class") %>' Text='<%# Eval("Pkg_Badge1") %>' />
+                        <asp:Label ID="lblBadge2" runat="server" CssClass='<%# "badge " + Eval("Pkg_Badge2_Class") %>' Text='<%# Eval("Pkg_Badge2") %>' Visible='<%# Eval("Pkg_Badge2") != null && Eval("Pkg_Badge2").ToString() != "" %>' />
+                      </asp:Panel>
+                    </asp:Panel>
 
-              <!-- Package 2: Kerala Backwaters -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="nature honeymoon">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters - Houseboat cruise" loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-secondary">💑 Honeymoon</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Kerala Backwaters & Beaches</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-10 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Cities</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Houseboat</span>
-                    <span class="package-feature">✓ Spa</span>
-                    <span class="package-feature">✓ Meals</span>
-                    <span class="package-feature">✓ Guide</span>
-                  </div>
-                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (412 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="18000">₹18,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="/Pages/package-details.aspx?id=kerala" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+                    <asp:Panel ID="pnlPkgBody" runat="server" CssClass="package-card-body">
+                      <asp:Label ID="lblPkgTitle" runat="server" CssClass="package-card-title" Text='<%# Eval("Pkg_Title") %>' style="display:block;" />
+                      
+                      <asp:Panel ID="pnlHighlights" runat="server" CssClass="package-card-highlights">
+                        <span class="package-highlight"><i class="fa-regular fa-clock"></i> <asp:Label ID="lblDuration" runat="server" Text='<%# Eval("Pkg_Duration") %>' /></span>
+                        <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> <asp:Label ID="lblLocation" runat="server" Text='<%# Eval("Pkg_Location") %>' /></span>
+                      </asp:Panel>
 
-              <!-- Package 3: Ladakh Adventure -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="adventure mountains">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_14.jpg" alt="Ladakh adventure - Pangong Lake and high-altitude passes"
-                    loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-danger">🧗 Adventure</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Ladakh & Pangong Lake Adventure</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 10 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 4-20 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 5 Zones</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Camping</span>
-                    <span class="package-feature">✓ Bike</span>
-                    <span class="package-feature">✓ Meals</span>
-                    <span class="package-feature">✓ Permits</span>
-                  </div>
-                  <div class="stars" aria-label="4.8 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.8 (289 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="32000">₹32,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="/Pages/package-details.aspx?id=ladakh-adventure" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+                      <asp:Panel ID="pnlFeatures" runat="server" CssClass="package-features">
+                        <asp:Panel ID="pnlInc1" runat="server" CssClass="package-feature" Visible='<%# Eval("Pkg_Inclusion1_Text") != null && Eval("Pkg_Inclusion1_Text").ToString() != "" %>'><i class="fa-solid fa-check" style="margin-right:4px;"></i><asp:Label ID="lblInc1" runat="server" Text='<%# Eval("Pkg_Inclusion1_Text") %>' /></asp:Panel>
+                        <asp:Panel ID="pnlInc2" runat="server" CssClass="package-feature" Visible='<%# Eval("Pkg_Inclusion2_Text") != null && Eval("Pkg_Inclusion2_Text").ToString() != "" %>'><i class="fa-solid fa-check" style="margin-right:4px;"></i><asp:Label ID="lblInc2" runat="server" Text='<%# Eval("Pkg_Inclusion2_Text") %>' /></asp:Panel>
+                        <asp:Panel ID="pnlInc3" runat="server" CssClass="package-feature" Visible='<%# Eval("Pkg_Inclusion3_Text") != null && Eval("Pkg_Inclusion3_Text").ToString() != "" %>'><i class="fa-solid fa-check" style="margin-right:4px;"></i><asp:Label ID="lblInc3" runat="server" Text='<%# Eval("Pkg_Inclusion3_Text") %>' /></asp:Panel>
+                        <asp:Panel ID="pnlInc4" runat="server" CssClass="package-feature" Visible='<%# Eval("Pkg_Inclusion4_Text") != null && Eval("Pkg_Inclusion4_Text").ToString() != "" %>'><i class="fa-solid fa-check" style="margin-right:4px;"></i><asp:Label ID="lblInc4" runat="server" Text='<%# Eval("Pkg_Inclusion4_Text") %>' /></asp:Panel>
+                      </asp:Panel>
 
-              <!-- Package 4: Goa Beach Holiday -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="beach family">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_21.jpg" alt="Goa beach holiday - sun, sand and water sports"
-                    loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-primary">👨‍👩‍👧 Family</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Goa Beach Holiday</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 5 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-20 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 2 Zones</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Resort</span>
-                    <span class="package-feature">✓ Water Sports</span>
-                    <span class="package-feature">✓ Meals</span>
-                  </div>
-                  <div class="stars" aria-label="4.7 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.7 (521 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="12000">₹12,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="/Pages/package-details.aspx?id=goa-beach" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+                      <asp:Panel ID="pnlRatingRow" runat="server" style="margin-top:auto; display:flex; align-items:center; gap:8px;">
+                        <span class="stars" style="color:#F59E0B;" aria-label='<%# Eval("Pkg_Rating") + " out of 5 stars" %>'><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                        <span style="font-size:13px; color:var(--text-muted);">
+                          <asp:Label ID="lblRating" runat="server" Text='<%# Eval("Pkg_Rating") %>' /> (<asp:Label ID="lblReviews" runat="server" Text='<%# Eval("Pkg_Reviews") %>' /> reviews)
+                        </span>
+                      </asp:Panel>
+                    </asp:Panel>
 
-              <!-- Package 5: Manali Shimla -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="mountains family">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_43.jpg" alt="Manali Shimla - snow mountains and valleys"
-                    loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-primary">❄️ Hill Station</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Manali-Shimla Snow Tour</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 7 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-25 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Cities</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Hotels</span>
-                    <span class="package-feature">✓ Skiing</span>
-                    <span class="package-feature">✓ Meals</span>
-                    <span class="package-feature">✓ Guide</span>
-                  </div>
-                  <div class="stars" aria-label="4.8 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.8 (367 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="16000">₹16,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="/Pages/package-details.aspx?id=manali-shimla" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+                    <asp:Panel ID="pnlPkgFooter" runat="server" CssClass="package-card-footer">
+                      <asp:Panel ID="pnlPkgPrice" runat="server" CssClass="package-price">
+                        <small>Starting from</small>
+                        <strong data-price-inr='<%# Eval("Pkg_Price") %>'><asp:Label ID="lblPrice" runat="server" Text='<%# "&#8377;" + Eval("Pkg_Price", "{0:N0}") %>' /></strong>
+                        <span style="font-size:12px; color:var(--text-muted);">/person</span>
+                      </asp:Panel>
+                      <asp:LinkButton ID="btnBookNow" runat="server" CssClass="btn btn-primary btn-sm" CommandName="cmd_book" CommandArgument='<%# Eval("Pkg_DetailsUrl") %>'>Book Now</asp:LinkButton>
+                    </asp:Panel>
 
-              <!-- Package 6: Andaman -->
-              <article class="package-card anim-fade-up" role="listitem" data-category="beach honeymoon">
-                <div class="package-card-image">
-                  <img src="../Content/images/img_33.jpg" alt="Andaman islands - crystal clear waters and coral reefs"
-                    loading="lazy">
-                  <div class="package-card-badges">
-                    <span class="badge badge-secondary">💑 Honeymoon</span>
-                  </div>
-                </div>
-                <div class="package-card-body">
-                  <h3 class="package-card-title">Andaman Island Escape</h3>
-                  <div class="package-card-highlights">
-                    <span class="package-highlight"><i class="fa-regular fa-clock"></i> 6 Days</span>
-                    <span class="package-highlight"><i class="fa-solid fa-users"></i> 2-12 pax</span>
-                    <span class="package-highlight"><i class="fa-solid fa-location-dot"></i> 3 Islands</span>
-                  </div>
-                  <div class="package-features">
-                    <span class="package-feature">✓ Resort</span>
-                    <span class="package-feature">✓ Diving</span>
-                    <span class="package-feature">✓ Meals</span>
-                    <span class="package-feature">✓ Ferry</span>
-                  </div>
-                  <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
-                  <span style="font-size:13px; color:var(--text-muted);"> 4.9 (198 reviews)</span>
-                </div>
-                <div class="package-card-footer">
-                  <div class="package-price">
-                    <small>Starting from</small>
-                    <strong data-price-inr="22000">₹22,000</strong>
-                    <span style="font-size:12px; color:var(--text-muted);">/person</span>
-                  </div>
-                  <a href="#page-package-details" class="btn btn-primary btn-sm">Book Now</a>
-                </div>
-              </article>
+                  </asp:Panel>
+                </ItemTemplate>
+              </asp:DataList>
 
             </div>
 
@@ -1766,55 +1524,10 @@
 
             <div class="categories-scroll stagger-children" role="list" aria-label="Travel categories">
               <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_12.jpg" alt="Mountain adventures" loading="lazy">
+                <img src="../Content/images/img_14.jpg" alt="Mountain adventures" loading="lazy">
                 <div class="category-card-overlay" aria-hidden="true"></div>
                 <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🏔️</div>
-                  <div class="category-name">Mountains</div>
-                  <div class="category-count">42 Destinations</div>
-                </div>
-              </div>
-              <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_19.jpg" alt="Beach destinations" loading="lazy">
-                <div class="category-card-overlay" aria-hidden="true"></div>
-                <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🏖️</div>
-                  <div class="category-name">Beaches</div>
-                  <div class="category-count">35 Destinations</div>
-                </div>
-              </div>
-              <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_47.jpg" alt="Heritage sites" loading="lazy">
-                <div class="category-card-overlay" aria-hidden="true"></div>
-                <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🏰</div>
-                  <div class="category-name">Heritage</div>
-                  <div class="category-count">58 Destinations</div>
-                </div>
-              </div>
-              <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_53.jpg" alt="Nature and wildlife" loading="lazy">
-                <div class="category-card-overlay" aria-hidden="true"></div>
-                <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🌿</div>
-                  <div class="category-name">Nature</div>
-                  <div class="category-count">67 Destinations</div>
-                </div>
-              </div>
-              <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_39.jpg" alt="Spiritual destinations" loading="lazy">
-                <div class="category-card-overlay" aria-hidden="true"></div>
-                <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🛕</div>
-                  <div class="category-name">Spiritual</div>
-                  <div class="category-count">45 Destinations</div>
-                </div>
-              </div>
-              <div class="category-card anim-scale" role="listitem">
-                <img src="../Content/images/img_34.jpg" alt="Urban city trips" loading="lazy">
-                <div class="category-card-overlay" aria-hidden="true"></div>
-                <div class="category-card-content">
-                  <div class="category-icon" aria-hidden="true">🏙️</div>
+                  <div class="category-icon" aria-hidden="true"><i class="fa-solid fa-city" style="font-size:20px; color:white;"></i></div>
                   <div class="category-name">City Tours</div>
                   <div class="category-count">28 Cities</div>
                 </div>
@@ -1830,56 +1543,50 @@
               <div class="section-label"><i class="fa-solid fa-shield-halved"></i> Why Epic-Travellers</div>
               <h2 class="section-title" id="why-us-heading">Your Journey, <span class="text-gradient">Our Passion</span>
               </h2>
-              <p class="section-subtitle">We go above and beyond to make every trip extraordinary — from planning to the
+              <p class="section-subtitle">We go above and beyond to make every trip extraordinary &mdash; from planning to the
                 last goodbye.</p>
             </div>
 
-            <div class="grid grid-4 stagger-children" role="list" aria-label="Our features">
+                        <div class="grid grid-4 stagger-children" role="list" aria-label="Our features">
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">🛡️</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved" style="color:var(--primary); font-size:26px;"></i></div>
                 <h3 class="feature-title">100% Safe & Secure</h3>
-                <p class="feature-desc">Your safety is our priority. All tours are fully insured with 24/7 emergency
-                  support.</p>
+                <p class="feature-desc">Your safety is our priority. All tours are fully insured with 24/7 emergency support.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">💰</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-hand-holding-dollar" style="color:#10B981; font-size:26px;"></i></div>
                 <h3 class="feature-title">Best Price Guarantee</h3>
-                <p class="feature-desc">Found a better price? We'll match it! No hidden charges, transparent pricing
-                  always.</p>
+                <p class="feature-desc">Found a better price? We'll match it! No hidden charges, transparent pricing always.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">⚡</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-bolt-lightning" style="color:#F59E0B; font-size:26px;"></i></div>
                 <h3 class="feature-title">Instant Booking</h3>
-                <p class="feature-desc">Book in minutes with our real-time availability system. Get instant
-                  confirmation.</p>
+                <p class="feature-desc">Book in minutes with our real-time availability system. Get instant confirmation.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">🎯</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-compass-drafting" style="color:#8B5CF6; font-size:26px;"></i></div>
                 <h3 class="feature-title">Customized Trips</h3>
-                <p class="feature-desc">Every trip tailored to your preferences. Our experts craft personalized
-                  itineraries.</p>
+                <p class="feature-desc">Every trip tailored to your preferences. Our experts craft personalized itineraries.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">🌟</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-user-tie" style="color:#0EA5E9; font-size:26px;"></i></div>
                 <h3 class="feature-title">Expert Local Guides</h3>
                 <p class="feature-desc">Experienced, certified guides who know India like the back of their hand.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">📱</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-headset" style="color:#EC4899; font-size:26px;"></i></div>
                 <h3 class="feature-title">24/7 Support</h3>
-                <p class="feature-desc">Round-the-clock customer support via chat, call, and email. We're always there.
-                </p>
+                <p class="feature-desc">Round-the-clock customer support via chat, call, and email. We're always there.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">🔄</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-arrows-rotate" style="color:#14B8A6; font-size:26px;"></i></div>
                 <h3 class="feature-title">Free Cancellation</h3>
                 <p class="feature-desc">Plans change. Cancel up to 48 hours before departure for a full refund.</p>
               </div>
               <div class="feature-card anim-fade-up" role="listitem">
-                <div class="feature-icon" aria-hidden="true">🤖</div>
+                <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-robot" style="color:#6366F1; font-size:26px;"></i></div>
                 <h3 class="feature-title">AI Trip Planner</h3>
-                <p class="feature-desc">Our AI suggests personalized itineraries based on your budget and preferences.
-                </p>
+                <p class="feature-desc">Our AI suggests personalized itineraries based on your budget and preferences.</p>
               </div>
             </div>
           </div>
@@ -1896,38 +1603,36 @@
                 </h2>
                 <p style="font-size:16px; color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
                   Our intelligent trip planner analyzes thousands of routes, hotels, and experiences to create your
-                  perfect India itinerary — instantly.
+                  perfect India itinerary &mdash; instantly.
                 </p>
                 <ul style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
                   <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
-                    <span style="color:var(--secondary); font-size:18px;">✓</span> Budget-optimized recommendations
+                    <i class="fa-solid fa-circle-check" style="color:var(--secondary); font-size:16px;"></i> Budget-optimized recommendations
                   </li>
                   <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
-                    <span style="color:var(--secondary); font-size:18px;">✓</span> Day-by-day itinerary planning
+                    <i class="fa-solid fa-circle-check" style="color:var(--secondary); font-size:16px;"></i> Day-by-day itinerary planning
                   </li>
                   <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
-                    <span style="color:var(--secondary); font-size:18px;">✓</span> Weather-aware suggestions
+                    <i class="fa-solid fa-circle-check" style="color:var(--secondary); font-size:16px;"></i> Weather-aware suggestions
                   </li>
                   <li style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-secondary);">
-                    <span style="color:var(--secondary); font-size:18px;">✓</span> Instant booking integration
+                    <i class="fa-solid fa-circle-check" style="color:var(--secondary); font-size:16px;"></i> Instant booking integration
                   </li>
                 </ul>
               </div>
               <div class="calculator-card anim-fade-right">
-                <h3 style="font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:24px;">
-                  🤖 AI Trip Planner
-                </h3>
+                <h3 style="font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:24px;"><i class="fa-solid fa-robot" style="color:var(--primary); margin-right:8px;"></i> AI Trip Planner</h3>
                 <div id="ai-planner-form" class="booking-form" novalidate>
                   <div class="grid grid-2" style="gap:16px;">
                     <div class="form-group">
                       <label class="form-label" for="ai-type">Trip Type</label>
                       <select id="ai-type" name="type" class="form-control filter-select" required>
-                        <option value="beach">🏖️ Beach</option>
-                        <option value="mountains">🏔️ Mountains</option>
-                        <option value="heritage">🏰 Heritage</option>
-                        <option value="adventure">🧗 Adventure</option>
-                        <option value="nature">🌿 Nature</option>
-                        <option value="spiritual">🛕 Spiritual</option>
+                        <option value="beach">Beach Vacation</option>
+                        <option value="mountains">Himalayan Mountains</option>
+                        <option value="heritage">Royal Heritage</option>
+                        <option value="adventure">Adventure Tours</option>
+                        <option value="nature">Nature & Wildlife</option>
+                        <option value="spiritual">Spiritual & Cultural</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -1936,7 +1641,7 @@
                         max="30" required>
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="ai-budget">Budget (₹)</label>
+                      <label class="form-label" for="ai-budget">Budget (&#8377;)</label>
                       <input type="number" id="ai-budget" name="budget" class="form-control" placeholder="50000"
                         min="5000" required>
                     </div>
@@ -1969,22 +1674,22 @@
             <div class="testimonials-slider stagger-children" role="list" aria-label="Traveller testimonials">
 
               <div class="testimonial-card anim-fade-up" role="listitem">
-                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <div class="stars" style="color:#F59E0B; font-size:14px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">
-                  "Our Rajasthan trip was absolutely magical! Epic-Travellers organized every detail perfectly — from
+                  "Our Rajasthan trip was absolutely magical! Epic-Travellers organized every detail perfectly &mdash; from
                   the desert camp in Jaisalmer to the palace hotels in Udaipur. Truly a royal experience!"
                 </p>
                 <div class="testimonial-author">
                   <img src="../Content/images/img_28.jpg" alt="Priya Sharma" class="testimonial-avatar" loading="lazy">
                   <div class="testimonial-info">
                     <h5>Priya Sharma</h5>
-                    <span>Mumbai, Maharashtra • Rajasthan Tour</span>
+                    <span>Mumbai, Maharashtra &bull; Rajasthan Tour</span>
                   </div>
                 </div>
               </div>
 
               <div class="testimonial-card anim-fade-up" role="listitem">
-                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <div class="stars" style="color:#F59E0B; font-size:14px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">
                   "The Ladakh bike tour exceeded all expectations. The team handled permits, accommodation, and even the
                   altitude acclimatization schedule perfectly. Will definitely book again!"
@@ -1993,13 +1698,13 @@
                   <img src="../Content/images/img_16.jpg" alt="Arjun Mehta" class="testimonial-avatar" loading="lazy">
                   <div class="testimonial-info">
                     <h5>Arjun Mehta</h5>
-                    <span>Bangalore, Karnataka • Ladakh Adventure</span>
+                    <span>Bangalore, Karnataka &bull; Ladakh Adventure</span>
                   </div>
                 </div>
               </div>
 
               <div class="testimonial-card anim-fade-up" role="listitem">
-                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <div class="stars" style="color:#F59E0B; font-size:14px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">
                   "Our honeymoon in Kerala was dreamy! The houseboat experience on Alleppey backwaters was
                   unforgettable. Epic-Travellers added so many thoughtful touches. Highly recommend!"
@@ -2009,7 +1714,7 @@
                     loading="lazy">
                   <div class="testimonial-info">
                     <h5>Ananya & Rohan Kapoor</h5>
-                    <span>Delhi • Kerala Honeymoon Package</span>
+                    <span>Delhi &bull; Kerala Honeymoon Package</span>
                   </div>
                 </div>
               </div>
@@ -2019,7 +1724,7 @@
             <div class="text-center mt-32 anim-fade-up">
               <div style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                  <div class="stars">★★★★★</div>
+                  <div class="stars" style="color:#F59E0B; font-size:14px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                   <span style="font-weight:700; color:var(--text-primary);">4.9/5</span>
                   <span style="color:var(--text-muted); font-size:14px;">based on 12,000+ reviews</span>
                 </div>
@@ -2043,7 +1748,7 @@
 
               <article class="blog-card anim-fade-up" role="listitem">
                 <div class="blog-card-image">
-                  <img src="../Content/images/img_14.jpg" alt="Best time to visit Ladakh" loading="lazy">
+                  <img src="../Content/images/img_55.jpg" alt="Best time to visit Ladakh" loading="lazy">
                 </div>
                 <div class="blog-card-body">
                   <a href="/Pages/blog.aspx" class="blog-category">Adventure Travel</a>
@@ -2064,7 +1769,7 @@
 
               <article class="blog-card anim-fade-up" role="listitem">
                 <div class="blog-card-image">
-                  <img src="../Content/images/img_55.jpg" alt="Kerala backwaters experience" loading="lazy">
+                  <img src="../Content/images/img_48.jpg" alt="Kerala backwaters experience" loading="lazy">
                 </div>
                 <div class="blog-card-body">
                   <a href="/Pages/blog.aspx" class="blog-category">Nature & Wildlife</a>
@@ -2086,7 +1791,7 @@
 
               <article class="blog-card anim-fade-up" role="listitem">
                 <div class="blog-card-image">
-                  <img src="../Content/images/img_48.jpg" alt="Rajasthan royal palaces" loading="lazy">
+                  <img src="../Content/images/img_21.jpg" alt="Rajasthan royal palaces" loading="lazy">
                 </div>
                 <div class="blog-card-body">
                   <a href="/Pages/blog.aspx" class="blog-category">Heritage & Culture</a>
@@ -2094,7 +1799,7 @@
                     <a href="/Pages/blog.aspx">10 Magnificent Palaces in Rajasthan That Will Leave You Speechless</a>
                   </h3>
                   <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px;">
-                    From the Lake Palace in Udaipur to the Mehrangarh Fort in Jodhpur — Rajasthan's royal architecture
+                    From the Lake Palace in Udaipur to the Mehrangarh Fort in Jodhpur &mdash; Rajasthan's royal architecture
                     is unparalleled.
                   </p>
                   <div class="blog-meta">
@@ -2119,7 +1824,7 @@
           <div class="cta-bg" aria-hidden="true"></div>
           <div class="container" style="position:relative; z-index:2; text-align:center; color:white;">
             <div class="anim-scale">
-              <div style="font-size:48px; margin-bottom:16px;" aria-hidden="true">✈️</div>
+              <div style="margin-bottom:16px;" aria-hidden="true"><i class="fa-solid fa-plane-departure" style="font-size:42px; color:white;"></i></div>
               <h2 class="section-title" id="cta-heading" style="color:white; font-size:clamp(28px,4vw,48px);">
                 Ready for Your Next <br>India Adventure?
               </h2>
@@ -2128,12 +1833,8 @@
                 Join 50,000+ travellers who've discovered the magic of Incredible India with us.
               </p>
               <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-                <a href="/Pages/packages.aspx" class="btn btn-white btn-xl">
-                  🏔️ Explore Packages
-                </a>
-                <a href="/Pages/contact.aspx" class="btn btn-glass btn-xl">
-                  📞 Talk to an Expert
-                </a>
+                <a href="/Pages/packages.aspx" class="btn btn-white btn-xl"><i class="fa-solid fa-mountain-sun" style="margin-right:8px; color:var(--primary);"></i> Explore Packages</a>
+                <a href="/Pages/contact.aspx" class="btn btn-glass btn-xl"><i class="fa-solid fa-phone" style="margin-right:8px;"></i> Talk to an Expert</a>
               </div>
             </div>
           </div>
@@ -2157,7 +1858,7 @@
                   style="flex:1; background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:white;"
                   aria-label="Email address for newsletter">
                 <button type="submit" class="btn btn-accent btn-lg" style="white-space:nowrap;">
-                  Subscribe ✈
+                  Subscribe <i class="fa-solid fa-paper-plane" style="margin-left:6px;"></i>
                 </button>
               </div>
               <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-top:16px;">
@@ -2178,9 +1879,7 @@
 
               <!-- Currency Converter -->
               <div class="card anim-fade-left" id="currency-converter" style="padding:28px;">
-                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;">
-                  💱 Currency Converter
-                </h3>
+                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;"><i class="fa-solid fa-money-bill-transfer" style="color:var(--primary); margin-right:8px;"></i> Currency Converter</h3>
                 <div class="form-group">
                   <label class="form-label">Amount</label>
                   <input type="number" id="conv-amount" class="form-control" value="1000"
@@ -2190,19 +1889,19 @@
                   <div class="form-group">
                     <label class="form-label">From</label>
                     <select id="conv-from" class="form-control filter-select" aria-label="From currency">
-                      <option value="INR">₹ INR</option>
+                      <option value="INR">&#8377; INR</option>
                       <option value="USD">$ USD</option>
-                      <option value="EUR">€ EUR</option>
-                      <option value="GBP">£ GBP</option>
+                      <option value="EUR">&euro; EUR</option>
+                      <option value="GBP">&pound; GBP</option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-label">To</label>
                     <select id="conv-to" class="form-control filter-select" aria-label="To currency">
                       <option value="USD">$ USD</option>
-                      <option value="INR">₹ INR</option>
-                      <option value="EUR">€ EUR</option>
-                      <option value="GBP">£ GBP</option>
+                      <option value="INR">&#8377; INR</option>
+                      <option value="EUR">&euro; EUR</option>
+                      <option value="GBP">&pound; GBP</option>
                     </select>
                   </div>
                 </div>
@@ -2215,9 +1914,7 @@
 
               <!-- Travel Checklist -->
               <div class="card anim-fade-right" style="padding:28px;">
-                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;">
-                  ✅ Packing Checklist
-                </h3>
+                <h3 style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px;"><i class="fa-solid fa-clipboard-check" style="color:var(--secondary); margin-right:8px;"></i> Packing Checklist</h3>
                 <div id="checklist"
                   style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto;">
                 </div>
@@ -2237,23 +1934,23 @@
             </div>
             <div class="partners-overflow anim-fade-up">
               <div class="partners-track" role="list" aria-label="Our trusted partners">
-                <div class="partner-logo" role="listitem">🏨 Taj Hotels</div>
-                <div class="partner-logo" role="listitem">✈️ Air India</div>
-                <div class="partner-logo" role="listitem">🚂 IRCTC</div>
-                <div class="partner-logo" role="listitem">🏰 Oberoi Hotels</div>
-                <div class="partner-logo" role="listitem">🌿 Club Mahindra</div>
-                <div class="partner-logo" role="listitem">🦁 Jungle Lodges</div>
-                <div class="partner-logo" role="listitem">🚌 KSRTC</div>
-                <div class="partner-logo" role="listitem">🏖️ Lemon Tree</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-hotel" style="color:#F59E0B; margin-right:6px;"></i> Taj Hotels</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-plane" style="color:#0EA5E9; margin-right:6px;"></i> Air India</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-train" style="color:#10B981; margin-right:6px;"></i> IRCTC</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-landmark" style="color:#8B5CF6; margin-right:6px;"></i> Oberoi Hotels</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-tree" style="color:#10B981; margin-right:6px;"></i> Club Mahindra</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-campground" style="color:#F97316; margin-right:6px;"></i> Jungle Lodges</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-bus" style="color:#3B82F6; margin-right:6px;"></i> KSRTC</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-umbrella-beach" style="color:#EAB308; margin-right:6px;"></i> Lemon Tree</div>
                 <!-- Duplicate for infinite scroll -->
-                <div class="partner-logo" role="listitem">🏨 Taj Hotels</div>
-                <div class="partner-logo" role="listitem">✈️ Air India</div>
-                <div class="partner-logo" role="listitem">🚂 IRCTC</div>
-                <div class="partner-logo" role="listitem">🏰 Oberoi Hotels</div>
-                <div class="partner-logo" role="listitem">🌿 Club Mahindra</div>
-                <div class="partner-logo" role="listitem">🦁 Jungle Lodges</div>
-                <div class="partner-logo" role="listitem">🚌 KSRTC</div>
-                <div class="partner-logo" role="listitem">🏖️ Lemon Tree</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-hotel" style="color:#F59E0B; margin-right:6px;"></i> Taj Hotels</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-plane" style="color:#0EA5E9; margin-right:6px;"></i> Air India</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-train" style="color:#10B981; margin-right:6px;"></i> IRCTC</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-landmark" style="color:#8B5CF6; margin-right:6px;"></i> Oberoi Hotels</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-tree" style="color:#10B981; margin-right:6px;"></i> Club Mahindra</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-campground" style="color:#F97316; margin-right:6px;"></i> Jungle Lodges</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-bus" style="color:#3B82F6; margin-right:6px;"></i> KSRTC</div>
+                <div class="partner-logo" role="listitem"><i class="fa-solid fa-umbrella-beach" style="color:#EAB308; margin-right:6px;"></i> Lemon Tree</div>
               </div>
             </div>
           </div>
@@ -2307,10 +2004,10 @@
                       Budget / Person</label>
                     <select id="filter-budget" class="form-control filter-select" onchange="applyDestFilters()">
                       <option value="all">Any Budget</option>
-                      <option value="10000">Under ₹10,000</option>
-                      <option value="20000">Under ₹20,000</option>
-                      <option value="35000">Under ₹35,000</option>
-                      <option value="50000">Above ₹35,000</option>
+                      <option value="10000">Under &#8377;10,000</option>
+                      <option value="20000">Under &#8377;20,000</option>
+                      <option value="35000">Under &#8377;35,000</option>
+                      <option value="50000">Above &#8377;35,000</option>
                     </select>
                   </div>
                   <div>
@@ -2356,7 +2053,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-accent">🏰 Heritage</span>
+                    <span class="badge badge-accent"><i class="fa-solid fa-landmark"></i> Heritage</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-jaipur"
                     aria-label="Wishlist Jaipur">
@@ -2366,7 +2063,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Jaipur & Udaipur</h3>
-                    <span class="weather-badge">☀️ 26°C Sunny</span>
+                    <span class="weather-badge"><i class="fa-solid fa-sun" style="color:#F59E0B; margin-right:4px;"></i> 26&deg;C Sunny</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Rajasthan, North India
@@ -2386,7 +2083,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="15000">₹15,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="15000">&#8377;15000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2399,7 +2096,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_21.jpg" alt="Goa Beaches" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-primary">🏖️ Beach & Party</span>
+                    <span class="badge badge-primary"><i class="fa-solid fa-umbrella-beach"></i> Beach & Party</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-goa" aria-label="Wishlist Goa">
                     <i class="fa-regular fa-heart"></i>
@@ -2408,7 +2105,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">North & South Goa</h3>
-                    <span class="weather-badge">🌤️ 29°C Tropical</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun" style="color:#F59E0B; margin-right:4px;"></i> 29&deg;C Tropical</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Goa, West Coast India
@@ -2428,7 +2125,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="8000">₹8,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="8000">&#8377;8000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2441,7 +2138,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_55.jpg" alt="Kerala Munnar" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-secondary">🌿 Backwaters & Tea</span>
+                    <span class="badge badge-secondary"><i class="fa-solid fa-leaf"></i> Backwaters & Tea</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-kerala"
                     aria-label="Wishlist Kerala">
@@ -2451,7 +2148,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Munnar & Alleppey</h3>
-                    <span class="weather-badge">🌧️ 22°C Pleasant</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun-rain" style="color:#0EA5E9; margin-right:4px;"></i> 22&deg;C Pleasant</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Kerala, South India
@@ -2471,7 +2168,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="12000">₹12,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="12000">&#8377;12000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2484,7 +2181,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_14.jpg" alt="Leh Ladakh" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-dark">🏔️ High Altitude</span>
+                    <span class="badge badge-dark"><i class="fa-solid fa-mountain"></i> High Altitude</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-ladakh"
                     aria-label="Wishlist Ladakh">
@@ -2494,7 +2191,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Leh & Pangong Lake</h3>
-                    <span class="weather-badge">❄️ 12°C Crisp</span>
+                    <span class="weather-badge"><i class="fa-solid fa-snowflake" style="color:#0EA5E9; margin-right:4px;"></i> 12&deg;C Crisp</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Ladakh UT, Far North India
@@ -2514,7 +2211,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="22000">₹22,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="22000">&#8377;22000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2527,7 +2224,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_33.jpg" alt="Havelock Andaman" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-primary">🏝️ Tropical Island</span>
+                    <span class="badge badge-primary"><i class="fa-solid fa-umbrella-beach"></i> Tropical Island</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-andaman"
                     aria-label="Wishlist Andaman">
@@ -2537,7 +2234,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Andaman & Nicobar</h3>
-                    <span class="weather-badge">🌤️ 28°C Tropical</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun" style="color:#F59E0B; margin-right:4px;"></i> 28&deg;C Tropical</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Bay of Bengal, Islands
@@ -2557,7 +2254,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="20000">₹20,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="20000">&#8377;20000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2570,7 +2267,7 @@
                 <div class="dest-card-img">
                   <img src="../Content/images/img_43.jpg" alt="Manali Himachal" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-secondary">⛰️ Hill Station</span>
+                    <span class="badge badge-secondary"><i class="fa-solid fa-mountain"></i> Hill Station</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-manali"
                     aria-label="Wishlist Manali">
@@ -2580,7 +2277,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Manali & Solang Valley</h3>
-                    <span class="weather-badge">❄️ 15°C Cool</span>
+                    <span class="weather-badge"><i class="fa-solid fa-snowflake" style="color:#0EA5E9; margin-right:4px;"></i> 15&deg;C Cool</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Himachal Pradesh, North India
@@ -2600,7 +2297,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="14000">₹14,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="14000">&#8377;14000</strong>
                     </div>
                     <a href="#page-package-details" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2611,9 +2308,9 @@
               <div class="destination-full-card anim-fade-up" data-name="varanasi kashi ghats" data-region="north"
                 data-price="7000" data-season="winter" data-rating="4.7">
                 <div class="dest-card-img">
-                  <img src="../Content/images/img_41.jpg" alt="Varanasi Ghats" loading="lazy">
+                  <img src="../Content/images/img_39.jpg" alt="Varanasi Ghats" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-accent">🛕 Spiritual Heart</span>
+                    <span class="badge badge-accent"><i class="fa-solid fa-om"></i> Spiritual Heart</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-varanasi"
                     aria-label="Wishlist Varanasi">
@@ -2623,7 +2320,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Varanasi (Kashi)</h3>
-                    <span class="weather-badge">🌤️ 24°C Pleasant</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun" style="color:#F59E0B; margin-right:4px;"></i> 24&deg;C Pleasant</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Uttar Pradesh, North India
@@ -2644,7 +2341,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="7000">₹7,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="7000">&#8377;7000</strong>
                     </div>
                     <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2655,9 +2352,9 @@
               <div class="destination-full-card anim-fade-up" data-name="darjeeling sikkim gangtok" data-region="east"
                 data-price="16000" data-season="summer" data-rating="4.8">
                 <div class="dest-card-img">
-                  <img src="../Content/images/img_33.jpg" alt="Darjeeling Sikkim" loading="lazy">
+                  <img src="../Content/images/img_18.jpg" alt="Darjeeling Sikkim" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-secondary">🍵 Tea & Monasteries</span>
+                    <span class="badge badge-secondary"><i class="fa-solid fa-leaf"></i> Tea & Monasteries</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-darjeeling"
                     aria-label="Wishlist Darjeeling">
@@ -2667,7 +2364,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Darjeeling & Gangtok</h3>
-                    <span class="weather-badge">🌤️ 18°C Cool</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun" style="color:#F59E0B; margin-right:4px;"></i> 18&deg;C Cool</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> West Bengal / Sikkim, East
@@ -2689,7 +2386,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="16000">₹16,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="16000">&#8377;16000</strong>
                     </div>
                     <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2700,9 +2397,9 @@
               <div class="destination-full-card anim-fade-up" data-name="coorg mysore karnataka" data-region="south"
                 data-price="10000" data-season="winter" data-rating="4.8">
                 <div class="dest-card-img">
-                  <img src="../Content/images/img_14.jpg" alt="Coorg Coffee Estate" loading="lazy">
+                  <img src="../Content/images/img_20.jpg" alt="Coorg Coffee Estate" loading="lazy">
                   <div style="position:absolute; top:12px; left:12px;">
-                    <span class="badge badge-primary">☕ Coffee Capital</span>
+                    <span class="badge badge-primary"><i class="fa-solid fa-mug-saucer"></i> Coffee Capital</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="dest-coorg"
                     aria-label="Wishlist Coorg">
@@ -2712,7 +2409,7 @@
                 <div class="dest-card-body">
                   <div class="flex-between mb-8">
                     <h3 style="font-size:20px; font-weight:700;">Coorg & Mysore</h3>
-                    <span class="weather-badge">🌤️ 21°C Mild</span>
+                    <span class="weather-badge"><i class="fa-solid fa-cloud-sun" style="color:#F59E0B; margin-right:4px;"></i> 21&deg;C Mild</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
                     <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Karnataka, South India
@@ -2733,7 +2430,7 @@
                     class="flex-between">
                     <div>
                       <small style="font-size:11px; color:var(--text-muted); display:block;">Avg. Trip Cost</small>
-                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="10000">₹10,000</strong>
+                      <strong style="font-size:20px; color:var(--primary);" data-price-inr="10000">&#8377;10000</strong>
                     </div>
                     <a href="#page-packages" class="btn btn-primary btn-sm">Explore Packages</a>
                   </div>
@@ -2802,7 +2499,7 @@
 
                 <div
                   style="position:absolute; bottom:20px; right:20px; background:rgba(255,255,255,0.9); padding:10px 16px; border-radius:var(--radius-md); font-size:12px; font-weight:600; color:var(--text-primary); backdrop-filter:blur(10px);">
-                  📍 Interactive Map Preview (Click pins for details)
+                  <i class="fa-solid fa-map-location-dot" style="margin-right:6px; color:var(--primary);"></i> Interactive Map Preview (Click pins for details)
                 </div>
               </div>
             </div>
@@ -2844,12 +2541,12 @@
                   <label class="form-label" for="pkg-category"><i class="fa-solid fa-list"></i> Travel Style</label>
                   <select id="pkg-category" class="form-control filter-select" onchange="filterPackages()">
                     <option value="all">All Styles</option>
-                    <option value="luxury">👑 Luxury Packages</option>
-                    <option value="family">👨‍👩‍👧 Family Trips</option>
-                    <option value="honeymoon">💑 Honeymoon Specials</option>
-                    <option value="adventure">🧗 Adventure & Wildlife</option>
-                    <option value="solo">🧳 Solo Travel</option>
-                    <option value="group">👥 Group Tours</option>
+                    <option value="luxury">Luxury Packages</option>
+                    <option value="family">Family Trips</option>
+                    <option value="honeymoon">Honeymoon Specials</option>
+                    <option value="adventure">Adventure Tours</option>
+                    <option value="solo">Solo Travel</option>
+                    <option value="group">Group Tours</option>
                   </select>
                 </div>
                 <div>
@@ -2865,9 +2562,9 @@
                   <label class="form-label" for="pkg-budget"><i class="fa-solid fa-tag"></i> Max Price / Person</label>
                   <select id="pkg-budget" class="form-control filter-select" onchange="filterPackages()">
                     <option value="all">Any Price</option>
-                    <option value="15000">Under ₹15,000</option>
-                    <option value="25000">Under ₹25,000</option>
-                    <option value="40000">Under ₹40,000</option>
+                    <option value="15000">Under &#8377;15,000</option>
+                    <option value="25000">Under &#8377;25,000</option>
+                    <option value="40000">Under &#8377;40,000</option>
                   </select>
                 </div>
               </div>
@@ -2875,12 +2572,12 @@
 
             <!-- Quick Filter Pills -->
             <div class="flex-center gap-12 flex-wrap mt-32 mb-32" id="pill-filters">
-              <button class="category-pill active" onclick="selectPill(this, 'all')">🌟 All Packages</button>
-              <button class="category-pill" onclick="selectPill(this, 'luxury')">👑 Luxury</button>
-              <button class="category-pill" onclick="selectPill(this, 'family')">👨‍👩‍👧 Family</button>
-              <button class="category-pill" onclick="selectPill(this, 'honeymoon')">💑 Honeymoon</button>
-              <button class="category-pill" onclick="selectPill(this, 'adventure')">🧗 Adventure</button>
-              <button class="category-pill" onclick="selectPill(this, 'solo')">🧳 Solo</button>
+              <button class="category-pill active" onclick="selectPill(this, 'all')"><i class="fa-solid fa-layer-group"></i> All Packages</button>
+              <button class="category-pill" onclick="selectPill(this, 'luxury')"><i class="fa-solid fa-crown"></i> Luxury</button>
+              <button class="category-pill" onclick="selectPill(this, 'family')"><i class="fa-solid fa-people-roof"></i> Family</button>
+              <button class="category-pill" onclick="selectPill(this, 'honeymoon')"><i class="fa-solid fa-heart"></i> Honeymoon</button>
+              <button class="category-pill" onclick="selectPill(this, 'adventure')"><i class="fa-solid fa-person-hiking"></i> Adventure</button>
+              <button class="category-pill" onclick="selectPill(this, 'solo')"><i class="fa-solid fa-person-walking-luggage"></i> Solo</button>
             </div>
           </div>
         </section>
@@ -2896,8 +2593,8 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_48.jpg" alt="Royal Rajasthan" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-accent">⭐ Bestseller</span>
-                    <span class="badge badge-dark">👑 Luxury</span>
+                    <span class="badge badge-accent"><i class="fa-solid fa-star"></i> Bestseller</span>
+                    <span class="badge badge-dark"><i class="fa-solid fa-crown"></i> Luxury</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-rajasthan"
                     aria-label="Wishlist Royal Rajasthan">
@@ -2912,21 +2609,21 @@
                       Jodhpur</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ Heritage Hotels</span>
-                    <span class="package-feature">✓ Desert Safari</span>
-                    <span class="package-feature">✓ All Meals</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Heritage Hotels</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Desert Safari</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> All Meals</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Experience royal Indian hospitality with stay at luxury palaces, camel safari in Thar desert, and
                     private guided fort tours.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(328
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(328
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="25000">₹25,000</strong>
+                    <strong data-price-inr="25000">&#8377;25000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -2938,7 +2635,7 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_55.jpg" alt="Kerala Houseboat" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-secondary">💑 Honeymoon</span>
+                    <span class="badge badge-secondary"><i class="fa-solid fa-heart"></i> Honeymoon</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-kerala"
                     aria-label="Wishlist Kerala">
@@ -2953,20 +2650,20 @@
                       Kovalam</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ Private Houseboat</span>
-                    <span class="package-feature">✓ Candlelight Dinner</span>
-                    <span class="package-feature">✓ Spa</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Private Houseboat</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Candlelight Dinner</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Spa</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Unwind on a luxury houseboat cruise, wander tea garden trails in Munnar, and relax on Kovalam beach.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(412
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(412
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="18000">₹18,000</strong>
+                    <strong data-price-inr="18000">&#8377;18000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -2978,7 +2675,7 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_14.jpg" alt="Ladakh Bike" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-danger">🧗 Extreme Adventure</span>
+                    <span class="badge badge-danger"><i class="fa-solid fa-person-hiking"></i> Extreme Adventure</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-ladakh"
                     aria-label="Wishlist Ladakh">
@@ -2993,21 +2690,21 @@
                       Nubra</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ Himalayan Bike</span>
-                    <span class="package-feature">✓ Camping Stays</span>
-                    <span class="package-feature">✓ Support Vehicle</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Himalayan Bike</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Camping Stays</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Support Vehicle</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Ride across world's highest motorable passes, camp under starry skies at Pangong Lake, and explore
                     Nubra Valley.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(289
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(289
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="32000">₹32,000</strong>
+                    <strong data-price-inr="32000">&#8377;32000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -3019,7 +2716,7 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_21.jpg" alt="Goa Family" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-primary">👨‍👩‍👧 Family Fun</span>
+                    <span class="badge badge-primary"><i class="fa-solid fa-people-roof"></i> Family Fun</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-goa" aria-label="Wishlist Goa">
                     <i class="fa-regular fa-heart"></i>
@@ -3033,21 +2730,21 @@
                       Panaji</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ 4★ Beach Resort</span>
-                    <span class="package-feature">✓ Sunset Cruise</span>
-                    <span class="package-feature">✓ Water Sports</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> 4-Star Beach Resort</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Sunset Cruise</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Water Sports</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Perfect family getaway with beachfront pool, Mandovi river cruise, spice plantation tour, and water
                     activities.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(521
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(521
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="12000">₹12,000</strong>
+                    <strong data-price-inr="12000">&#8377;12000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -3059,7 +2756,7 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-secondary">❄️ Hill & Snow</span>
+                    <span class="badge badge-secondary"><i class="fa-solid fa-snowflake"></i> Hill & Snow</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-manali"
                     aria-label="Wishlist Manali">
@@ -3074,21 +2771,21 @@
                       Manali</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ Volvo Transfers</span>
-                    <span class="package-feature">✓ Solang Adventure</span>
-                    <span class="package-feature">✓ Hotel Stay</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Volvo Transfers</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Solang Adventure</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Hotel Stay</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Walk through pine forests, experience snow sports in Solang Valley, visit Hadimba Temple, and shop
                     at Mall Road.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(367
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(367
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="16000">₹16,000</strong>
+                    <strong data-price-inr="16000">&#8377;16000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -3100,7 +2797,7 @@
                 <div class="package-card-image">
                   <img src="../Content/images/img_33.jpg" alt="Andaman Island" loading="lazy">
                   <div class="package-card-badges">
-                    <span class="badge badge-accent">🏝️ Island Paradise</span>
+                    <span class="badge badge-accent"><i class="fa-solid fa-umbrella-beach"></i> Island Paradise</span>
                   </div>
                   <button class="destination-card-wishlist wishlist-btn" data-id="pkg-andaman"
                     aria-label="Wishlist Andaman">
@@ -3115,21 +2812,21 @@
                       Neil</span>
                   </div>
                   <div class="package-features">
-                    <span class="package-feature">✓ Catamaran Ferry</span>
-                    <span class="package-feature">✓ Scuba & Snorkel</span>
-                    <span class="package-feature">✓ Beach Resort</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Catamaran Ferry</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Scuba & Snorkel</span>
+                    <span class="package-feature"><i class="fa-solid fa-check"></i> Beach Resort</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary); margin-top:12px; line-height:1.6;">
                     Explore turquoise waters, underwater marine life, Elephant beach glass-bottom boat, and Radhanagar
                     beach sunset.
                   </p>
-                  <div class="stars mt-12">★★★★★ <span style="font-size:12px; color:var(--text-muted);">(198
+                  <div class="stars mt-12" style="color:#F59E0B;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="font-size:12px; color:var(--text-muted);">(198
                       reviews)</span></div>
                 </div>
                 <div class="package-card-footer">
                   <div class="package-price">
                     <small>Starting from</small>
-                    <strong data-price-inr="22000">₹22,000</strong>
+                    <strong data-price-inr="22000">&#8377;22000</strong>
                   </div>
                   <a href="#page-package-details" class="btn btn-primary btn-sm">View Details</a>
                 </div>
@@ -3143,10 +2840,7 @@
         <section class="section" style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:white;">
           <div class="container text-center">
             <div class="anim-fade-up">
-              <div class="section-label"
-                style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:var(--primary-light);">
-                ✨ Custom Packages
-              </div>
+              <div class="section-label" style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:var(--primary-light);"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Packages</div>
               <h2 class="section-title" style="color:white; margin-top:16px;">Want a Custom Tailored Trip?</h2>
               <p style="color:rgba(255,255,255,0.8); max-width:550px; margin:0 auto 32px; font-size:16px;">
                 Tell our travel specialists your dream Indian destinations, group size, and budget. We'll design a
@@ -3174,11 +2868,11 @@
           <!-- Title & Header Bar -->
           <div class="flex-between flex-wrap gap-16 mb-24">
             <div>
-              <span class="badge badge-accent mb-8">⭐ Bestseller Package</span>
+              <span class="badge badge-accent mb-8"><i class="fa-solid fa-star"></i> Bestseller Package</span>
               <h1 style="font-size:clamp(28px, 4vw, 42px); font-weight:800;" id="pkg-title-main">Royal Rajasthan
                 Expedition</h1>
               <p style="color:var(--text-secondary); font-size:15px; margin-top:4px;">
-                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Jaipur • Jodhpur • Jaisalmer •
+                <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Jaipur &bull; Jodhpur &bull; Jaisalmer &bull;
                 Udaipur, India
               </p>
             </div>
@@ -3196,19 +2890,19 @@
           <!-- Large Image Gallery Grid -->
           <div class="gallery-grid mb-48 anim-fade-up">
             <div class="gallery-item gallery-main">
-              <img src="../Content/images/img_49.jpg" alt="Amber Fort Jaipur" id="gallery-img-1">
+              <img src="../Content/images/img_48.jpg" alt="Amber Fort Jaipur" id="gallery-img-1">
             </div>
             <div class="gallery-item">
-              <img src="../Content/images/img_24.jpg" alt="Taj Mahal & Rajasthan Palaces" id="gallery-img-2">
+              <img src="../Content/images/img_25.jpg" alt="Taj Mahal & Rajasthan Palaces" id="gallery-img-2">
             </div>
             <div class="gallery-item">
-              <img src="../Content/images/img_48.jpg" alt="Jaisalmer Thar Desert Safari" id="gallery-img-3">
+              <img src="../Content/images/img_45.jpg" alt="Jaisalmer Thar Desert Safari" id="gallery-img-3">
             </div>
             <div class="gallery-item">
-              <img src="../Content/images/img_37.jpg" alt="Udaipur Lake Palace" id="gallery-img-4">
+              <img src="../Content/images/img_55.jpg" alt="Udaipur Lake Palace" id="gallery-img-4">
             </div>
             <div class="gallery-item" style="position:relative;">
-              <img src="../Content/images/img_20.jpg" alt="Indian Heritage Resort" id="gallery-img-5">
+              <img src="../Content/images/img_50.jpg" alt="Indian Heritage Resort" id="gallery-img-5">
               <div
                 style="position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:16px;">
                 +12 Photos
@@ -3253,7 +2947,7 @@
               <div class="mb-48">
                 <h2 style="font-size:22px; font-weight:700; margin-bottom:16px;">Overview</h2>
                 <p style="color:var(--text-secondary); line-height:1.8; font-size:15px; margin-bottom:16px;">
-                  Embark on an unforgettable royal journey through India's land of kings — Rajasthan. Walk through
+                  Embark on an unforgettable royal journey through India's land of kings &mdash; Rajasthan. Walk through
                   magnificent pink sandstone forts in Jaipur, ride camels over golden dunes in Jaisalmer, behold the
                   majestic blue city of Jodhpur, and cruise along romantic Lake Pichola in Udaipur.
                 </p>
@@ -3273,7 +2967,7 @@
                     <div
                       style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
                       Day 1</div>
-                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Arrival in Jaipur – Pink City Welcome
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Arrival in Jaipur  -  Pink City Welcome
                     </h3>
                     <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
                       Arrive at Jaipur International Airport/Station. Check into luxury heritage stay. Evening visit to
@@ -3299,7 +2993,7 @@
                     <div
                       style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
                       Day 4</div>
-                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jodhpur – The Blue City & Mehrangarh
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jodhpur  -  The Blue City & Mehrangarh
                       Fort</h3>
                     <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
                       Drive to Jodhpur. Explore towering Mehrangarh Fort, Jaswant Thada marble cenotaph, and stroll
@@ -3312,7 +3006,7 @@
                     <div
                       style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
                       Day 5 & 6</div>
-                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jaisalmer – Golden Fort & Thar Desert
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Jaisalmer  -  Golden Fort & Thar Desert
                       Camp</h3>
                     <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
                       Reach Jaisalmer. Visit Patwon ki Haveli and living Fort. Head to Sam Sand Dunes for camel safari,
@@ -3325,7 +3019,7 @@
                     <div
                       style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">
                       Day 7 & 8</div>
-                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Udaipur – City of Lakes & Departure
+                    <h3 style="font-size:18px; font-weight:700; margin:4px 0 8px;">Udaipur  -  City of Lakes & Departure
                     </h3>
                     <p style="color:var(--text-secondary); font-size:14px; line-height:1.7;">
                       Scenic drive to Udaipur via Ranakpur Jain Temple. Boat ride on Lake Pichola, visit Jag Mandir and
@@ -3341,12 +3035,12 @@
                 <h2 style="font-size:22px; font-weight:700; margin-bottom:24px;">Services Included & Excluded</h2>
                 <div class="grid grid-2" style="gap:24px;">
                   <div class="card p-24"
-                    style="background:rgba(34,197,94,0.04); border-color:rgba(34,197,94,0.2); padding:20px;">
+                    style="background:rgba(34, 197, 94, 0.04); border-color:rgba(34, 197, 94, 0.2); padding:20px;">
                     <h3 style="font-size:16px; font-weight:700; color:#22C55E; margin-bottom:16px;">
                       <i class="fa-solid fa-circle-check"></i> Included Services
                     </h3>
                     <div class="include-list">
-                      <div class="include-item"><i class="fa-solid fa-check"></i> 7 Nights stay in 4★ Heritage Haveli
+                      <div class="include-item"><i class="fa-solid fa-check"></i> 7 Nights stay in 4-Star Heritage Haveli
                         Hotels</div>
                       <div class="include-item"><i class="fa-solid fa-check"></i> Daily Breakfast & Gourmet Dinners
                       </div>
@@ -3390,21 +3084,21 @@
                       style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
                       alt="Shahpura House Jaipur">
                     <h4 style="font-size:15px; font-weight:700;">Shahpura House</h4>
-                    <p style="font-size:12px; color:var(--text-muted);">Jaipur • 4★ Heritage</p>
+                    <p style="font-size:12px; color:var(--text-muted);">Jaipur &bull; 4-Star Heritage</p>
                   </div>
                   <div class="card p-16" style="padding:16px;">
                     <img src="../Content/images/img_47.jpg"
                       style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
                       alt="Thar Luxury Desert Camp">
                     <h4 style="font-size:15px; font-weight:700;">Serena Desert Camp</h4>
-                    <p style="font-size:12px; color:var(--text-muted);">Jaisalmer • Luxury Tents</p>
+                    <p style="font-size:12px; color:var(--text-muted);">Jaisalmer &bull; Luxury Tents</p>
                   </div>
                   <div class="card p-16" style="padding:16px;">
                     <img src="../Content/images/img_47.jpg"
                       style="border-radius:var(--radius-md); height:140px; width:100%; object-fit:cover; margin-bottom:12px;"
                       alt="Fateh Garh Palace Udaipur">
                     <h4 style="font-size:15px; font-weight:700;">Fateh Garh Palace</h4>
-                    <p style="font-size:12px; color:var(--text-muted);">Udaipur • 5★ Heritage</p>
+                    <p style="font-size:12px; color:var(--text-muted);">Udaipur &bull; 5-Star Heritage</p>
                   </div>
                 </div>
               </div>
@@ -3421,7 +3115,7 @@
                   <div class="accordion-body">
                     <div class="accordion-body-inner">
                       The ideal time is from October to March when the desert weather is pleasant with clear sunny days
-                      (20-25°C) and cool evenings.
+                      (20-25&deg;C) and cool evenings.
                     </div>
                   </div>
                 </div>
@@ -3462,12 +3156,11 @@
                 <div class="flex-between mb-16">
                   <div>
                     <small style="font-size:12px; color:var(--text-muted);">Price starting from</small>
-                    <div style="font-size:28px; font-weight:800; color:var(--primary);" data-price-inr="25000">₹25,000
-                    </div>
+                    <div style="font-size:28px; font-weight:800; color:var(--primary);" data-price-inr="25000">&#8377;25000</div>
                     <span style="font-size:12px; color:var(--text-muted);">per person (incl. taxes)</span>
                   </div>
-                  <div class="stars" style="text-align:right;">
-                    ★★★★★
+                  <div class="stars" style="text-align:right; color:#F59E0B;">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     <div style="font-size:12px; color:var(--text-muted); font-family:sans-serif;">4.9 (328 reviews)
                     </div>
                   </div>
@@ -3504,8 +3197,8 @@
                   <div class="form-group">
                     <label class="form-label" for="book-hotel">Hotel Choice</label>
                     <select id="book-hotel" name="hotel" class="form-control filter-select">
-                      <option value="heritage">4★ Heritage Haveli (Included)</option>
-                      <option value="5star">5★ Palace Luxury (+₹10,000)</option>
+                      <option value="heritage">&#127984; Heritage</option>
+                      <option value="5star">5-Star Palace Luxury (+&#8377;10,000)</option>
                     </select>
                   </div>
 
@@ -3529,12 +3222,12 @@
 
                   <div
                     style="background:var(--gray-100); border-radius:var(--radius-md); padding:12px; margin-bottom:20px; font-size:13px;">
-                    <div class="flex-between mb-4"><span>Subtotal (2 Adults):</span> <strong>₹50,000</strong></div>
+                    <div class="flex-between mb-4"><span>Subtotal (2 Adults):</span> <strong>&#8377;50,000</strong></div>
                     <div class="flex-between mb-4"><span>Discount (EPIC10):</span> <strong
-                        style="color:#22C55E;">-₹5,000</strong></div>
+                        style="color:#22C55E;">-&#8377;5,000</strong></div>
                     <div class="flex-between"
                       style="font-weight:700; font-size:14px; border-top:1px solid var(--gray-200); padding-top:6px; margin-top:6px;">
-                      <span>Total Payable:</span> <span style="color:var(--primary);">₹45,000</span>
+                      <span>Total Payable:</span> <span style="color:var(--primary);">&#8377;45,000</span>
                     </div>
                   </div>
 
@@ -3543,8 +3236,7 @@
                   </button>
                 </div>
 
-                <div style="margin-top:16px; text-align:center; font-size:12px; color:var(--text-muted);">
-                  🔒 256-Bit SSL Encrypted & Secure Checkout
+                <<i class="fa-solid fa-lock" style="color:#10B981; margin-right:4px;"></i> 256-Bit SSL Encrypted & Secure Checkout
                 </div>
               </div>
             </div>
@@ -3592,13 +3284,13 @@
 
                 <div class="grid grid-2" style="gap:16px;">
                   <div class="card p-16" style="padding:16px; background:var(--bg-secondary);">
-                    <h4 style="font-size:16px; font-weight:700; color:var(--primary); margin-bottom:4px;">🎯 Mission
+                    <h4 style="font-size:16px; font-weight:700; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-bullseye" style="margin-right:6px;"></i> Our Mission
                     </h4>
                     <p style="font-size:13px; color:var(--text-secondary);">To connect travellers with the rich heritage
                       and diverse landscapes of India through safe, sustainable, and unforgettable journeys.</p>
                   </div>
                   <div class="card p-16" style="padding:16px; background:var(--bg-secondary);">
-                    <h4 style="font-size:16px; font-weight:700; color:var(--secondary); margin-bottom:4px;">👁️ Vision
+                    <h4 style="font-size:16px; font-weight:700; color:var(--secondary); margin-bottom:4px;"><i class="fa-solid fa-eye" style="margin-right:6px;"></i> Our Vision
                     </h4>
                     <p style="font-size:13px; color:var(--text-secondary);">To be India's most trusted and sustainable
                       luxury travel brand recognized globally for excellence in hospitality.</p>
@@ -3711,19 +3403,19 @@
             </div>
             <div class="grid grid-3 text-center stagger-children">
               <div class="card p-24 anim-fade-up" style="padding:28px;">
-                <div style="font-size:40px; margin-bottom:12px;">🏆</div>
+                <div style="font-size:40px; margin-bottom:12px; color:#F59E0B;"><i class="fa-solid fa-trophy"></i></div>
                 <h3 style="font-size:18px; font-weight:700;">Best Luxury Tour Operator</h3>
                 <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">India Tourism Excellence Awards
                   2024</p>
               </div>
               <div class="card p-24 anim-fade-up" style="padding:28px;">
-                <div style="font-size:40px; margin-bottom:12px;">🥇</div>
+                <div style="font-size:40px; margin-bottom:12px; color:#10B981;"><i class="fa-solid fa-award"></i></div>
                 <h3 style="font-size:18px; font-weight:700;">Top Responsible Tourism Brand</h3>
                 <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">National Heritage & Culture
                   Council 2023</p>
               </div>
               <div class="card p-24 anim-fade-up" style="padding:28px;">
-                <div style="font-size:40px; margin-bottom:12px;">⭐</div>
+                <div style="font-size:40px; margin-bottom:12px; color:#0EA5E9;"><i class="fa-solid fa-star"></i></div>
                 <h3 style="font-size:18px; font-weight:700;">TripAdvisor Choice Best of Best</h3>
                 <p style="font-size:13px; color:var(--text-secondary); margin-top:8px;">Consistent 5-Star Traveler
                   Rating</p>
@@ -3763,7 +3455,7 @@
                   alt="Ladakh Roadtrip">
               </div>
               <div style="padding:32px; display:flex; flex-direction:column; justify-content:center;">
-                <span class="badge badge-accent mb-12" style="width:max-content;">⭐ Featured Article</span>
+                <span class="badge badge-accent mb-12" style="width:max-content;"><i class="fa-solid fa-star"></i> Featured Article</span>
                 <h2 style="font-size:24px; font-weight:800; line-height:1.3; margin-bottom:12px;">
                   <a href="/Pages/blog-details.aspx?id=ladakh-biking-guide" style="color:var(--text-primary);">The
                     Ultimate Ladakh Biking Expedition Guide 2025</a>
@@ -3821,7 +3513,7 @@
                       <h3 class="blog-card-title"><a href="/Pages/blog-details.aspx?id=rajasthan-forts">10 Forts in
                           Rajasthan That Transport You Back in Time</a></h3>
                       <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
-                        Explore Mehrangarh Fort, Amber Palace, and Chittorgarh – legends of valor and royal
+                        Explore Mehrangarh Fort, Amber Palace, and Chittorgarh  -  legends of valor and royal
                         architecture.
                       </p>
                       <div class="blog-meta">
@@ -3890,26 +3582,26 @@
                   <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">Categories</h4>
                   <ul style="display:flex; flex-direction:column; gap:10px;">
                     <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
-                      <a href="#">🏔️ Himalayan Treks</a> <span>(14)</span>
+                      <a href="#"><i class="fa-solid fa-mountain" style="margin-right:6px;"></i> Himalayan Treks</a> <span>(14)</span>
                     </li>
                     <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
-                      <a href="#">🏖️ Coastal & Beaches</a> <span>(18)</span>
+                      <a href="#"><i class="fa-solid fa-umbrella-beach" style="margin-right:6px;"></i> Coastal & Beaches</a> <span>(18)</span>
                     </li>
                     <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
-                      <a href="#">🏰 Forts & Heritage</a> <span>(22)</span>
+                      <a href="#"><i class="fa-solid fa-landmark" style="margin-right:6px;"></i> Forts & Heritage</a> <span>(22)</span>
                     </li>
                     <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
-                      <a href="#">🍛 Indian Food & Dining</a> <span>(11)</span>
+                      <a href="#"><i class="fa-solid fa-utensils" style="margin-right:6px;"></i> Indian Food & Dining</a> <span>(11)</span>
                     </li>
                     <li class="flex-between" style="font-size:14px; color:var(--text-secondary);">
-                      <a href="#">🛕 Spiritual Guides</a> <span>(9)</span>
+                      <a href="#"><i class="fa-solid fa-om" style="margin-right:6px;"></i> Spiritual Guides</a> <span>(9)</span>
                     </li>
                   </ul>
                 </div>
 
                 <!-- Newsletter Widget -->
                 <div class="sidebar-widget" style="background:var(--gradient-primary); color:white;">
-                  <h4 style="font-size:16px; font-weight:700; margin-bottom:8px; color:white;">✈️ Travel Newsletter</h4>
+                  <h4 style="font-size:16px; font-weight:700; margin-bottom:8px; color:white;"><i class="fa-solid fa-paper-plane" style="margin-right:6px;"></i> Travel Newsletter</h4>
                   <p style="font-size:13px; opacity:0.9; margin-bottom:16px;">Get weekly India destination guides and
                     exclusive tour discounts directly in your inbox.</p>
                   <div class="newsletter-form">
@@ -3950,12 +3642,12 @@
 
             <!-- Category Filters -->
             <div class="flex-center gap-12 flex-wrap mb-48" id="gallery-filters">
-              <button class="tag active" data-filter="all">📸 All Photos</button>
-              <button class="tag" data-filter="mountains">🏔️ Mountains</button>
-              <button class="tag" data-filter="beaches">🏖️ Beaches</button>
-              <button class="tag" data-filter="monuments">🏰 Forts & Palaces</button>
-              <button class="tag" data-filter="culture">🛕 Culture & Spiritual</button>
-              <button class="tag" data-filter="nature">🌿 Nature & Wildlife</button>
+              <button class="tag active" data-filter="all" role="listitem"><i class="fa-solid fa-globe"></i> All</button>
+              <button class="tag" data-filter="mountains" role="listitem"><i class="fa-solid fa-mountain"></i> Mountains</button>
+              <button class="tag" data-filter="beaches" role="listitem"><i class="fa-solid fa-umbrella-beach"></i> Beaches</button>
+              <button class="tag" data-filter="monuments" role="listitem"><i class="fa-solid fa-landmark"></i> Forts & Palaces</button>
+              <button class="tag" data-filter="culture" role="listitem"><i class="fa-solid fa-om"></i> Culture & Spiritual</button>
+              <button class="tag" data-filter="nature" role="listitem"><i class="fa-solid fa-leaf"></i> Nature</button>
             </div>
 
             <!-- Masonry Grid -->
@@ -3966,7 +3658,7 @@
                 onclick="openLightbox('../Content/images/img_44.jpg', 'Jaipur Hawa Mahal & Amber Fort')">
                 <img src="../Content/images/img_48.jpg" alt="Jaipur Pink City" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-accent mb-4" style="width:max-content;">🏰 Rajasthan</span>
+                  <span class="badge badge-accent mb-4" style="width:max-content;"><i class="fa-solid fa-landmark"></i> Rajasthan</span>
                   <h4 style="font-size:16px; font-weight:700;">Hawa Mahal & Amber Fort, Jaipur</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -3977,7 +3669,7 @@
                 onclick="openLightbox('../Content/images/img_50.jpg', 'Kerala Backwaters Houseboat')">
                 <img src="../Content/images/img_55.jpg" alt="Kerala Backwaters" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-secondary mb-4" style="width:max-content;">🌿 Kerala</span>
+                  <span class="badge badge-secondary mb-4" style="width:max-content;"><i class="fa-solid fa-leaf"></i> Kerala</span>
                   <h4 style="font-size:16px; font-weight:700;">Tranquil Alleppey Backwaters</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -3988,7 +3680,7 @@
                 onclick="openLightbox('../Content/images/img_9.jpg', 'Pangong Lake Ladakh')">
                 <img src="../Content/images/img_14.jpg" alt="Pangong Tso Ladakh" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-dark mb-4" style="width:max-content;">🏔️ Ladakh</span>
+                  <span class="badge badge-dark mb-4" style="width:max-content;"><i class="fa-solid fa-mountain"></i> Ladakh</span>
                   <h4 style="font-size:16px; font-weight:700;">Azure Waters of Pangong Lake</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -3999,7 +3691,7 @@
                 onclick="openLightbox('../Content/images/img_18.jpg', 'Goa Palolem Beach')">
                 <img src="../Content/images/img_21.jpg" alt="Goa Palolem" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-primary mb-4" style="width:max-content;">🏖️ Goa</span>
+                  <span class="badge badge-primary mb-4" style="width:max-content;"><i class="fa-solid fa-umbrella-beach"></i> Goa</span>
                   <h4 style="font-size:16px; font-weight:700;">Golden Sunset at Palolem Beach</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4010,7 +3702,7 @@
                 onclick="openLightbox('../Content/images/img_22.jpg', 'Taj Mahal Agra')">
                 <img src="../Content/images/img_25.jpg" alt="Taj Mahal" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-accent mb-4" style="width:max-content;">🕌 Agra</span>
+                  <span class="badge badge-accent mb-4" style="width:max-content;"><i class="fa-solid fa-monument"></i> Agra</span>
                   <h4 style="font-size:16px; font-weight:700;">Majestic Sunrise over Taj Mahal</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4019,9 +3711,9 @@
               <!-- Photo 6: Varanasi -->
               <div class="gallery-masonry-item anim-fade-up" data-category="culture"
                 onclick="openLightbox('../Content/images/img_38.jpg', 'Varanasi Ganga Aarti')">
-                <img src="../Content/images/img_41.jpg" alt="Varanasi Ghats" loading="lazy">
+                <img src="../Content/images/img_39.jpg" alt="Varanasi Ghats" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-accent mb-4" style="width:max-content;">🛕 Varanasi</span>
+                  <span class="badge badge-accent mb-4" style="width:max-content;"><i class="fa-solid fa-water"></i> Varanasi</span>
                   <h4 style="font-size:16px; font-weight:700;">Evening Ganga Aarti at Ghats</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4032,7 +3724,7 @@
                 onclick="openLightbox('../Content/images/img_30.jpg', 'Andaman Radhanagar Beach')">
                 <img src="../Content/images/img_33.jpg" alt="Andaman Havelock" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-primary mb-4" style="width:max-content;">🏝️ Andaman</span>
+                  <span class="badge badge-primary mb-4" style="width:max-content;"><i class="fa-solid fa-fish"></i> Andaman</span>
                   <h4 style="font-size:16px; font-weight:700;">Turquoise Waters of Havelock</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4043,7 +3735,7 @@
                 onclick="openLightbox('../Content/images/img_42.jpg', 'Manali Snow Valleys')">
                 <img src="../Content/images/img_43.jpg" alt="Manali Snow" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-secondary mb-4" style="width:max-content;">❄️ Himachal</span>
+                  <span class="badge badge-secondary mb-4" style="width:max-content;"><i class="fa-solid fa-snowflake"></i> Himachal</span>
                   <h4 style="font-size:16px; font-weight:700;">Snowcapped Pines in Manali</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4054,7 +3746,7 @@
                 onclick="openLightbox('../Content/images/img_45.jpg', 'Jaisalmer Desert Safari')">
                 <img src="../Content/images/img_48.jpg" alt="Thar Desert Jaisalmer" loading="lazy">
                 <div class="gallery-item-overlay">
-                  <span class="badge badge-accent mb-4" style="width:max-content;">🏜️ Thar Desert</span>
+                  <span class="badge badge-accent mb-4" style="width:max-content;"><i class="fa-solid fa-sun"></i> Thar Desert</span>
                   <h4 style="font-size:16px; font-weight:700;">Sunset Camel Trek in Jaisalmer</h4>
                   <p style="font-size:12px; opacity:0.8;">Click to enlarge</p>
                 </div>
@@ -4157,7 +3849,7 @@
                   our travel advisor will respond within 30 minutes.</p>
 
                 <div id="contact-form"
-                  onsubmit="event.preventDefault(); Toast.show('Message sent successfully! We\'ll reply shortly. 📩', 'success'); this.reset();">
+                  onsubmit="event.preventDefault(); Toast.show('Message sent successfully! We\'ll reply shortly.', 'success'); this.reset();">
                   <div class="grid grid-2" style="gap:16px;">
                     <div class="form-group">
                       <label class="form-label" for="c-name">Your Full Name</label>
@@ -4204,20 +3896,19 @@
                 <div class="card p-24" style="padding:24px; margin-bottom:24px;">
                   <h3 style="font-size:18px; font-weight:700; margin-bottom:12px;">Visit New Delhi Headquarters</h3>
                   <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
-                    Open Monday to Saturday: 9:00 AM – 8:00 PM IST. Walk-ins welcome for coffee and trip planning!
+                    Open Monday to Saturday: 9:00 AM  -  8:00 PM IST. Walk-ins welcome for coffee and trip planning!
                   </p>
                   <div
                     style="height:320px; border-radius:var(--radius-lg); overflow:hidden; position:relative; background:#cbd5e1;">
                     <div
                       style="width:100%; height:100%; min-height:320px; background:linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border-radius:var(--radius-lg); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; text-align:center; padding:24px;">
-                      <div style="font-size:42px; margin-bottom:12px;">🗺️</div>
+                      <div style="font-size:42px; margin-bottom:12px; color:var(--primary);"><i class="fa-solid fa-map-location-dot"></i></div>
                       <h4 style="font-size:18px; font-weight:700; margin-bottom:6px; color:white;">Connaught Place
                         Headquarters</h4>
                       <p style="font-size:13px; color:rgba(255,255,255,0.7); max-width:320px;">Block C, Inner Circle,
                         New Delhi 110001, India</p>
                       <div
-                        style="margin-top:16px; font-size:12px; color:var(--primary-light); background:rgba(14,165,233,0.15); padding:6px 16px; border-radius:var(--radius-full);">
-                        📍 Offline Map View • Coordinates: 28.6301° N, 77.2167° E</div>
+                        style="margin-top:16px; font-size:12px; color:var(--primary-light); background:rgba(14, 165, 233, 0.15); padding:6px 16px; border-radius:var(--radius-full<i class="fa-solid fa-location-dot" style="margin-right:4px;"></i> Offline Map View &bull; Coordinates: 28.6301&deg; N, 77.2167&deg; E</div>
                     </div>
                   </div>
                 </div>
@@ -4240,7 +3931,7 @@
                 style="width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:12px; border:3px solid var(--primary);"
                 alt="User Profile Avatar">
               <h3 style="font-size:18px; font-weight:700;">Aisha Patel</h3>
-              <span class="badge badge-primary">⭐ Gold Explorer</span>
+              <span class="badge badge-primary"><i class="fa-solid fa-medal"></i> Gold Explorer</span>
             </div>
 
             <nav style="display:flex; flex-direction:column;">
@@ -4279,15 +3970,15 @@
                 <div style="flex:1;">
                   <div class="flex-between mb-4">
                     <h3 style="font-size:17px; font-weight:700;">Royal Rajasthan Expedition</h3>
-                    <span class="badge badge-success">✓ Confirmed</span>
+                    <span class="badge badge-success"><i class="fa-solid fa-check"></i> Confirmed</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-regular fa-calendar"></i> Oct 15
-                    – Oct 22, 2025 (8 Days)</p>
+                     -  Oct 22, 2025 (8 Days)</p>
                   <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-solid fa-ticket"></i> Booking ID:
-                    #EPIC-89210 • 2 Adults</p>
+                    #EPIC-89210 &bull; 2 Adults</p>
                 </div>
                 <div style="text-align:right;">
-                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="45000">₹45,000</strong>
+                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="45000">&#8377;45000</strong>
                   <div style="margin-top:8px;">
                     <button class="btn btn-secondary btn-sm" onclick="window.print()"><i
                         class="fa-solid fa-file-pdf"></i> Invoice</button>
@@ -4303,15 +3994,15 @@
                 <div style="flex:1;">
                   <div class="flex-between mb-4">
                     <h3 style="font-size:17px; font-weight:700;">Kerala Backwaters Romantic Bliss</h3>
-                    <span class="badge badge-primary">⏳ Upcoming</span>
+                    <span class="badge badge-primary"><i class="fa-solid fa-clock"></i> Upcoming</span>
                   </div>
                   <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-regular fa-calendar"></i> Dec 05
-                    – Dec 11, 2025 (6 Days)</p>
+                     -  Dec 11, 2025 (6 Days)</p>
                   <p style="font-size:13px; color:var(--text-secondary);"><i class="fa-solid fa-ticket"></i> Booking ID:
-                    #EPIC-94102 • 2 Adults</p>
+                    #EPIC-94102 &bull; 2 Adults</p>
                 </div>
                 <div style="text-align:right;">
-                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="36000">₹36,000</strong>
+                  <strong style="font-size:18px; color:var(--primary);" data-price-inr="36000">&#8377;36000</strong>
                   <div style="margin-top:8px;">
                     <button class="btn btn-secondary btn-sm" onclick="window.print()"><i
                         class="fa-solid fa-file-pdf"></i> Invoice</button>
@@ -4329,7 +4020,7 @@
                     style="width:100px; height:80px; border-radius:var(--radius-md); object-fit:cover;" alt="Ladakh">
                   <div style="flex:1;">
                     <h4 style="font-size:15px; font-weight:700;">Ladakh High Altitude Expedition</h4>
-                    <p style="font-size:12px; color:var(--primary); font-weight:700;">₹32,000 / person</p>
+                    <p style="font-size:12px; color:var(--primary); font-weight:700;">&#8377;32,000 / person</p>
                     <a href="#page-package-details" class="btn btn-primary btn-sm mt-8">Book Now</a>
                   </div>
                 </div>
@@ -4355,7 +4046,7 @@
                       <td style="padding:10px;">12 Aug 2025</td>
                       <td style="padding:10px;">TXN_9871239</td>
                       <td style="padding:10px;">Royal Rajasthan Expedition</td>
-                      <td style="padding:10px; font-weight:700;">₹45,000</td>
+                      <td style="padding:10px; font-weight:700;">&#8377;45,000</td>
                       <td style="padding:10px;"><button class="btn btn-secondary btn-sm"
                           onclick="window.print()">Download</button></td>
                     </tr>
@@ -4368,7 +4059,7 @@
             <div id="tab-profile" class="dash-tab-content" style="display:none;">
               <h2 style="font-size:24px; font-weight:700; margin-bottom:16px;">Edit Profile</h2>
               <div class="card p-24" style="padding:28px;"
-                onsubmit="event.preventDefault(); Toast.show('Profile updated successfully! 👤', 'success');">
+                onsubmit="event.preventDefault(); Toast.show('Profile updated successfully!', 'success');">
                 <div class="grid grid-2" style="gap:16px;">
                   <div class="form-group">
                     <label class="form-label">Full Name</label>
@@ -4385,7 +4076,7 @@
                   <div class="form-group">
                     <label class="form-label">Preferred Currency</label>
                     <select class="form-control filter-select">
-                      <option value="INR">₹ INR (Indian Rupee)</option>
+                      <option value="INR">&#8377; INR</option>
                       <option value="USD">$ USD (US Dollar)</option>
                     </select>
                   </div>
@@ -4411,7 +4102,7 @@
 
             <!-- Login Form -->
             <div id="login-form"
-              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in... 🚀', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in...', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
               <div class="text-center mb-24">
                 <h2 style="font-size:22px; font-weight:700;">Welcome Back</h2>
                 <p style="font-size:14px; color:var(--text-secondary);">Enter your credentials to access your trips</p>
@@ -4428,10 +4119,10 @@
                   <a href="#" style="font-size:12px; color:var(--primary);"
                     onclick="alert('Password reset link sent to your email!')">Forgot Password?</a>
                 </div>
-                <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+                <input type="password" id="login-pass" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In ➔</button>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></button>
 
               <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
                 <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
@@ -4450,7 +4141,7 @@
 
             <!-- Register Form -->
             <div id="register-form" style="display:none;"
-              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard ✈️', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
               <div class="text-center mb-24">
                 <h2 style="font-size:22px; font-weight:700;">Join Epic-Travellers</h2>
                 <p style="font-size:14px; color:var(--text-secondary);">Start your journey across Incredible India</p>
@@ -4471,7 +4162,7 @@
                 <input type="password" id="reg-pass" class="form-control" placeholder="Min 8 characters" required>
               </div>
 
-              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account 🎉</button>
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account <i class="fa-solid fa-sparkles" style="margin-left:6px;"></i></button>
             </div>
           </div>
         </div>
@@ -4487,7 +4178,7 @@
             </div>
 
             <div id="standalone-login-form"
-              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in... 🚀', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              onsubmit="event.preventDefault(); Toast.show('Welcome back! Logging you in...', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
               <div class="form-group">
                 <label class="form-label" for="s-login-email">Email Address</label>
                 <input type="email" id="s-login-email" class="form-control" placeholder="name@domain.com" required>
@@ -4499,10 +4190,10 @@
                   <a href="#" style="font-size:12px; color:var(--primary);"
                     onclick="alert('Password reset link sent to your email!')">Forgot Password?</a>
                 </div>
-                <input type="password" id="s-login-pass" class="form-control" placeholder="••••••••" required>
+                <input type="password" id="s-login-pass" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In ➔</button>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Sign In <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></button>
 
               <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
                 <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
@@ -4538,7 +4229,7 @@
             </div>
 
             <div id="standalone-register-form"
-              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard ✈️', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
+              onsubmit="event.preventDefault(); Toast.show('Account created successfully! Welcome aboard', 'success'); setTimeout(() => window.location.href='#page-dashboard', 1500);">
               <div class="form-group">
                 <label class="form-label" for="s-reg-name">Full Name</label>
                 <input type="text" id="s-reg-name" class="form-control" placeholder="e.g. Vikram Sharma" required>
@@ -4554,7 +4245,7 @@
                 <input type="password" id="s-reg-pass" class="form-control" placeholder="Min 8 characters" required>
               </div>
 
-              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account 🎉</button>
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">Create Account <i class="fa-solid fa-sparkles" style="margin-left:6px;"></i></button>
 
               <div class="divider" style="text-align:center; position:relative; margin:24px 0;">
                 <span style="background:var(--bg-primary); padding:0 12px; color:var(--text-muted); font-size:12px;">OR
@@ -4582,8 +4273,7 @@
           <aside class="admin-sidebar"
             style="background:#0f172a; color:white; padding:24px 16px; padding-top:calc(var(--header-height) + 24px); min-height:100vh;">
             <div
-              style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--primary); font-weight:700; margin-bottom:16px; padding:0 8px;">
-              ⚙️ Admin Control
+              style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--primary); font-weight:700; margin-bottom:16px; padding:0 8px<i class="fa-solid fa-gear" style="margin-right:6px;"></i> Admin Control
             </div>
             <nav style="display:flex; flex-direction:column;">
               <a class="admin-menu-link active"
@@ -4605,7 +4295,7 @@
                 onclick="switchAdminTab('admin-tab-users', this)"><i class="fa-solid fa-users"></i> Users (52.4k)</a>
               <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:16px 0;">
               <a href="#page-home" class="admin-menu-link"
-                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255,100,100,0.8); cursor:pointer;"><i
+                style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--radius-md); font-size:14px; color:rgba(255, 100, 100, 0.8); cursor:pointer;"><i
                   class="fa-solid fa-arrow-left"></i> Back to Website</a>
             </nav>
           </aside>
@@ -4632,9 +4322,9 @@
                   <div>
                     <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Total
                       Revenue</small>
-                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">₹42.8 Lakhs
+                    <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">&#8377;42.8 Lakhs
                     </div>
-                    <span style="font-size:12px; color:#22C55E;">↑ +18.4% this month</span>
+                    <span style="font-size:12px; color:#22C55E;"><i class="fa-solid fa-arrow-trend-up" style="margin-right:3px;"></i> +18.4% this month</span>
                   </div>
                   <div class="stat-icon-wrapper" style="background:var(--gradient-primary);"><i
                       class="fa-solid fa-indian-rupee-sign"></i></div>
@@ -4645,7 +4335,7 @@
                     <small style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Total
                       Bookings</small>
                     <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">1,420</div>
-                    <span style="font-size:12px; color:#22C55E;">↑ +12.1% from last week</span>
+                    <span style="font-size:12px; color:#22C55E;"><i class="fa-solid fa-arrow-trend-up" style="margin-right:3px;"></i> +12.1% from last week</span>
                   </div>
                   <div class="stat-icon-wrapper" style="background:var(--gradient-accent);"><i
                       class="fa-solid fa-suitcase"></i></div>
@@ -4668,7 +4358,7 @@
                       Rating</small>
                     <div style="font-size:24px; font-weight:800; color:var(--text-primary); margin-top:4px;">4.9 / 5.0
                     </div>
-                    <span style="font-size:12px; color:var(--accent);">⭐ Based on 12k reviews</span>
+                    <span style="font-size:12px; color:var(--accent);"><i class="fa-solid fa-star" style="color:#F59E0B; margin-right:3px;"></i> Based on 12k reviews</span>
                   </div>
                   <div class="stat-icon-wrapper" style="background:linear-gradient(135deg, #F59E0B, #D97706);"><i
                       class="fa-solid fa-star"></i></div>
@@ -4697,15 +4387,15 @@
                         <td style="padding:12px;">Rahul Verma</td>
                         <td style="padding:12px;">Royal Rajasthan Expedition</td>
                         <td style="padding:12px;">15 Oct 2025</td>
-                        <td style="padding:12px; font-weight:700;">₹50,000</td>
-                        <td style="padding:12px;"><span class="badge badge-success">Confirmed</span></td>
+                        <td style="padding:12px; font-weight:700;">&#8377;50,000</td>
+                        <td style="padding:12px;"><span class="badge badge-success"><i class="fa-solid fa-check"></i> Confirmed</span></td>
                       </tr>
                       <tr style="border-bottom:1px solid var(--gray-200);">
                         <td style="padding:12px; font-weight:700;">#EPIC-9022</td>
                         <td style="padding:12px;">Ananya Roy</td>
                         <td style="padding:12px;">Kerala Backwaters Romantic Bliss</td>
                         <td style="padding:12px;">20 Oct 2025</td>
-                        <td style="padding:12px; font-weight:700;">₹36,000</td>
+                        <td style="padding:12px; font-weight:700;">&#8377;36,000</td>
                         <td style="padding:12px;"><span class="badge badge-primary">Processing</span></td>
                       </tr>
                       <tr style="border-bottom:1px solid var(--gray-200);">
@@ -4713,8 +4403,8 @@
                         <td style="padding:12px;">Siddharth Nair</td>
                         <td style="padding:12px;">Ladakh Bike Expedition</td>
                         <td style="padding:12px;">02 Nov 2025</td>
-                        <td style="padding:12px; font-weight:700;">₹64,000</td>
-                        <td style="padding:12px;"><span class="badge badge-success">Confirmed</span></td>
+                        <td style="padding:12px; font-weight:700;">&#8377;64,000</td>
+                        <td style="padding:12px;"><span class="badge badge-success"><i class="fa-solid fa-check"></i> Confirmed</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -5014,7 +4704,7 @@
               if (labelGuests) labelGuests.textContent = 'GUESTS';
             } else if (tab === 'hotels') {
               if (labelDest) labelDest.textContent = 'CITY / HOTEL';
-              if (destInput) destInput.placeholder = 'Search 4★/5★ luxury resorts & hotels...';
+              if (destInput) destInput.placeholder = 'Search 4-Star / 5-Star luxury resorts & hotels...';
               if (labelCheckin) labelCheckin.textContent = 'CHECK IN';
               if (labelCheckout) labelCheckout.textContent = 'CHECK OUT';
               if (labelGuests) labelGuests.textContent = 'ROOMS & GUESTS';
@@ -5076,7 +4766,7 @@
               wishlist.push({ title, price, image, href });
               btn.classList.add('active');
               btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-              if (window.Toast) Toast.show(`❤️ Saved "${title}" to your wishlist!`, 'success');
+              if (window.Toast) Toast.show(`Saved "${title}" to your wishlist!`, 'success');
             }
 
             localStorage.setItem(key, JSON.stringify(wishlist));
@@ -5123,6 +4813,32 @@
                 }
               });
             } catch(e) {}
+
+            // Featured Packages Tab Filtering
+            const pkgTabs = document.querySelectorAll('#packages .tab');
+            const pkgCards = document.querySelectorAll('#packages .package-card');
+
+            pkgTabs.forEach(tab => {
+              tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                pkgTabs.forEach(t => {
+                  t.classList.remove('active');
+                  t.setAttribute('aria-selected', 'false');
+                });
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+
+                const filter = (tab.dataset.tab || 'all').toLowerCase();
+                pkgCards.forEach(card => {
+                  const category = (card.dataset.category || '').toLowerCase();
+                  if (filter === 'all' || category.includes(filter)) {
+                    card.style.display = 'flex';
+                  } else {
+                    card.style.display = 'none';
+                  }
+                });
+              });
+            });
           });
         </script>
   </asp:Content>
