@@ -24,7 +24,6 @@ namespace Epic_Travelers.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
 
-<<<<<<< HEAD
         }
 
         protected void btnSignIn_Click(object sender, EventArgs e)
@@ -108,6 +107,3 @@ namespace Epic_Travelers.Pages
 
     }
 }
-=======
-        }
->>>>>>> bc01852f792b4fec4396af373a1677e8ee63016a

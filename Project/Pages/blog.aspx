@@ -19,7 +19,6 @@
       color: white;
       text-align: center;
       overflow: hidden;
-      
     }
 
     .blog-hero::before {
