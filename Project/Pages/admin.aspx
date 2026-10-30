@@ -178,6 +178,105 @@
       background: rgba(14,165,233,0.06);
     }
 
+    /* GridView Edit / Modify Controls */
+    .admin-edit-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(14,165,233,0.15);
+    }
+    .admin-edit-select {
+      box-sizing: border-box;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+    }
+    .btn-grid-edit {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: rgba(14,165,233,0.12);
+      color: var(--primary);
+      border: 1px solid rgba(14,165,233,0.3);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-grid-edit:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-grid-update {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: #10B981;
+      color: white;
+      border: 1px solid #10B981;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-grid-update:hover {
+      background: #059669;
+    }
+    .btn-grid-cancel {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+      border: 1px solid var(--gray-300);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-grid-cancel:hover {
+      background: rgba(255,255,255,0.16);
+      color: var(--text-primary);
+    }
+    .btn-grid-delete {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      background: rgba(239,68,68,0.1);
+      color: #EF4444;
+      border: 1px solid rgba(239,68,68,0.3);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-grid-delete:hover {
+      background: #EF4444;
+      color: white;
+    }
+
     /* Executive Analytics Chart Styles */
     .admin-chart-grid {
       display: grid;
@@ -398,6 +497,13 @@
       transition: width 0.8s ease-in-out;
     }
 
+    /* GridView & DataList Cards View */
+    .admin-datalist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
     @media (max-width: 992px) {
       .admin-layout { grid-template-columns: 1fr; }
       .admin-sidebar { position: static; height: auto; }
@@ -409,6 +515,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
   <div class="admin-layout">
+    <asp:HiddenField ID="hfActiveTab" runat="server" Value="tab-overview" />
 
     <!-- Admin Sidebar -->
     <aside class="admin-sidebar">
@@ -424,22 +531,22 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
+      <!-- Navigation Tabs with Dynamic Database Counts -->
       <nav style="flex:1;">
         <button type="button" class="admin-menu-link active" onclick="switchAdminTab('tab-overview', this)">
-          <i class="fa-solid fa-chart-pie"></i> <span>Overview & Stats</span>
+          <i class="fa-solid fa-chart-pie"></i> <span>Overview &amp; Stats</span>
         </button>
         <button type="button" class="admin-menu-link" onclick="switchAdminTab('tab-users', this)">
           <i class="fa-solid fa-users"></i> <span>Registered Users (<asp:Literal ID="litTotalUsersBadge" runat="server" Text="0" />)</span>
         </button>
         <button type="button" class="admin-menu-link" onclick="switchAdminTab('tab-packages', this)">
-          <i class="fa-solid fa-box-archive"></i> <span>Tour Packages (6)</span>
+          <i class="fa-solid fa-box-archive"></i> <span>Tour Packages (<asp:Literal ID="litTotalPackagesBadge" runat="server" Text="0" />)</span>
         </button>
         <button type="button" class="admin-menu-link" onclick="switchAdminTab('tab-destinations', this)">
-          <i class="fa-solid fa-map-location-dot"></i> <span>Destinations (24)</span>
+          <i class="fa-solid fa-map-location-dot"></i> <span>Destinations (<asp:Literal ID="litTotalDestinationsBadge" runat="server" Text="0" />)</span>
         </button>
         <button type="button" class="admin-menu-link" onclick="switchAdminTab('tab-bookings', this)">
-          <i class="fa-solid fa-receipt"></i> <span>Reservations & Orders</span>
+          <i class="fa-solid fa-receipt"></i> <span>Reservations &amp; Orders (<asp:Literal ID="litTotalBookingsBadge" runat="server" Text="0" />)</span>
         </button>
       </nav>
 
@@ -458,7 +565,7 @@
     <!-- Admin Main Body -->
     <main style="padding:32px; overflow-x:hidden;">
 
-      <!-- TAB 1: OVERVIEW -->
+      <!-- TAB 1: OVERVIEW & STATS -->
       <div id="tab-overview" class="admin-tab-panel">
         
         <!-- Header Row -->
@@ -477,10 +584,10 @@
           </div>
         </div>
 
-        <!-- 4 Metric Cards -->
+        <!-- 4 Metric Cards (Directly Powered by Database) -->
         <div class="stat-card-grid">
           
-          <!-- Stat 1: Real Users from Database -->
+          <!-- Stat 1: Registered Users from Database -->
           <div class="stat-card">
             <div>
               <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:4px;">Registered Users</div>
@@ -496,11 +603,13 @@
             </div>
           </div>
 
-          <!-- Stat 2: Total Revenue -->
+          <!-- Stat 2: Total Revenue from Bookings Database -->
           <div class="stat-card">
             <div>
               <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:4px;">Total Revenue</div>
-              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">₹42.85 L</div>
+              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">
+                <asp:Literal ID="litTotalRevenue" runat="server" Text="&#8377;0" />
+              </div>
               <div style="font-size:12px; color:#22C55E; font-weight:600; margin-top:4px;">
                 <i class="fa-solid fa-arrow-trend-up"></i> +24.8% vs last month
               </div>
@@ -510,13 +619,15 @@
             </div>
           </div>
 
-          <!-- Stat 3: Bookings -->
+          <!-- Stat 3: Confirmed Tours from Cart_tbl -->
           <div class="stat-card">
             <div>
               <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:4px;">Confirmed Tours</div>
-              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">148</div>
+              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">
+                <asp:Literal ID="litConfirmedTours" runat="server" Text="0" />
+              </div>
               <div style="font-size:12px; color:#38BDF8; font-weight:600; margin-top:4px;">
-                <i class="fa-solid fa-plane-departure"></i> 32 Tours Departing Soon
+                <i class="fa-solid fa-plane-departure"></i> Active Reservations
               </div>
             </div>
             <div class="stat-icon-wrapper" style="background:linear-gradient(135deg, #7c3aed, #8b5cf6);">
@@ -524,13 +635,15 @@
             </div>
           </div>
 
-          <!-- Stat 4: Rating -->
+          <!-- Stat 4: Rating from Package_tbl -->
           <div class="stat-card">
             <div>
               <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:4px;">Traveler Rating</div>
-              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">4.92 / 5.0</div>
+              <div style="font-size:30px; font-weight:800; color:var(--text-primary); line-height:1.2;">
+                <asp:Literal ID="litAvgRating" runat="server" Text="4.92 / 5.0" />
+              </div>
               <div style="font-size:12px; color:#F59E0B; font-weight:600; margin-top:4px;">
-                <i class="fa-solid fa-star"></i> Based on 2,480+ reviews
+                <i class="fa-solid fa-star"></i> Based on verified tours
               </div>
             </div>
             <div class="stat-icon-wrapper" style="background:linear-gradient(135deg, #d97706, #f59e0b);">
@@ -598,57 +711,58 @@
                 <div class="chart-bars-track-container">
                   
                   <!-- Month 1: May -->
-                  <div class="chart-bar-column" title="May 2025: ₹4,20,000 (18 Confirmed Bookings)">
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill" id="barFill0" style="height: 28%;">
-                      <div class="chart-bar-value" id="barVal0">₹4.2L</div>
+                    <div class="chart-bar-fill" id="barFill0" style="height:28%;">
+                      <span class="chart-bar-value" id="barVal0">₹4.2L</span>
                     </div>
                   </div>
 
                   <!-- Month 2: Jun -->
-                  <div class="chart-bar-column" title="Jun 2025: ₹5,80,000 (24 Confirmed Bookings)">
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill" id="barFill1" style="height: 38.6%;">
-                      <div class="chart-bar-value" id="barVal1">₹5.8L</div>
+                    <div class="chart-bar-fill" id="barFill1" style="height:38.6%;">
+                      <span class="chart-bar-value" id="barVal1">₹5.8L</span>
                     </div>
                   </div>
 
                   <!-- Month 3: Jul -->
-                  <div class="chart-bar-column" title="Jul 2025: ₹3,90,000 (16 Confirmed Bookings)">
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill" id="barFill2" style="height: 26%;">
-                      <div class="chart-bar-value" id="barVal2">₹3.9L</div>
+                    <div class="chart-bar-fill" id="barFill2" style="height:26%;">
+                      <span class="chart-bar-value" id="barVal2">₹3.9L</span>
                     </div>
                   </div>
 
                   <!-- Month 4: Aug -->
-                  <div class="chart-bar-column" title="Aug 2025: ₹7,10,000 (29 Confirmed Bookings)">
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill" id="barFill3" style="height: 47.3%;">
-                      <div class="chart-bar-value" id="barVal3">₹7.1L</div>
+                    <div class="chart-bar-fill" id="barFill3" style="height:47.3%;">
+                      <span class="chart-bar-value" id="barVal3">₹7.1L</span>
                     </div>
                   </div>
 
                   <!-- Month 5: Sep -->
-                  <div class="chart-bar-column" title="Sep 2025: ₹8,60,000 (34 Confirmed Bookings)">
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill" id="barFill4" style="height: 57.3%;">
-                      <div class="chart-bar-value" id="barVal4">₹8.6L</div>
+                    <div class="chart-bar-fill" id="barFill4" style="height:57.3%;">
+                      <span class="chart-bar-value" id="barVal4">₹8.6L</span>
                     </div>
                   </div>
 
-                  <!-- Month 6: Oct (Peak Season) -->
-                  <div class="chart-bar-column" title="Oct 2025 (Peak Season): ₹13,20,000 (52 Confirmed Bookings)">
+                  <!-- Month 6: Oct (Peak) -->
+                  <div class="chart-bar-column">
                     <div class="chart-track-bg"></div>
-                    <div class="chart-bar-fill peak" id="barFill5" style="height: 88%;">
-                      <div class="chart-bar-value" id="barVal5">₹13.2L ★</div>
+                    <div class="chart-bar-fill peak" id="barFill5" style="height:88%;">
+                      <span class="chart-bar-value" id="barVal5">₹13.2L ★</span>
                     </div>
                   </div>
 
                 </div>
+
               </div>
 
-              <!-- Aligned X-Axis Month Badges -->
+              <!-- Shared X-Axis Labels Row -->
               <div class="chart-xaxis-labels">
                 <span class="chart-xaxis-item">May</span>
                 <span class="chart-xaxis-item">Jun</span>
@@ -658,20 +772,14 @@
                 <span class="chart-xaxis-item peak">Oct (Peak)</span>
               </div>
 
-              <!-- Mini Footer Callout -->
-              <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--gray-200); display:flex; align-items:center; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                <span><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Peak booking spike in October due to Diwali holiday itineraries.</span>
-                <strong style="color:var(--text-primary);">Avg Growth: +18.4%/mo</strong>
-              </div>
-
             </div>
 
-            <!-- Right: Regional Revenue Breakdown & Donut Summary -->
+            <!-- Right: Regional Destination Market Share Progress Bars -->
             <div class="chart-panel-side">
               <div>
-                <div class="flex-between mb-12">
-                  <h4 style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-primary); margin:0;">Destination Share</h4>
-                  <span class="badge badge-primary" style="font-size:10px;">₹42.85 Lakhs</span>
+                <div class="flex-between mb-16">
+                  <span style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-secondary);">Destination Share</span>
+                  <span style="font-size:11px; font-weight:700; color:var(--primary); background:rgba(14,165,233,0.1); padding:2px 8px; border-radius:var(--radius-full);">&#8377;42.85 Lakhs</span>
                 </div>
 
                 <!-- Item 1: Rajasthan -->
@@ -736,335 +844,497 @@
           </div>
         </div>
 
-        <!-- Recent Reservations Table Preview -->
+        <!-- Recent Reservations: Dynamic ASP.NET GridView from Cart_tbl -->
         <div class="admin-table-card">
           <div class="flex-between mb-16">
-            <h3 style="font-size:18px; font-weight:700; color:var(--text-primary);">Recent Tour Reservations</h3>
+            <h3 style="font-size:18px; font-weight:700; color:var(--text-primary);">Recent Tour Reservations (Live Database)</h3>
             <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('tab-bookings', document.querySelectorAll('.admin-menu-link')[4])">
-              View All Bookings →
+              View All Bookings &rarr;
             </button>
           </div>
 
           <div style="overflow-x:auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Booking ID</th>
-                  <th>Traveler</th>
-                  <th>Package Tour</th>
-                  <th>Travel Dates</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>#EPIC-89210</strong></td>
-                  <td>Darshan Hapaliya</td>
-                  <td>Royal Rajasthan Expedition</td>
-                  <td>Oct 15 – Oct 22, 2025</td>
-                  <td style="font-weight:700; color:var(--primary);">₹45,000</td>
-                  <td><span class="badge badge-success">✓ Confirmed</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Booking details opened', 'info')">Details</button></td>
-                </tr>
-                <tr>
-                  <td><strong>#EPIC-94102</strong></td>
-                  <td>Priya Sharma</td>
-                  <td>Kerala Backwaters Romantic Bliss</td>
-                  <td>Nov 05 – Nov 11, 2025</td>
-                  <td style="font-weight:700; color:var(--primary);">₹36,000</td>
-                  <td><span class="badge badge-primary">⏳ Upcoming</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Booking details opened', 'info')">Details</button></td>
-                </tr>
-                <tr>
-                  <td><strong>#EPIC-77419</strong></td>
-                  <td>Aarav Mehta</td>
-                  <td>Ladakh High Altitude Expedition</td>
-                  <td>Dec 01 – Dec 08, 2025</td>
-                  <td style="font-weight:700; color:var(--primary);">₹64,000</td>
-                  <td><span class="badge badge-success">✓ Confirmed</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Booking details opened', 'info')">Details</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <asp:GridView ID="gvRecentBookings" runat="server" AutoGenerateColumns="false" CssClass="admin-table" GridLines="None" UseAccessibleHeader="true" OnPreRender="GridView_PreRender" DataKeyNames="Cart_Id" OnRowEditing="gvRecentBookings_RowEditing" OnRowUpdating="gvRecentBookings_RowUpdating" OnRowCancelingEdit="gvRecentBookings_RowCancelingEdit" OnRowDeleting="gvRecentBookings_RowDeleting" OnRowDataBound="gvRecentBookings_RowDataBound">
+              <Columns>
+                <asp:TemplateField HeaderText="Booking ID">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);"><%# Eval("Booking_Code") %></strong>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Traveler">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="width:28px; height:28px; border-radius:50%; background:var(--gradient-primary); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">
+                        <%# GetUserInitial(Eval("FullName")) %>
+                      </span>
+                      <strong><%# Eval("FullName") %></strong>
+                    </div>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Package Tour">
+                  <ItemTemplate>
+                    <span><%# Eval("Pkg_Title") %></span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Travel Dates">
+                  <ItemTemplate>
+                    <span><i class="fa-regular fa-calendar" style="color:var(--text-muted); margin-right:4px;"></i><%# Eval("Travel_Date") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditRecentTravelDate" runat="server" Text='<%# Bind("Travel_Date") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Guests">
+                  <ItemTemplate>
+                    <span><%# Eval("Quantity") %> Traveler(s)</span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEditRecentQty" runat="server" CssClass="admin-edit-select">
+                      <asp:ListItem Value="1">1</asp:ListItem>
+                      <asp:ListItem Value="2">2</asp:ListItem>
+                      <asp:ListItem Value="3">3</asp:ListItem>
+                      <asp:ListItem Value="4">4</asp:ListItem>
+                      <asp:ListItem Value="5">5</asp:ListItem>
+                      <asp:ListItem Value="6">6</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Amount">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);">&#8377;<%# Eval("TotalPrice", "{0:N0}") %></strong>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status">
+                  <ItemTemplate>
+                    <span class="badge badge-success"><i class="fa-solid fa-check" style="margin-right:3px;"></i> <%# Eval("Status") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEditRecentStatus" runat="server" CssClass="admin-edit-select">
+                      <asp:ListItem Value="Confirmed">Confirmed</asp:ListItem>
+                      <asp:ListItem Value="Pending">Pending</asp:ListItem>
+                      <asp:ListItem Value="Completed">Completed</asp:ListItem>
+                      <asp:ListItem Value="Cancelled">Cancelled</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Actions">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnEditRecent" runat="server" CommandName="Edit" CssClass="btn-grid-edit" ToolTip="Modify Booking"><i class="fa-solid fa-pen-to-square"></i> Modify</asp:LinkButton>
+                      <asp:LinkButton ID="btnDeleteRecent" runat="server" CommandName="Delete" CssClass="btn-grid-delete" OnClientClick="return confirm('Are you sure you want to delete this reservation?');" ToolTip="Delete Booking"><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnUpdateRecent" runat="server" CommandName="Update" CssClass="btn-grid-update" ToolTip="Save Changes"><i class="fa-solid fa-check"></i> Save</asp:LinkButton>
+                      <asp:LinkButton ID="btnCancelRecent" runat="server" CommandName="Cancel" CssClass="btn-grid-cancel" ToolTip="Cancel"><i class="fa-solid fa-xmark"></i> Cancel</asp:LinkButton>
+                    </div>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+              <EmptyDataTemplate>
+                <div style="padding:24px; text-align:center; color:var(--text-muted);">
+                  <i class="fa-solid fa-inbox" style="font-size:28px; margin-bottom:8px; display:block;"></i>
+                  No recent bookings found.
+                </div>
+              </EmptyDataTemplate>
+            </asp:GridView>
           </div>
         </div>
 
       </div>
 
-      <!-- TAB 2: LIVE USERS FROM DATABASE -->
+      <!-- TAB 2: REGISTERED USERS DATABASE (Powered by GridView) -->
       <div id="tab-users" class="admin-tab-panel" style="display:none;">
         <div class="flex-between mb-28 flex-wrap gap-16">
           <div>
             <h1 style="font-size:26px; font-weight:800; color:var(--text-primary);">Registered Users Database</h1>
-            <p style="font-size:14px; color:var(--text-secondary);">Direct live data query from <code>user_tbl</code></p>
           </div>
-          <button type="button" class="btn btn-primary btn-sm" onclick="Toast.show('New user registered via registration portal', 'info')">
-            <i class="fa-solid fa-user-plus"></i> Add User
-          </button>
         </div>
-
+        <br />
         <div class="admin-table-card">
           <div style="overflow-x:auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>User ID</th>
-                  <th>Full Name</th>
-                  <th>Email Address</th>
-                  <th>Account Role</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <asp:Repeater ID="rptRegisteredUsers" runat="server">
+            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" CssClass="admin-table" GridLines="None" UseAccessibleHeader="true" OnPreRender="GridView_PreRender" DataKeyNames="Id" OnRowEditing="gvUsers_RowEditing" OnRowUpdating="gvUsers_RowUpdating" OnRowCancelingEdit="gvUsers_RowCancelingEdit" OnRowDeleting="gvUsers_RowDeleting">
+              <Columns>
+                <asp:TemplateField HeaderText="User ID">
                   <ItemTemplate>
-                    <tr>
-                      <td><strong style="color:var(--primary);">#USR-<%# Eval("Id") %></strong></td>
-                      <td>
-                        <div style="display:flex; align-items:center; gap:8px;">
-                          <span style="width:30px; height:30px; border-radius:50%; background:var(--gradient-primary); color:white; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">
-                            <%# GetUserInitial(Eval("Full Name")) %>
-                          </span>
-                          <strong><%# Eval("Full Name") %></strong>
-                        </div>
-                      </td>
-                      <td><%# Eval("Email") %></td>
-                      <td>
-                        <%# GetUserRoleBadge(Eval("Email")) %>
-                      </td>
-                      <td><span class="badge badge-success">● Active</span></td>
-                      <td>
-                        <button type="button" class="table-action-btn" onclick="Toast.show('User selected', 'info')">Manage</button>
-                      </td>
-                    </tr>
+                    <strong style="color:var(--primary);">#USR-<%# Eval("Id") %></strong>
                   </ItemTemplate>
-                </asp:Repeater>
-              </tbody>
-            </table>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Full Name">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="width:30px; height:30px; border-radius:50%; background:var(--gradient-primary); color:white; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">
+                        <%# GetUserInitial(Eval("Full Name")) %>
+                      </span>
+                      <strong><%# Eval("Full Name") %></strong>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditFullName" runat="server" Text='<%# Bind("[Full Name]") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Email Address">
+                  <ItemTemplate>
+                    <span><%# Eval("Email") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditEmail" runat="server" Text='<%# Bind("Email") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Account Role">
+                  <ItemTemplate>
+                    <%# GetUserRoleBadge(Eval("Email")) %>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status">
+                  <ItemTemplate>
+                    <span class="badge badge-success"><i class="fa-solid fa-circle" style="font-size:8px; margin-right:4px;"></i> Active</span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Actions">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnEditUser" runat="server" CommandName="Edit" CssClass="btn-grid-edit" ToolTip="Modify User"><i class="fa-solid fa-pen-to-square"></i> Modify</asp:LinkButton>
+                      <asp:LinkButton ID="btnDeleteUser" runat="server" CommandName="Delete" CssClass="btn-grid-delete" OnClientClick="return confirm('Are you sure you want to delete this user?');" ToolTip="Delete User"><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnUpdateUser" runat="server" CommandName="Update" CssClass="btn-grid-update" ToolTip="Save Changes"><i class="fa-solid fa-check"></i> Save</asp:LinkButton>
+                      <asp:LinkButton ID="btnCancelUser" runat="server" CommandName="Cancel" CssClass="btn-grid-cancel" ToolTip="Cancel"><i class="fa-solid fa-xmark"></i> Cancel</asp:LinkButton>
+                    </div>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+              <EmptyDataTemplate>
+                <div style="padding:24px; text-align:center; color:var(--text-muted);">
+                  <i class="fa-solid fa-users-slash" style="font-size:28px; margin-bottom:8px; display:block;"></i>
+                  No registered users found in database.
+                </div>
+              </EmptyDataTemplate>
+            </asp:GridView>
           </div>
         </div>
       </div>
 
-      <!-- TAB 3: TOUR PACKAGES MANAGER -->
+      <!-- TAB 3: TOUR PACKAGES CATALOG (GridView ONLY - No DataList) -->
       <div id="tab-packages" class="admin-tab-panel" style="display:none;">
         <div class="flex-between mb-28 flex-wrap gap-16">
           <div>
             <h1 style="font-size:26px; font-weight:800; color:var(--text-primary);">Tour Package Catalog</h1>
-            <p style="font-size:14px; color:var(--text-secondary);">Manage, price, and publish travel itineraries across India</p>
           </div>
-          <a href="/Pages/packages.aspx" target="_blank" class="btn btn-primary btn-sm">
-            <i class="fa-solid fa-plus"></i> Add New Package
-          </a>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="/Pages/packages.aspx" target="_blank" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Browse Public Site
+            </a>
+          </div>
+        </div>
+        <br />
+        <!-- Tour Packages Table View (GridView ONLY) -->
+        <div id="pkg-table-wrap" class="admin-table-card">
+          <div style="overflow-x:auto;">
+            <asp:GridView ID="gvPackages" runat="server" AutoGenerateColumns="false" CssClass="admin-table" GridLines="None" UseAccessibleHeader="true" OnPreRender="GridView_PreRender" DataKeyNames="Pkg_Id" OnRowEditing="gvPackages_RowEditing" OnRowUpdating="gvPackages_RowUpdating" OnRowCancelingEdit="gvPackages_RowCancelingEdit" OnRowDeleting="gvPackages_RowDeleting">
+              <Columns>
+                <asp:TemplateField HeaderText="Package Title">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <img src='<%# Eval("Pkg_Image") %>' alt='<%# Eval("Pkg_Title") %>' style="width:48px; height:36px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--gray-200);" onerror="this.src='../Content/images/img_48.jpg';" />
+                      <div>
+                        <strong><%# Eval("Pkg_Title") %></strong>
+                        <div style="font-size:11px; color:var(--text-muted);"><%# Eval("Pkg_Badge1") %></div>
+                      </div>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditPkgTitle" runat="server" Text='<%# Bind("Pkg_Title") %>' CssClass="admin-edit-input" placeholder="Title"></asp:TextBox>
+                    <asp:TextBox ID="txtEditPkgBadge" runat="server" Text='<%# Bind("Pkg_Badge1") %>' CssClass="admin-edit-input" placeholder="Badge (e.g. Bestseller)" style="margin-top:4px; font-size:11px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Destination">
+                  <ItemTemplate>
+                    <span><i class="fa-solid fa-location-dot" style="color:#0ea5e9; margin-right:4px;"></i><%# Eval("Pkg_Location") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditPkgLocation" runat="server" Text='<%# Bind("Pkg_Location") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Duration">
+                  <ItemTemplate>
+                    <span><i class="fa-regular fa-clock" style="color:var(--text-muted); margin-right:4px;"></i><%# Eval("Pkg_Duration") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditPkgDuration" runat="server" Text='<%# Bind("Pkg_Duration") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Price">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);">&#8377;<%# Eval("Pkg_Price", "{0:N0}") %></strong>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditPkgPrice" runat="server" Text='<%# Bind("Pkg_Price") %>' CssClass="admin-edit-input" style="width:100px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Rating">
+                  <ItemTemplate>
+                    <span style="color:#F59E0B; font-weight:700;"><i class="fa-solid fa-star"></i> <%# Eval("Pkg_Rating") %></span>
+                    <span style="font-size:11px; color:var(--text-muted);">(<%# Eval("Pkg_Reviews") %>)</span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditPkgRating" runat="server" Text='<%# Bind("Pkg_Rating") %>' CssClass="admin-edit-input" style="width:60px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status">
+                  <ItemTemplate>
+                    <span class="badge badge-success">Active</span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Actions">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnEditPkg" runat="server" CommandName="Edit" CssClass="btn-grid-edit" ToolTip="Modify Package"><i class="fa-solid fa-pen-to-square"></i> Modify</asp:LinkButton>
+                      <a href='/Pages/package-details.aspx?id=<%# Eval("Pkg_Slug") %>' target="_blank" class="table-action-btn" title="View Public Page"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                      <asp:LinkButton ID="btnDeletePkg" runat="server" CommandName="Delete" CssClass="btn-grid-delete" OnClientClick="return confirm('Are you sure you want to delete this tour package?');" ToolTip="Delete Package"><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnUpdatePkg" runat="server" CommandName="Update" CssClass="btn-grid-update" ToolTip="Save Changes"><i class="fa-solid fa-check"></i> Save</asp:LinkButton>
+                      <asp:LinkButton ID="btnCancelPkg" runat="server" CommandName="Cancel" CssClass="btn-grid-cancel" ToolTip="Cancel"><i class="fa-solid fa-xmark"></i> Cancel</asp:LinkButton>
+                    </div>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+              <EmptyDataTemplate>
+                <div style="padding:24px; text-align:center; color:var(--text-muted);">
+                  <i class="fa-solid fa-box-open" style="font-size:28px; margin-bottom:8px; display:block;"></i>
+                  No tour packages found.
+                </div>
+              </EmptyDataTemplate>
+            </asp:GridView>
+          </div>
         </div>
 
-        <div class="admin-table-card">
-          <div style="overflow-x:auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Package Title</th>
-                  <th>Destination</th>
-                  <th>Duration</th>
-                  <th>Price</th>
-                  <th>Rating</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>🏰 Royal Rajasthan Expedition</strong></td>
-                  <td>Rajasthan</td>
-                  <td>8 Days / 7 Nights</td>
-                  <td style="font-weight:700; color:var(--primary);">₹45,000</td>
-                  <td>⭐ 4.9 (420)</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <button type="button" class="table-action-btn" onclick="Toast.show('Package updated', 'success')">Edit</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>🌿 Kerala Backwaters &amp; Beaches</strong></td>
-                  <td>Kerala</td>
-                  <td>6 Days / 5 Nights</td>
-                  <td style="font-weight:700; color:var(--primary);">₹36,000</td>
-                  <td>⭐ 4.9 (310)</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <button type="button" class="table-action-btn" onclick="Toast.show('Package updated', 'success')">Edit</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>🏔️ Ladakh High Altitude Expedition</strong></td>
-                  <td>Ladakh</td>
-                  <td>7 Days / 6 Nights</td>
-                  <td style="font-weight:700; color:var(--primary);">₹32,000</td>
-                  <td>⭐ 4.8 (290)</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <button type="button" class="table-action-btn" onclick="Toast.show('Package updated', 'success')">Edit</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>🏖️ Goa Beach Holiday &amp; Nightlife</strong></td>
-                  <td>Goa</td>
-                  <td>4 Days / 3 Nights</td>
-                  <td style="font-weight:700; color:var(--primary);">₹18,000</td>
-                  <td>⭐ 4.7 (520)</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <button type="button" class="table-action-btn" onclick="Toast.show('Package updated', 'success')">Edit</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>❄️ Manali &amp; Shimla Snow Wonder</strong></td>
-                  <td>Himachal</td>
-                  <td>5 Days / 4 Nights</td>
-                  <td style="font-weight:700; color:var(--primary);">₹24,000</td>
-                  <td>⭐ 4.8 (180)</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <button type="button" class="table-action-btn" onclick="Toast.show('Package updated', 'success')">Edit</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
 
-      <!-- TAB 4: DESTINATIONS -->
+      <!-- TAB 4: DESTINATIONS MANAGER (GridView ONLY - No DataList) -->
       <div id="tab-destinations" class="admin-tab-panel" style="display:none;">
         <div class="flex-between mb-28 flex-wrap gap-16">
           <div>
             <h1 style="font-size:26px; font-weight:800; color:var(--text-primary);">Destinations Manager</h1>
-            <p style="font-size:14px; color:var(--text-secondary);">Curate featured Indian travel regions and highlights</p>
           </div>
-          <button type="button" class="btn btn-primary btn-sm" onclick="Toast.show('Destination editor opened', 'info')">
-            <i class="fa-solid fa-location-plus"></i> Add Destination
-          </button>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="/Pages/destinations.aspx" target="_blank" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Browse Public Site
+            </a>
+          </div>
+        </div>
+        <br />
+        <!-- Destinations Table View (GridView ONLY) -->
+        <div id="dest-table-wrap" class="admin-table-card">
+          <div style="overflow-x:auto;">
+            <asp:GridView ID="gvDestinations" runat="server" AutoGenerateColumns="false" CssClass="admin-table" GridLines="None" UseAccessibleHeader="true" OnPreRender="GridView_PreRender" DataKeyNames="Dest_Id" OnRowEditing="gvDestinations_RowEditing" OnRowUpdating="gvDestinations_RowUpdating" OnRowCancelingEdit="gvDestinations_RowCancelingEdit" OnRowDeleting="gvDestinations_RowDeleting">
+              <Columns>
+                <asp:TemplateField HeaderText="Destination">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <img src='<%# Eval("Dest_Image") %>' alt='<%# Eval("Dest_Name") %>' style="width:48px; height:36px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--gray-200);" onerror="this.src='../Content/images/img_14.jpg';" />
+                      <div>
+                        <strong><%# Eval("Dest_Name") %></strong>
+                        <div style="font-size:11px; color:var(--text-muted);"><%# Eval("Dest_Badge1") %></div>
+                      </div>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditDestName" runat="server" Text='<%# Bind("Dest_Name") %>' CssClass="admin-edit-input" placeholder="Destination Name"></asp:TextBox>
+                    <asp:TextBox ID="txtEditDestBadge" runat="server" Text='<%# Bind("Dest_Badge1") %>' CssClass="admin-edit-input" placeholder="Badge" style="margin-top:4px; font-size:11px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="State / Region">
+                  <ItemTemplate>
+                    <span><i class="fa-solid fa-map-pin" style="color:#0ea5e9; margin-right:4px;"></i><%# Eval("Dest_Location") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditDestLocation" runat="server" Text='<%# Bind("Dest_Location") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Category">
+                  <ItemTemplate>
+                    <span><%# Eval("Dest_Region") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditDestRegion" runat="server" Text='<%# Bind("Dest_Region") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Starting Price">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);">&#8377;<%# Eval("Dest_Price", "{0:N0}") %></strong>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditDestPrice" runat="server" Text='<%# Bind("Dest_Price") %>' CssClass="admin-edit-input" style="width:100px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Rating">
+                  <ItemTemplate>
+                    <span style="color:#F59E0B; font-weight:700;"><i class="fa-solid fa-star"></i> <%# Eval("Dest_Rating") %></span>
+                    <span style="font-size:11px; color:var(--text-muted);">(<%# Eval("Dest_Reviews") %>)</span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditDestRating" runat="server" Text='<%# Bind("Dest_Rating") %>' CssClass="admin-edit-input" style="width:60px;"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status">
+                  <ItemTemplate>
+                    <span class="badge badge-success">Published</span>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Actions">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnEditDest" runat="server" CommandName="Edit" CssClass="btn-grid-edit" ToolTip="Modify Destination"><i class="fa-solid fa-pen-to-square"></i> Modify</asp:LinkButton>
+                      <a href='/Pages/destinations.aspx' target="_blank" class="table-action-btn" title="View Public Page"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                      <asp:LinkButton ID="btnDeleteDest" runat="server" CommandName="Delete" CssClass="btn-grid-delete" OnClientClick="return confirm('Are you sure you want to delete this destination?');" ToolTip="Delete Destination"><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnUpdateDest" runat="server" CommandName="Update" CssClass="btn-grid-update" ToolTip="Save Changes"><i class="fa-solid fa-check"></i> Save</asp:LinkButton>
+                      <asp:LinkButton ID="btnCancelDest" runat="server" CommandName="Cancel" CssClass="btn-grid-cancel" ToolTip="Cancel"><i class="fa-solid fa-xmark"></i> Cancel</asp:LinkButton>
+                    </div>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+              <EmptyDataTemplate>
+                <div style="padding:24px; text-align:center; color:var(--text-muted);">
+                  <i class="fa-solid fa-map" style="font-size:28px; margin-bottom:8px; display:block;"></i>
+                  No destinations found.
+                </div>
+              </EmptyDataTemplate>
+            </asp:GridView>
+          </div>
         </div>
 
-        <div class="admin-table-card">
-          <div style="overflow-x:auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>State / Region</th>
-                  <th>Category</th>
-                  <th>Rating</th>
-                  <th>Packages</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>🏰 Jaipur, Udaipur &amp; Jodhpur</strong></td>
-                  <td>Rajasthan</td>
-                  <td>Heritage &amp; Forts</td>
-                  <td>⭐ 4.9</td>
-                  <td>18 Tours</td>
-                  <td><span class="badge badge-success">Published</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Saved', 'success')">Edit</button></td>
-                </tr>
-                <tr>
-                  <td><strong>🏖️ North &amp; South Goa</strong></td>
-                  <td>Goa</td>
-                  <td>Beaches &amp; Coastal</td>
-                  <td>⭐ 4.8</td>
-                  <td>14 Tours</td>
-                  <td><span class="badge badge-success">Published</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Saved', 'success')">Edit</button></td>
-                </tr>
-                <tr>
-                  <td><strong>🌿 Munnar &amp; Alleppey</strong></td>
-                  <td>Kerala</td>
-                  <td>Backwaters &amp; Tea Hills</td>
-                  <td>⭐ 4.9</td>
-                  <td>12 Tours</td>
-                  <td><span class="badge badge-success">Published</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Saved', 'success')">Edit</button></td>
-                </tr>
-                <tr>
-                  <td><strong>🏔️ Leh &amp; Pangong Tso</strong></td>
-                  <td>Ladakh</td>
-                  <td>High Altitude Adventure</td>
-                  <td>⭐ 4.9</td>
-                  <td>9 Tours</td>
-                  <td><span class="badge badge-success">Published</span></td>
-                  <td><button type="button" class="table-action-btn" onclick="Toast.show('Saved', 'success')">Edit</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
 
-      <!-- TAB 5: RESERVATIONS & ORDERS -->
+      <!-- TAB 5: RESERVATIONS & ORDERS (GridView) -->
       <div id="tab-bookings" class="admin-tab-panel" style="display:none;">
         <div class="flex-between mb-28 flex-wrap gap-16">
           <div>
             <h1 style="font-size:26px; font-weight:800; color:var(--text-primary);">All Customer Bookings</h1>
-            <p style="font-size:14px; color:var(--text-secondary);">Manage itinerary confirmations, invoices, and traveler records</p>
           </div>
           <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">
             <i class="fa-solid fa-print"></i> Print Report
           </button>
         </div>
-
+        <br />
         <div class="admin-table-card">
           <div style="overflow-x:auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Traveler</th>
-                  <th>Tour Package</th>
-                  <th>Guests</th>
-                  <th>Amount</th>
-                  <th>Payment</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>#EPIC-89210</strong></td>
-                  <td>Darshan Hapaliya</td>
-                  <td>Royal Rajasthan Expedition</td>
-                  <td>2 Adults</td>
-                  <td style="font-weight:700; color:var(--primary);">₹45,000</td>
-                  <td><span class="badge badge-primary">💳 UPI Paid</span></td>
-                  <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-                <tr>
-                  <td><strong>#EPIC-94102</strong></td>
-                  <td>Priya Sharma</td>
-                  <td>Kerala Backwaters Romantic Bliss</td>
-                  <td>2 Adults</td>
-                  <td style="font-weight:700; color:var(--primary);">₹36,000</td>
-                  <td><span class="badge badge-primary">💳 Card Paid</span></td>
-                  <td><span class="badge badge-primary">Upcoming</span></td>
-                </tr>
-                <tr>
-                  <td><strong>#EPIC-77419</strong></td>
-                  <td>Aarav Mehta</td>
-                  <td>Ladakh High Altitude Expedition</td>
-                  <td>3 Adults</td>
-                  <td style="font-weight:700; color:var(--primary);">₹64,000</td>
-                  <td><span class="badge badge-primary">💳 NetBanking</span></td>
-                  <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <asp:GridView ID="gvAllBookings" runat="server" AutoGenerateColumns="false" CssClass="admin-table" GridLines="None" UseAccessibleHeader="true" OnPreRender="GridView_PreRender" DataKeyNames="Cart_Id" OnRowEditing="gvAllBookings_RowEditing" OnRowUpdating="gvAllBookings_RowUpdating" OnRowCancelingEdit="gvAllBookings_RowCancelingEdit" OnRowDeleting="gvAllBookings_RowDeleting" OnRowDataBound="gvAllBookings_RowDataBound">
+              <Columns>
+                <asp:TemplateField HeaderText="Order ID">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);"><%# Eval("Booking_Code") %></strong>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Traveler">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="width:28px; height:28px; border-radius:50%; background:var(--gradient-primary); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">
+                        <%# GetUserInitial(Eval("FullName")) %>
+                      </span>
+                      <div>
+                        <strong><%# Eval("FullName") %></strong>
+                        <div style="font-size:11px; color:var(--text-muted);"><%# Eval("Email") %></div>
+                      </div>
+                    </div>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Tour Package">
+                  <ItemTemplate>
+                    <div>
+                      <strong><%# Eval("Pkg_Title") %></strong>
+                      <div style="font-size:11px; color:var(--text-muted);"><i class="fa-regular fa-calendar" style="margin-right:3px;"></i><%# Eval("Travel_Date") %></div>
+                    </div>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Guests">
+                  <ItemTemplate>
+                    <span><i class="fa-solid fa-users" style="color:var(--text-muted); margin-right:4px;"></i><%# Eval("Quantity") %> Traveler(s)</span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEditBookingQty" runat="server" CssClass="admin-edit-select">
+                      <asp:ListItem Value="1">1 Traveler</asp:ListItem>
+                      <asp:ListItem Value="2">2 Travelers</asp:ListItem>
+                      <asp:ListItem Value="3">3 Travelers</asp:ListItem>
+                      <asp:ListItem Value="4">4 Travelers</asp:ListItem>
+                      <asp:ListItem Value="5">5 Travelers</asp:ListItem>
+                      <asp:ListItem Value="6">6 Travelers</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Travel Date">
+                  <ItemTemplate>
+                    <span><i class="fa-regular fa-calendar" style="color:var(--text-muted); margin-right:4px;"></i><%# Eval("Travel_Date") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:TextBox ID="txtEditTravelDate" runat="server" Text='<%# Bind("Travel_Date") %>' CssClass="admin-edit-input"></asp:TextBox>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Hotel Tier">
+                  <ItemTemplate>
+                    <span class="badge badge-primary"><%# Eval("Hotel_Choice") != null && Eval("Hotel_Choice").ToString() != "" ? Eval("Hotel_Choice") : "Standard" %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEditHotelChoice" runat="server" CssClass="admin-edit-select">
+                      <asp:ListItem Value="Standard 3★">Standard 3★</asp:ListItem>
+                      <asp:ListItem Value="4★ Heritage Deluxe">4★ Heritage Deluxe</asp:ListItem>
+                      <asp:ListItem Value="5★ Luxury Palace">5★ Luxury Palace</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Amount">
+                  <ItemTemplate>
+                    <strong style="color:var(--primary);">&#8377;<%# Eval("TotalPrice", "{0:N0}") %></strong>
+                  </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status">
+                  <ItemTemplate>
+                    <span class="badge badge-success"><i class="fa-solid fa-check" style="margin-right:3px;"></i> <%# Eval("Status") %></span>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEditBookingStatus" runat="server" CssClass="admin-edit-select">
+                      <asp:ListItem Value="Confirmed">Confirmed</asp:ListItem>
+                      <asp:ListItem Value="Pending">Pending</asp:ListItem>
+                      <asp:ListItem Value="Completed">Completed</asp:ListItem>
+                      <asp:ListItem Value="Cancelled">Cancelled</asp:ListItem>
+                    </asp:DropDownList>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Actions">
+                  <ItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnEditBooking" runat="server" CommandName="Edit" CssClass="btn-grid-edit" ToolTip="Modify Booking"><i class="fa-solid fa-pen-to-square"></i> Modify</asp:LinkButton>
+                      <asp:LinkButton ID="btnDeleteBooking" runat="server" CommandName="Delete" CssClass="btn-grid-delete" OnClientClick="return confirm('Are you sure you want to delete this reservation?');" ToolTip="Delete Booking"><i class="fa-solid fa-trash"></i></asp:LinkButton>
+                    </div>
+                  </ItemTemplate>
+                  <EditItemTemplate>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <asp:LinkButton ID="btnUpdateBooking" runat="server" CommandName="Update" CssClass="btn-grid-update" ToolTip="Save Changes"><i class="fa-solid fa-check"></i> Save</asp:LinkButton>
+                      <asp:LinkButton ID="btnCancelBooking" runat="server" CommandName="Cancel" CssClass="btn-grid-cancel" ToolTip="Cancel"><i class="fa-solid fa-xmark"></i> Cancel</asp:LinkButton>
+                    </div>
+                  </EditItemTemplate>
+                </asp:TemplateField>
+              </Columns>
+              <EmptyDataTemplate>
+                <div style="padding:24px; text-align:center; color:var(--text-muted);">
+                  <i class="fa-solid fa-receipt" style="font-size:28px; margin-bottom:8px; display:block;"></i>
+                  No reservations found in database.
+                </div>
+              </EmptyDataTemplate>
+            </asp:GridView>
           </div>
         </div>
       </div>
-
     </main>
 
   </div>
@@ -1076,7 +1346,19 @@
 
       const target = document.getElementById(panelId);
       if (target) target.style.display = 'block';
-      if (btn) btn.classList.add('active');
+
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        document.querySelectorAll('.admin-menu-link').forEach(l => {
+          if (l.getAttribute('onclick') && l.getAttribute('onclick').includes(panelId)) {
+            l.classList.add('active');
+          }
+        });
+      }
+
+      const hf = document.getElementById('<%= hfActiveTab.ClientID %>');
+      if (hf) hf.value = panelId;
     }
 
     // Interactive Analytics Graph Metric Switcher
@@ -1111,7 +1393,6 @@
       const d = chartData[type] || chartData.revenue;
       if (titleEl) titleEl.innerText = d.title;
 
-      // Update Y-Axis labels
       const y3 = document.getElementById('yAxisLvl3');
       const y2 = document.getElementById('yAxisLvl2');
       const y1 = document.getElementById('yAxisLvl1');
@@ -1121,7 +1402,6 @@
       if (y1) y1.innerText = d.yAxis[2];
       if (y0) y0.innerText = d.yAxis[3];
 
-      // Update Bar heights & values
       for (let i = 0; i < 6; i++) {
         const fill = document.getElementById('barFill' + i);
         const val = document.getElementById('barVal' + i);
@@ -1129,5 +1409,24 @@
         if (val) val.innerText = d.values[i];
       }
     }
+
+    // Initialize Active Tab on Page Load / Postback
+    document.addEventListener('DOMContentLoaded', () => {
+      const hf = document.getElementById('<%= hfActiveTab.ClientID %>');
+      const activeTab = (hf && hf.value) ? hf.value : 'tab-overview';
+      switchAdminTab(activeTab, null);
+
+      // Quick Live Search filter for admin tables
+      const searchInputs = document.querySelectorAll('input[type="text"][placeholder*="search" i], input[type="search"]');
+      searchInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+          const q = (e.target.value || '').toLowerCase().trim();
+          document.querySelectorAll('.admin-table tbody tr').forEach(row => {
+            const txt = row.innerText.toLowerCase();
+            row.style.display = (!q || txt.includes(q)) ? '' : 'none';
+          });
+        });
+      });
+    });
   </script>
 </asp:Content>

@@ -39,6 +39,19 @@ namespace Epic_Travelers.Pages
                 {
                     if (txtLoginEmail.Text == "epictravelers365@gmail.com" && txtLoginPass.Text == "admin@123")
                     {
+                        Session["admin"] = txtLoginEmail.Text;
+                        Session["isAdmin"] = txtLoginEmail.Text;
+                        Session["userRole"] = "admin";
+                        Session["userName"] = "Administrator";
+                        Session["userEmail"] = txtLoginEmail.Text;
+
+                        System.Web.HttpCookie authCookie = new System.Web.HttpCookie("epic_auth");
+                        authCookie["role"] = "admin";
+                        authCookie["name"] = "Admin";
+                        authCookie["email"] = txtLoginEmail.Text;
+                        authCookie.Expires = DateTime.Now.AddDays(7);
+                        Response.Cookies.Add(authCookie);
+
                         Response.Redirect("~/Pages/admin.aspx");
                     }
                     else
